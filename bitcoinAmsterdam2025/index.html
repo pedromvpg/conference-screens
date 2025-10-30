@@ -242,6 +242,72 @@
             }
         }
 
+        // Function to append URL parameters to page links
+        function appendParametersToLinks() {
+            const urlParams = new URLSearchParams(window.location.search);
+            
+            // Only proceed if we have parameters
+            if (urlParams.toString().length === 0) {
+                return;
+            }
+            
+            console.log('🔗 Adding URL parameters to page links...');
+            
+            // Get all links on the page (except external ones)
+            const links = document.querySelectorAll('a[href]:not([href^="http"]):not([href^="#"])');
+            
+            links.forEach(link => {
+                const href = link.getAttribute('href');
+                
+                // Skip if already has parameters
+                if (href.includes('?')) {
+                    return;
+                }
+                
+                // Determine which parameters to add based on the page
+                let paramsToAdd = new URLSearchParams();
+                
+                // For sponsor pages
+                if (href.includes('sponsors') || href.includes('led_a')) {
+                    const sponsorsToken = urlParams.get('sponsorsAccessToken') || urlParams.get('accessToken');
+                    const sponsorsBase = urlParams.get('sponsorsBaseId') || urlParams.get('baseId');
+                    const sponsorsTable = urlParams.get('sponsorsTableName') || urlParams.get('tableName');
+                    
+                    if (sponsorsToken && sponsorsBase && sponsorsTable) {
+                        paramsToAdd.append('sponsorsAccessToken', sponsorsToken);
+                        paramsToAdd.append('sponsorsBaseId', sponsorsBase);
+                        paramsToAdd.append('sponsorsTableName', sponsorsTable);
+                    }
+                }
+                
+                // For agenda/LED C pages
+                if (href.includes('led_c') || href.includes('asia')) {
+                    let agendaToken = urlParams.get('agendaAccessToken');
+                    let agendaBase = urlParams.get('agendaBaseId');
+                    let agendaTable = urlParams.get('agendaTableName');
+                    
+                    // Fall back to sponsors credentials if no agenda credentials
+                    if (!agendaToken) {
+                        agendaToken = urlParams.get('sponsorsAccessToken') || urlParams.get('accessToken');
+                        agendaBase = urlParams.get('sponsorsBaseId') || urlParams.get('baseId');
+                        agendaTable = urlParams.get('sponsorsTableName') || urlParams.get('tableName');
+                    }
+                    
+                    if (agendaToken && agendaBase && agendaTable) {
+                        paramsToAdd.append('agendaAccessToken', agendaToken);
+                        paramsToAdd.append('agendaBaseId', agendaBase);
+                        paramsToAdd.append('agendaTableName', agendaTable);
+                    }
+                }
+                
+                // Add parameters to link if any were found
+                if (paramsToAdd.toString().length > 0) {
+                    link.href = href + '?' + paramsToAdd.toString();
+                    console.log(`  ✅ Added params to: ${href}`);
+                }
+            });
+        }
+
         // Initialize on page load
         document.addEventListener('DOMContentLoaded', function() {
             // Capture credentials from URL if present
@@ -250,10 +316,17 @@
             // Update status display
             updateCredentialsStatus();
             
-            // If credentials were just captured, clean up the URL
+            // Append parameters to links BEFORE cleaning up URL
+            appendParametersToLinks();
+            
+            // If credentials were just captured, clean up the URL after a short delay
+            // (delay allows user to click links with params if needed)
             if (foundCredentials) {
-                // Remove parameters from URL bar for cleaner appearance
-                window.history.replaceState({}, document.title, window.location.pathname);
+                setTimeout(() => {
+                    // Remove parameters from URL bar for cleaner appearance
+                    window.history.replaceState({}, document.title, window.location.pathname);
+                    console.log('🧹 Cleaned up URL parameters from address bar');
+                }, 1000); // 1 second delay
             }
         });
     </script>
