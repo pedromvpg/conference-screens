@@ -56,7 +56,7 @@
             border-left: 3px solid #4caf50;
             padding: 15px;
             border-radius: 5px;
-            margin: 20px 0;
+            margin: 60px 0 20px 0;
         }
         .credentials-status.empty {
             background: #4d1a1a;
@@ -91,26 +91,6 @@
 </head>
 <body>
     <h1>Bitcoin Amsterdam 2025</h1>
-    
-    <div id="credentials-status" class="credentials-status empty">
-        <strong>⚠️ No credentials stored</strong>
-        <p style="margin: 5px 0;">Add credentials to the URL to access the pages.</p>
-    </div>
-    
-    <div class="note">
-        <strong>🔐 Two Ways to Provide Credentials:</strong><br><br>
-        <strong>Option 1: URL Parameters (Recommended for GitHub Pages)</strong><br>
-        Add credentials to the URL of this index page:<br><br>
-        <strong>For Sponsors pages only:</strong><br>
-        <code style="font-size: 0.8em; display: block; margin: 5px 0;">?sponsorsAccessToken=TOKEN&sponsorsBaseId=BASE&sponsorsTableName=TABLE</code><br>
-        <strong>For Agenda/LED C pages only:</strong><br>
-        <code style="font-size: 0.8em; display: block; margin: 5px 0;">?agendaAccessToken=TOKEN&agendaBaseId=BASE&agendaTableName=TABLE</code><br>
-        <strong>For ALL pages (recommended):</strong><br>
-        <code style="font-size: 0.75em; display: block; margin: 5px 0; white-space: normal; word-break: break-all;">?sponsorsAccessToken=TOKEN1&sponsorsBaseId=BASE1&sponsorsTableName=TABLE1&agendaAccessToken=TOKEN2&agendaBaseId=BASE2&agendaTableName=TABLE2</code><br>
-        <em style="font-size: 0.85em;">Note: If using same credentials for both, just provide sponsors parameters - they'll be shared automatically.</em><br><br>
-        <strong>Option 2: Local Config File</strong><br>
-        Copy <code>config.example.js</code> to <code>config.js</code> and add your Airtable credentials.
-    </div>
 
     <h2>Treasury Stage</h2>
     <ul>
@@ -128,7 +108,7 @@
         <li><a href="led_a_sponsors.html">LED A Sponsors</a></li>
         <li><a href="led_c_title_bitcoin_asia.html">LED C - Event Schedule</a></li>
     </ul>
-
+    
     <!-- Direct links section (hidden by default, shown when credentials are available) -->
     <div id="direct-links-section" style="display: none;">
         <h2>📋 Copy-Paste Links with Credentials</h2>
@@ -157,6 +137,28 @@
             </ul>
         </div>
     </div>
+    
+    <div id="credentials-status" class="credentials-status empty">
+        <strong>⚠️ No credentials stored</strong>
+        <p style="margin: 5px 0;">Add credentials to the URL to access the pages.</p>
+    </div>
+    
+    <div class="note">
+        <strong>🔐 Two Ways to Provide Credentials:</strong><br><br>
+        <strong>Option 1: URL Parameters (Recommended for GitHub Pages)</strong><br>
+        Add credentials to the URL of this index page:<br><br>
+        <strong>For Sponsors pages only:</strong><br>
+        <code style="font-size: 0.8em; display: block; margin: 5px 0;">?sponsorsAccessToken=TOKEN&sponsorsBaseId=BASE&sponsorsTableName=TABLE</code><br>
+        <strong>For Agenda/LED C pages only:</strong><br>
+        <code style="font-size: 0.8em; display: block; margin: 5px 0;">?agendaAccessToken=TOKEN&agendaBaseId=BASE&agendaTableName=TABLE</code><br>
+        <strong>For ALL pages (recommended):</strong><br>
+        <code style="font-size: 0.75em; display: block; margin: 5px 0; white-space: normal; word-break: break-all;">?sponsorsAccessToken=TOKEN1&sponsorsBaseId=BASE1&sponsorsTableName=TABLE1&agendaAccessToken=TOKEN2&agendaBaseId=BASE2&agendaTableName=TABLE2</code><br>
+        <em style="font-size: 0.85em;">Note: If using same credentials for both, just provide sponsors parameters - they'll be shared automatically.</em><br><br>
+        <strong>Option 2: Local Config File</strong><br>
+        Copy <code>config.example.js</code> to <code>config.js</code> and add your Airtable credentials.
+    </div>
+
+   
 
     <script>
         // Credential storage keys
