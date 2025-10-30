@@ -81,6 +81,12 @@
         .btn-danger:hover {
             background: #d32f2f;
         }
+        .btn-secondary {
+            background: #555;
+        }
+        .btn-secondary:hover {
+            background: #666;
+        }
     </style>
 </head>
 <body>
@@ -122,6 +128,35 @@
         <li><a href="led_a_sponsors.html">LED A Sponsors</a></li>
         <li><a href="led_c_title_bitcoin_asia.html">LED C - Event Schedule</a></li>
     </ul>
+
+    <!-- Direct links section (hidden by default, shown when credentials are available) -->
+    <div id="direct-links-section" style="display: none;">
+        <h2>📋 Copy-Paste Links with Credentials</h2>
+        <div class="note">
+            <strong>These links include your credentials:</strong><br>
+            Right-click and "Copy Link Address" to share with your team or bookmark.
+            <button class="btn btn-secondary" onclick="toggleDirectLinks()" style="margin-left: 10px;">Hide Links</button>
+        </div>
+        <div style="background: #1a1a1a; padding: 15px; border-radius: 5px; margin: 10px 0;">
+            <h3 style="color: #ff8c00; font-size: 1rem; margin-top: 0;">Treasury Stage</h3>
+            <ul style="list-style: none; padding: 0;">
+                <li style="margin: 8px 0;"><a id="link-treasury" href="#" style="word-break: break-all; font-size: 0.9rem;">Treasury Stage Sponsors</a></li>
+                <li style="margin: 8px 0;"><a href="price.html" style="word-break: break-all; font-size: 0.9rem;">Bitcoin Price (no credentials needed)</a></li>
+                <li style="margin: 8px 0;"><a href="hashrate.html" style="word-break: break-all; font-size: 0.9rem;">Network Hashrate (no credentials needed)</a></li>
+            </ul>
+            
+            <h3 style="color: #ff8c00; font-size: 1rem;">Orange Stage</h3>
+            <ul style="list-style: none; padding: 0;">
+                <li style="margin: 8px 0;"><a id="link-genesis" href="#" style="word-break: break-all; font-size: 0.9rem;">Genesis Stage Sponsors</a></li>
+            </ul>
+            
+            <h3 style="color: #ff8c00; font-size: 1rem;">Not in Use</h3>
+            <ul style="list-style: none; padding: 0;">
+                <li style="margin: 8px 0;"><a id="link-led-a" href="#" style="word-break: break-all; font-size: 0.9rem;">LED A Sponsors</a></li>
+                <li style="margin: 8px 0;"><a id="link-led-c" href="#" style="word-break: break-all; font-size: 0.9rem;">LED C - Event Schedule</a></li>
+            </ul>
+        </div>
+    </div>
 
     <script>
         // Credential storage keys
@@ -242,6 +277,59 @@
             }
         }
 
+        // Function to toggle direct links section visibility
+        function toggleDirectLinks() {
+            const section = document.getElementById('direct-links-section');
+            section.style.display = section.style.display === 'none' ? 'block' : 'none';
+        }
+
+        // Function to generate direct links with credentials
+        function generateDirectLinks() {
+            const urlParams = new URLSearchParams(window.location.search);
+            
+            // Get sponsors credentials
+            const sponsorsToken = urlParams.get('sponsorsAccessToken') || urlParams.get('accessToken');
+            const sponsorsBase = urlParams.get('sponsorsBaseId') || urlParams.get('baseId');
+            const sponsorsTable = urlParams.get('sponsorsTableName') || urlParams.get('tableName');
+            
+            // Get agenda credentials (fall back to sponsors if not provided)
+            let agendaToken = urlParams.get('agendaAccessToken') || sponsorsToken;
+            let agendaBase = urlParams.get('agendaBaseId') || sponsorsBase;
+            let agendaTable = urlParams.get('agendaTableName') || sponsorsTable;
+            
+            const baseUrl = window.location.origin + window.location.pathname.replace('index.html', '');
+            
+            // Build sponsor URLs
+            if (sponsorsToken && sponsorsBase && sponsorsTable) {
+                const sponsorParams = new URLSearchParams({
+                    sponsorsAccessToken: sponsorsToken,
+                    sponsorsBaseId: sponsorsBase,
+                    sponsorsTableName: sponsorsTable
+                });
+                
+                document.getElementById('link-treasury').href = baseUrl + 'treasury_stage_sponsors.html?' + sponsorParams.toString();
+                document.getElementById('link-genesis').href = baseUrl + 'genesis_stage_sponsors.html?' + sponsorParams.toString();
+                document.getElementById('link-led-a').href = baseUrl + 'led_a_sponsors.html?' + sponsorParams.toString();
+            }
+            
+            // Build agenda URL
+            if (agendaToken && agendaBase && agendaTable) {
+                const agendaParams = new URLSearchParams({
+                    agendaAccessToken: agendaToken,
+                    agendaBaseId: agendaBase,
+                    agendaTableName: agendaTable
+                });
+                
+                document.getElementById('link-led-c').href = baseUrl + 'led_c_title_bitcoin_asia.html?' + agendaParams.toString();
+            }
+            
+            // Show the direct links section
+            if (sponsorsToken || agendaToken) {
+                document.getElementById('direct-links-section').style.display = 'block';
+                console.log('📋 Generated direct links with credentials');
+            }
+        }
+
         // Function to append URL parameters to page links
         function appendParametersToLinks() {
             const urlParams = new URLSearchParams(window.location.search);
@@ -259,8 +347,8 @@
             links.forEach(link => {
                 const href = link.getAttribute('href');
                 
-                // Skip if already has parameters
-                if (href.includes('?')) {
+                // Skip if already has parameters or is a price/hashrate link
+                if (href.includes('?') || href.includes('price.html') || href.includes('hashrate.html')) {
                     return;
                 }
                 
@@ -318,6 +406,9 @@
             
             // Append parameters to links BEFORE cleaning up URL
             appendParametersToLinks();
+            
+            // Generate direct copy-paste links
+            generateDirectLinks();
             
             // If credentials were just captured, clean up the URL after a short delay
             // (delay allows user to click links with params if needed)
