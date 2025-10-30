@@ -103,15 +103,21 @@
         <li><a href="genesis_stage_sponsors.html">Genesis Stage Sponsors</a></li>
     </ul>
 
+    <h2>Tools & Assets</h2>
+    <ul>
+        <li><a href="sponsor_assets.html">Sponsor Assets & Images</a></li>
+        <li><a href="setup.html">Credentials Setup Helper</a></li>
+    </ul>
+
     <h2>Not in Use</h2>
     <ul>
         <li><a href="led_a_sponsors.html">LED A Sponsors</a></li>
         <li><a href="led_c_title_bitcoin_asia.html">LED C - Event Schedule</a></li>
     </ul>
-    
+
     <!-- Direct links section (hidden by default, shown when credentials are available) -->
     <div id="direct-links-section" style="display: none;">
-        <h2>📋 Copy-Paste Links with Credentials</h2>
+        <h2>Copy-Paste Links with Credentials</h2>
         <div class="note">
             <strong>These links include your credentials:</strong><br>
             Right-click and "Copy Link Address" to share with your team or bookmark.
@@ -130,6 +136,12 @@
                 <li style="margin: 8px 0;"><a id="link-genesis" href="#" style="word-break: break-all; font-size: 0.9rem;">Genesis Stage Sponsors</a></li>
             </ul>
             
+            <h3 style="color: #ff8c00; font-size: 1rem;">Tools & Assets</h3>
+            <ul style="list-style: none; padding: 0;">
+                <li style="margin: 8px 0;"><a id="link-assets" href="#" style="word-break: break-all; font-size: 0.9rem;">Sponsor Assets & Images</a></li>
+                <li style="margin: 8px 0;"><a href="setup.html" style="word-break: break-all; font-size: 0.9rem;">Credentials Setup Helper</a></li>
+            </ul>
+            
             <h3 style="color: #ff8c00; font-size: 1rem;">Not in Use</h3>
             <ul style="list-style: none; padding: 0;">
                 <li style="margin: 8px 0;"><a id="link-led-a" href="#" style="word-break: break-all; font-size: 0.9rem;">LED A Sponsors</a></li>
@@ -139,12 +151,12 @@
     </div>
     
     <div id="credentials-status" class="credentials-status empty">
-        <strong>⚠️ No credentials stored</strong>
+        <strong>No credentials stored</strong>
         <p style="margin: 5px 0;">Add credentials to the URL to access the pages.</p>
     </div>
     
     <div class="note">
-        <strong>🔐 Two Ways to Provide Credentials:</strong><br><br>
+        <strong>Two Ways to Provide Credentials:</strong><br><br>
         <strong>Option 1: URL Parameters (Recommended for GitHub Pages)</strong><br>
         Add credentials to the URL of this index page:<br><br>
         <strong>For Sponsors pages only:</strong><br>
@@ -250,16 +262,16 @@
             if (sponsorsStored || agendaStored) {
                 statusDiv.className = 'credentials-status';
                 
-                let statusHTML = '<strong>✅ Credentials Stored</strong><br>';
+                let statusHTML = '<strong>Credentials Stored</strong><br>';
                 if (sponsorsStored) {
                     const token = localStorage.getItem(STORAGE_KEYS.SPONSORS_TOKEN);
                     const maskedToken = token ? token.substring(0, 15) + '...' : '';
-                    statusHTML += `<p style="margin: 5px 0; font-size: 0.9em;">📊 Sponsors: ${maskedToken}</p>`;
+                    statusHTML += `<p style="margin: 5px 0; font-size: 0.9em;">Sponsors: ${maskedToken}</p>`;
                 }
                 if (agendaStored) {
                     const token = localStorage.getItem(STORAGE_KEYS.AGENDA_TOKEN);
                     const maskedToken = token ? token.substring(0, 15) + '...' : '';
-                    statusHTML += `<p style="margin: 5px 0; font-size: 0.9em;">📅 Agenda: ${maskedToken}</p>`;
+                    statusHTML += `<p style="margin: 5px 0; font-size: 0.9em;">Agenda: ${maskedToken}</p>`;
                 }
                 statusHTML += '<button class="btn btn-danger" onclick="clearStoredCredentials()">Clear Stored Credentials</button>';
                 
@@ -267,7 +279,7 @@
             } else {
                 statusDiv.className = 'credentials-status empty';
                 statusDiv.innerHTML = `
-                    <strong>⚠️ No credentials stored</strong>
+                    <strong>No credentials stored</strong>
                     <p style="margin: 5px 0;">Add credentials to the URL of this page to store them.</p>
                     <p style="margin: 5px 0; font-size: 0.8em;"><strong>Sponsors only:</strong><br>
                     <code style="font-size: 0.85em;">?sponsorsAccessToken=TOKEN&sponsorsBaseId=BASE&sponsorsTableName=TABLE</code></p>
@@ -312,6 +324,7 @@
                 document.getElementById('link-treasury').href = baseUrl + 'treasury_stage_sponsors.html?' + sponsorParams.toString();
                 document.getElementById('link-genesis').href = baseUrl + 'genesis_stage_sponsors.html?' + sponsorParams.toString();
                 document.getElementById('link-led-a').href = baseUrl + 'led_a_sponsors.html?' + sponsorParams.toString();
+                document.getElementById('link-assets').href = baseUrl + 'sponsor_assets.html?' + sponsorParams.toString();
             }
             
             // Build agenda URL
@@ -358,7 +371,7 @@
                 let paramsToAdd = new URLSearchParams();
                 
                 // For sponsor pages
-                if (href.includes('sponsors') || href.includes('led_a')) {
+                if (href.includes('sponsors') || href.includes('led_a') || href.includes('sponsor_assets')) {
                     const sponsorsToken = urlParams.get('sponsorsAccessToken') || urlParams.get('accessToken');
                     const sponsorsBase = urlParams.get('sponsorsBaseId') || urlParams.get('baseId');
                     const sponsorsTable = urlParams.get('sponsorsTableName') || urlParams.get('tableName');
