@@ -1,6 +1,41 @@
-// Airtable configuration - loaded from external config file
-// Make sure config.js exists (copy from config.example.js if needed)
-const AIRTABLE_CONFIG = CONFIG.sponsors;
+// Airtable configuration - loaded from URL parameters, localStorage, or external config file
+// Priority: URL parameters > localStorage > config.js
+// URL parameters: ?sponsorsAccessToken=xxx&sponsorsBaseId=yyy&sponsorsTableName=zzz
+function getAirtableConfig() {
+    const urlParams = new URLSearchParams(window.location.search);
+    
+    // 1. Try to get from URL parameters first (highest priority)
+    let accessToken = urlParams.get('sponsorsAccessToken') || urlParams.get('accessToken');
+    let baseId = urlParams.get('sponsorsBaseId') || urlParams.get('baseId');
+    let tableName = urlParams.get('sponsorsTableName') || urlParams.get('tableName');
+    
+    if (accessToken && baseId && tableName) {
+        console.log('✅ Using Airtable config from URL parameters');
+        return { accessToken, baseId, tableName };
+    }
+    
+    // 2. Try to get from localStorage (second priority)
+    accessToken = localStorage.getItem('airtable_sponsors_accessToken');
+    baseId = localStorage.getItem('airtable_sponsors_baseId');
+    tableName = localStorage.getItem('airtable_sponsors_tableName');
+    
+    if (accessToken && baseId && tableName) {
+        console.log('✅ Using Airtable config from localStorage');
+        return { accessToken, baseId, tableName };
+    }
+    
+    // 3. Fall back to CONFIG object (if it exists)
+    if (typeof CONFIG !== 'undefined' && CONFIG.sponsors) {
+        console.log('✅ Using Airtable config from CONFIG object');
+        return CONFIG.sponsors;
+    }
+    
+    // No config found
+    console.error('❌ No Airtable configuration found. Please provide credentials via URL parameters, localStorage, or config.js');
+    return null;
+}
+
+const AIRTABLE_CONFIG = getAirtableConfig();
 
 // Filter values for AMS25 column
 const FILTER_VALUES = [
@@ -487,6 +522,23 @@ function initializeBackgroundVideo() {
 // Main function to load and display data
 async function loadSponsorData() {
     try {
+        // Check if config is available
+        if (!AIRTABLE_CONFIG) {
+            document.getElementById('loading').style.display = 'none';
+            document.getElementById('error').innerHTML = `
+                <div style="padding: 20px; text-align: center;">
+                    <h3>⚠️ Configuration Required</h3>
+                    <p>Please provide Airtable credentials via URL parameters:</p>
+                    <code style="display: block; background: #1a1a1a; padding: 10px; margin: 10px 0; word-break: break-all;">
+                        ?sponsorsAccessToken=YOUR_TOKEN&sponsorsBaseId=YOUR_BASE&sponsorsTableName=YOUR_TABLE
+                    </code>
+                    <p style="margin-top: 15px; font-size: 0.9em;">Or create a config.js file from config.example.js</p>
+                </div>
+            `;
+            document.getElementById('error').style.display = 'block';
+            return;
+        }
+        
         // Initialize background video
         initializeBackgroundVideo();
         

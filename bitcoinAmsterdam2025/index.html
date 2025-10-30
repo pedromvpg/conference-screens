@@ -51,13 +51,59 @@
             padding: 2px 6px;
             border-radius: 3px;
         }
+        .credentials-status {
+            background: #1a4d1a;
+            border-left: 3px solid #4caf50;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 20px 0;
+        }
+        .credentials-status.empty {
+            background: #4d1a1a;
+            border-left: 3px solid #f44336;
+        }
+        .btn {
+            background: #ff6600;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            margin-top: 10px;
+        }
+        .btn:hover {
+            background: #ff8800;
+        }
+        .btn-danger {
+            background: #f44336;
+        }
+        .btn-danger:hover {
+            background: #d32f2f;
+        }
     </style>
 </head>
 <body>
     <h1>Bitcoin Amsterdam 2025</h1>
     
+    <div id="credentials-status" class="credentials-status empty">
+        <strong>⚠️ No credentials stored</strong>
+        <p style="margin: 5px 0;">Add credentials to the URL to access the pages.</p>
+    </div>
+    
     <div class="note">
-        Setup: Copy <code>config.example.js</code> to <code>config.js</code> and add your Airtable credentials.
+        <strong>🔐 Two Ways to Provide Credentials:</strong><br><br>
+        <strong>Option 1: URL Parameters (Recommended for GitHub Pages)</strong><br>
+        Add credentials to the URL of this index page:<br><br>
+        <strong>For Sponsors pages only:</strong><br>
+        <code style="font-size: 0.8em; display: block; margin: 5px 0;">?sponsorsAccessToken=TOKEN&sponsorsBaseId=BASE&sponsorsTableName=TABLE</code><br>
+        <strong>For Agenda/LED C pages only:</strong><br>
+        <code style="font-size: 0.8em; display: block; margin: 5px 0;">?agendaAccessToken=TOKEN&agendaBaseId=BASE&agendaTableName=TABLE</code><br>
+        <strong>For ALL pages (recommended):</strong><br>
+        <code style="font-size: 0.75em; display: block; margin: 5px 0; white-space: normal; word-break: break-all;">?sponsorsAccessToken=TOKEN1&sponsorsBaseId=BASE1&sponsorsTableName=TABLE1&agendaAccessToken=TOKEN2&agendaBaseId=BASE2&agendaTableName=TABLE2</code><br>
+        <em style="font-size: 0.85em;">Note: If using same credentials for both, just provide sponsors parameters - they'll be shared automatically.</em><br><br>
+        <strong>Option 2: Local Config File</strong><br>
+        Copy <code>config.example.js</code> to <code>config.js</code> and add your Airtable credentials.
     </div>
 
     <h2>Treasury Stage</h2>
@@ -77,6 +123,139 @@
         <li><a href="led_c_title_bitcoin_asia.html">LED C - Event Schedule</a></li>
     </ul>
 
+    <script>
+        // Credential storage keys
+        const STORAGE_KEYS = {
+            SPONSORS_TOKEN: 'airtable_sponsors_accessToken',
+            SPONSORS_BASE: 'airtable_sponsors_baseId',
+            SPONSORS_TABLE: 'airtable_sponsors_tableName',
+            AGENDA_TOKEN: 'airtable_agenda_accessToken',
+            AGENDA_BASE: 'airtable_agenda_baseId',
+            AGENDA_TABLE: 'airtable_agenda_tableName'
+        };
 
+        // Function to capture URL parameters and store in localStorage
+        function captureAndStoreCredentials() {
+            const urlParams = new URLSearchParams(window.location.search);
+            let credentialsFound = false;
+
+            // Check for sponsors credentials
+            const sponsorsToken = urlParams.get('sponsorsAccessToken') || urlParams.get('accessToken');
+            const sponsorsBase = urlParams.get('sponsorsBaseId') || urlParams.get('baseId');
+            const sponsorsTable = urlParams.get('sponsorsTableName') || urlParams.get('tableName');
+
+            if (sponsorsToken && sponsorsBase && sponsorsTable) {
+                localStorage.setItem(STORAGE_KEYS.SPONSORS_TOKEN, sponsorsToken);
+                localStorage.setItem(STORAGE_KEYS.SPONSORS_BASE, sponsorsBase);
+                localStorage.setItem(STORAGE_KEYS.SPONSORS_TABLE, sponsorsTable);
+                console.log('✅ Sponsors credentials stored in localStorage');
+                console.log('   📊 sponsorsAccessToken:', sponsorsToken.substring(0, 15) + '...');
+                console.log('   📊 sponsorsBaseId:', sponsorsBase);
+                console.log('   📊 sponsorsTableName:', sponsorsTable);
+                credentialsFound = true;
+            }
+
+            // Check for agenda credentials (separate from sponsors)
+            const agendaToken = urlParams.get('agendaAccessToken');
+            const agendaBase = urlParams.get('agendaBaseId');
+            const agendaTable = urlParams.get('agendaTableName');
+
+            if (agendaToken && agendaBase && agendaTable) {
+                localStorage.setItem(STORAGE_KEYS.AGENDA_TOKEN, agendaToken);
+                localStorage.setItem(STORAGE_KEYS.AGENDA_BASE, agendaBase);
+                localStorage.setItem(STORAGE_KEYS.AGENDA_TABLE, agendaTable);
+                console.log('✅ Agenda credentials stored in localStorage');
+                console.log('   📅 agendaAccessToken:', agendaToken.substring(0, 15) + '...');
+                console.log('   📅 agendaBaseId:', agendaBase);
+                console.log('   📅 agendaTableName:', agendaTable);
+                credentialsFound = true;
+            }
+
+            // If sponsors credentials were found but not agenda, use sponsors for agenda too
+            if (sponsorsToken && sponsorsBase && sponsorsTable && !agendaToken) {
+                localStorage.setItem(STORAGE_KEYS.AGENDA_TOKEN, sponsorsToken);
+                localStorage.setItem(STORAGE_KEYS.AGENDA_BASE, sponsorsBase);
+                localStorage.setItem(STORAGE_KEYS.AGENDA_TABLE, sponsorsTable);
+                console.log('ℹ️ Using sponsors credentials for agenda as well (no separate agenda credentials provided)');
+            }
+
+            return credentialsFound;
+        }
+
+        // Function to check if credentials are stored
+        function hasStoredCredentials() {
+            const sponsorsStored = localStorage.getItem(STORAGE_KEYS.SPONSORS_TOKEN) &&
+                                  localStorage.getItem(STORAGE_KEYS.SPONSORS_BASE) &&
+                                  localStorage.getItem(STORAGE_KEYS.SPONSORS_TABLE);
+            
+            const agendaStored = localStorage.getItem(STORAGE_KEYS.AGENDA_TOKEN) &&
+                                localStorage.getItem(STORAGE_KEYS.AGENDA_BASE) &&
+                                localStorage.getItem(STORAGE_KEYS.AGENDA_TABLE);
+
+            return { sponsorsStored, agendaStored };
+        }
+
+        // Function to clear stored credentials
+        function clearStoredCredentials() {
+            Object.values(STORAGE_KEYS).forEach(key => localStorage.removeItem(key));
+            console.log('🗑️ Cleared all stored credentials');
+            updateCredentialsStatus();
+            
+            // Remove URL parameters and reload
+            window.history.replaceState({}, document.title, window.location.pathname);
+        }
+
+        // Function to update the credentials status display
+        function updateCredentialsStatus() {
+            const statusDiv = document.getElementById('credentials-status');
+            const { sponsorsStored, agendaStored } = hasStoredCredentials();
+
+            if (sponsorsStored || agendaStored) {
+                statusDiv.className = 'credentials-status';
+                
+                let statusHTML = '<strong>✅ Credentials Stored</strong><br>';
+                if (sponsorsStored) {
+                    const token = localStorage.getItem(STORAGE_KEYS.SPONSORS_TOKEN);
+                    const maskedToken = token ? token.substring(0, 15) + '...' : '';
+                    statusHTML += `<p style="margin: 5px 0; font-size: 0.9em;">📊 Sponsors: ${maskedToken}</p>`;
+                }
+                if (agendaStored) {
+                    const token = localStorage.getItem(STORAGE_KEYS.AGENDA_TOKEN);
+                    const maskedToken = token ? token.substring(0, 15) + '...' : '';
+                    statusHTML += `<p style="margin: 5px 0; font-size: 0.9em;">📅 Agenda: ${maskedToken}</p>`;
+                }
+                statusHTML += '<button class="btn btn-danger" onclick="clearStoredCredentials()">Clear Stored Credentials</button>';
+                
+                statusDiv.innerHTML = statusHTML;
+            } else {
+                statusDiv.className = 'credentials-status empty';
+                statusDiv.innerHTML = `
+                    <strong>⚠️ No credentials stored</strong>
+                    <p style="margin: 5px 0;">Add credentials to the URL of this page to store them.</p>
+                    <p style="margin: 5px 0; font-size: 0.8em;"><strong>Sponsors only:</strong><br>
+                    <code style="font-size: 0.85em;">?sponsorsAccessToken=TOKEN&sponsorsBaseId=BASE&sponsorsTableName=TABLE</code></p>
+                    <p style="margin: 5px 0; font-size: 0.8em;"><strong>Agenda only:</strong><br>
+                    <code style="font-size: 0.85em;">?agendaAccessToken=TOKEN&agendaBaseId=BASE&agendaTableName=TABLE</code></p>
+                    <p style="margin: 5px 0; font-size: 0.8em;"><strong>Both (all pages work):</strong><br>
+                    <code style="font-size: 0.75em;">?sponsorsAccessToken=T1&sponsorsBaseId=B1&sponsorsTableName=TB1&agendaAccessToken=T2&agendaBaseId=B2&agendaTableName=TB2</code></p>
+                `;
+            }
+        }
+
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            // Capture credentials from URL if present
+            const foundCredentials = captureAndStoreCredentials();
+            
+            // Update status display
+            updateCredentialsStatus();
+            
+            // If credentials were just captured, clean up the URL
+            if (foundCredentials) {
+                // Remove parameters from URL bar for cleaner appearance
+                window.history.replaceState({}, document.title, window.location.pathname);
+            }
+        });
+    </script>
 </body>
 </html>

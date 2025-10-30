@@ -1,9 +1,44 @@
 // LED C - Airtable Integration Script
 // This script fetches content from Airtable and displays it in the LED C display
 
-// Airtable configuration - loaded from external config file
-// Make sure config.js exists (copy from config.example.js if needed)
-const AIRTABLE_CONFIG = CONFIG.agenda;
+// Airtable configuration - loaded from URL parameters, localStorage, or external config file
+// Priority: URL parameters > localStorage > config.js
+// URL parameters: ?agendaAccessToken=xxx&agendaBaseId=yyy&agendaTableName=zzz
+function getAirtableConfigForAgenda() {
+    const urlParams = new URLSearchParams(window.location.search);
+    
+    // 1. Try to get from URL parameters first (highest priority)
+    let accessToken = urlParams.get('agendaAccessToken') || urlParams.get('accessToken');
+    let baseId = urlParams.get('agendaBaseId') || urlParams.get('baseId');
+    let tableName = urlParams.get('agendaTableName') || urlParams.get('tableName');
+    
+    if (accessToken && baseId && tableName) {
+        console.log('✅ Using Airtable config from URL parameters');
+        return { accessToken, baseId, tableName };
+    }
+    
+    // 2. Try to get from localStorage (second priority)
+    accessToken = localStorage.getItem('airtable_agenda_accessToken');
+    baseId = localStorage.getItem('airtable_agenda_baseId');
+    tableName = localStorage.getItem('airtable_agenda_tableName');
+    
+    if (accessToken && baseId && tableName) {
+        console.log('✅ Using Airtable config from localStorage');
+        return { accessToken, baseId, tableName };
+    }
+    
+    // 3. Fall back to CONFIG object (if it exists)
+    if (typeof CONFIG !== 'undefined' && CONFIG.agenda) {
+        console.log('✅ Using Airtable config from CONFIG object');
+        return CONFIG.agenda;
+    }
+    
+    // No config found
+    console.error('❌ No Airtable configuration found. Please provide credentials via URL parameters, localStorage, or config.js');
+    return null;
+}
+
+const AIRTABLE_CONFIG = getAirtableConfigForAgenda();
 
 // Video configuration
 const VIDEO_CONFIG = {
@@ -1520,6 +1555,25 @@ async function initializeLEDC() {
         }
         if (errorEl) errorEl.style.display = 'none';
         if (swiperContainer) swiperContainer.style.display = 'none';
+        
+        // Check if config is available
+        if (!AIRTABLE_CONFIG) {
+            if (loadingEl) loadingEl.style.display = 'none';
+            if (errorEl) {
+                errorEl.innerHTML = `
+                    <div style="padding: 20px; text-align: center; color: #ffffff;">
+                        <h3>⚠️ Configuration Required</h3>
+                        <p>Please provide Airtable credentials via URL parameters:</p>
+                        <code style="display: block; background: #1a1a1a; padding: 10px; margin: 10px 0; word-break: break-all;">
+                            ?agendaAccessToken=YOUR_TOKEN&agendaBaseId=YOUR_BASE&agendaTableName=YOUR_TABLE
+                        </code>
+                        <p style="margin-top: 15px; font-size: 0.9em;">Or create a config.js file from config.example.js</p>
+                    </div>
+                `;
+                errorEl.style.display = 'block';
+            }
+            return;
+        }
         
         // Wait for DOM to be fully ready
         if (document.readyState === 'loading') {
