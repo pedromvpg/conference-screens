@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Treasury Stage Bitcoin Hashrate Display - Bitcoin Amsterdam 2025</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="hashrate.css">
+</head>
+<body>
+    <div class="container">
+
+        <div class="hashrate-display">
+            <div class="bitcoin-title">Bitcoin Hashrate</div>
+            <div class="hashrate-value" id="hashrate-value">
+                <div class="loading-spinner" id="loading-spinner"></div>
+                <span id="hashrate" style="display: none;">650.2</span>
+                <span class="unit">ZH/s</span>
+            </div>
+            <div class="error-message" id="error-message" style="display: none;"></div>
+        </div>
+
+        <div class="ytd-header">1Y</div>
+
+        <div class="chart-section">
+            <div class="chart-container">
+                <canvas id="hashrate-chart"></canvas>
+            </div>
+        </div>
+
+        <div class="sponsor-section">
+            <div class="sponsor-label">Sponsored by</div>
+            <img src="https://blossom.primal.net/a3b7b0b790fd2895aac1254b89e386cef191c87e6088600224106146aaf89b9e.png" 
+                 loading="lazy" 
+                 alt="Sponsor Logo" 
+                 class="sponsor-logo">
+        </div>
+    </div>
+
+    <div class="last-updated" id="last-updated"></div>
+    <script src="refresh.js?screen=asia25NakamotoHashrate"></script>
+    <script src="hashrate.js"></script>
+</body>
+</html>

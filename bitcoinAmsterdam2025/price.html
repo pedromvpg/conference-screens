@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Treasury StageBitcoin Price Display - Bitcoin Amsterdam 2025</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="price.css">
+</head>
+<body>
+    <div class="container">
+
+        <div class="price-display">
+            <div class="bitcoin-title">1 Bitcoin</div>
+            <div class="price-value" id="price-value">
+                <div class="loading-spinner" id="loading-spinner"></div>
+                <span id="price" style="display: none;">116,015</span>
+                <span class="currency">USD</span>
+            </div>
+            <div class="error-message" id="error-message" style="display: none;"></div>
+        </div>
+
+        <div class="ytd-header">YTD</div>
+
+        <div class="chart-section">
+            <div class="chart-container">
+                <canvas id="price-chart"></canvas>
+            </div>
+        </div>
+
+        <div class="sponsor-section">
+            <div class="sponsor-label">Sponsored by</div>
+            <img src="https://i.ibb.co/C3bW25mp/image.png" 
+                 loading="lazy" 
+                 alt="SALT Logo" 
+                 class="sponsor-logo">
+        </div>
+    </div>
+
+    <div class="last-updated" id="last-updated"></div>
+    <script src="refresh.js?screen=asia25NakamotoPrice"></script>
+    <script src="price.js"></script>
+</body>
+</html>
