@@ -2,6 +2,19 @@
 
 This project contains display screens for the Bitcoin Amsterdam 2025 conference.
 
+## 🌐 Live Demo
+
+Visit the [GitHub Pages deployment](#) to see all available screens.
+
+## 🚀 Quick Deploy to GitHub Pages
+
+1. Push this repository to GitHub
+2. Go to repository Settings → Pages
+3. Set Source to "Deploy from a branch"
+4. Select branch: `main` and folder: `/ (root)`
+5. Click Save
+6. Your site will be live at: `https://yourusername.github.io/repository-name/`
+
 ## Setup Instructions
 
 ### 1. API Configuration
