@@ -129,8 +129,8 @@
     </script>
     
     <script src="refresh.js?screen=asia25_expo_led_c"></script>
-    <!-- Configuration (load first before other scripts) -->
-    <script src="config.js"></script>
+    <!-- Configuration (optional - will use URL params or localStorage if not present) -->
+    <script src="config.js" onerror="console.log('config.js not found, will use URL parameters or localStorage')"></script>
     <!-- LED C Placeholder Script -->
     <script src="led_c_scripts.js"></script>
 </body>

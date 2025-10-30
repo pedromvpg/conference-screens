@@ -43,8 +43,8 @@
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script src="refresh.js?screen=asia25GenesisSponsors"></script>
     
-    <!-- Configuration (load first before other scripts) -->
-    <script src="config.js"></script>
+    <!-- Configuration (optional - will use URL params or localStorage if not present) -->
+    <script src="config.js" onerror="console.log('config.js not found, will use URL parameters or localStorage')"></script>
     <!-- Custom JS -->
     <script src="script.js"></script>
 </body>
