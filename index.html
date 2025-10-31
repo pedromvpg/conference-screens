@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conference Screens</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: system-ui, -apple-system, sans-serif;
+            background: #000;
+            color: #fff;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 800px;
+            width: 100%;
+        }
+        
+        h1 {
+            color: #ff6600;
+            font-size: 3rem;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .subtitle {
+            text-align: center;
+            color: #888;
+            margin-bottom: 60px;
+            font-size: 1.1rem;
+        }
+        
+        .conferences {
+            display: grid;
+            gap: 20px;
+        }
+        
+        .conference-card {
+            background: #1a1a1a;
+            border: 2px solid #333;
+            border-radius: 10px;
+            padding: 30px;
+            text-decoration: none;
+            color: #fff;
+            transition: all 0.3s ease;
+            display: block;
+        }
+        
+        .conference-card:hover {
+            border-color: #ff6600;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(255, 102, 0, 0.3);
+        }
+        
+        .conference-card h2 {
+            color: #ff6600;
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+        }
+        
+        .conference-card .description {
+            color: #aaa;
+            font-size: 1rem;
+            line-height: 1.6;
+        }
+        
+        .conference-card .location {
+            color: #666;
+            font-size: 0.9rem;
+            margin-top: 15px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .arrow {
+            margin-left: auto;
+            color: #ff6600;
+            font-size: 1.5rem;
+        }
+        
+        footer {
+            text-align: center;
+            color: #666;
+            margin-top: 60px;
+            font-size: 0.9rem;
+        }
+        
+        footer a {
+            color: #ff6600;
+            text-decoration: none;
+        }
+        
+        footer a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Conference Screens</h1>
+        <p class="subtitle">Digital display systems for Bitcoin conferences</p>
+        
+        <div class="conferences">
+            <a href="bitcoinAmsterdam2025/" class="conference-card">
+                <div style="display: flex; align-items: center;">
+                    <div style="flex: 1;">
+                        <h2>Bitcoin Amsterdam 2025</h2>
+                        <p class="description">
+                            Sponsor displays, price tickers, network hashrate, and event schedules for the Amsterdam conference.
+                        </p>
+                        <p class="location">
+                            📍 Amsterdam, Netherlands • October 2025
+                        </p>
+                    </div>
+                    <span class="arrow">→</span>
+                </div>
+            </a>
+            
+            <!-- Future conferences will be added here -->
+            <!-- 
+            <a href="bitcoinNashville2026/" class="conference-card">
+                <div style="display: flex; align-items: center;">
+                    <div style="flex: 1;">
+                        <h2>Bitcoin Nashville 2026</h2>
+                        <p class="description">
+                            Conference screens and displays for Nashville.
+                        </p>
+                        <p class="location">
+                            📍 Nashville, USA • July 2026
+                        </p>
+                    </div>
+                    <span class="arrow">→</span>
+                </div>
+            </a>
+            -->
+        </div>
+        
+        <footer>
+            <p>Built with ⚡ for Bitcoin conferences</p>
+        </footer>
+    </div>
+</body>
+</html>
+

@@ -23,6 +23,10 @@
             margin-bottom: 15px;
             font-size: 1.2rem;
         }
+        h2.stage {
+            color: #fff;
+            text-transform: uppercase;
+        }
         ul {
             list-style: none;
             padding: 0;
@@ -87,69 +91,48 @@
         .btn-secondary:hover {
             background: #666;
         }
+        hr {
+            border: none;
+            border-top: 2px solid #333;
+            margin: 40px 0;
+        }
     </style>
 </head>
 <body>
     <h1>Bitcoin Amsterdam 2025</h1>
+    
+    <!-- Warning for missing credentials -->
+    <div id="credentials-warning" class="note" style="display: none; background: #4d1a1a; border-left: 3px solid #f44336;">
+        <strong>⚠️ No Credentials Detected</strong>
+        <p style="margin: 10px 0 5px 0;">Some pages below require Airtable credentials to work. Please use the <a href="setup.html" target="_blank" style="color: #ff8c00;">Credentials Setup Helper</a> to configure access.</p>
+    </div>
 
-    <h2>Treasury Stage</h2>
+    <h2 class="stage">Treasury Stage</h2>
     <ul>
-        <li><a href="treasury_stage_sponsors.html">Treasury Stage Sponsors</a></li>
-        <li><a href="price.html">Bitcoin Price</a></li>
-        <li><a href="hashrate.html">Network Hashrate</a></li>
+        <li><a href="treasury_stage_sponsors.html" id="link-treasury" target="_blank">Treasury Stage Sponsors</a></li>
+        <li><a href="price.html" target="_blank">Bitcoin Price</a></li>
+        <li><a href="hashrate.html" target="_blank">Network Hashrate</a></li>
     </ul>
-    <h2>Orange Stage</h2>
+    <h2 class="stage">Orange Stage</h2>
     <ul>
-        <li><a href="genesis_stage_sponsors.html">Genesis Stage Sponsors</a></li>
+        <li><a href="genesis_stage_sponsors.html" id="link-genesis" target="_blank">Genesis Stage Sponsors</a></li>
+        <li><a href="pubpayQR.html" target="_blank">PubPay QR</a></li>
     </ul>
+
+    <hr>
 
     <h2>Tools & Assets</h2>
     <ul>
-        <li><a href="sponsor_assets.html">Sponsor Assets & Images</a></li>
-        <li><a href="setup.html">Credentials Setup Helper</a></li>
+        <li><a href="sponsor_assets.html" id="link-assets" target="_blank">Sponsor Assets & Images</a></li>
+        <li><a href="setup.html" target="_blank">Credentials Setup Helper</a></li>
     </ul>
 
     <h2>Not in Use</h2>
     <ul>
-        <li><a href="led_a_sponsors.html">LED A Sponsors</a></li>
-        <li><a href="led_c_title_bitcoin_asia.html">LED C - Event Schedule</a></li>
+        <li><a href="led_a_sponsors.html" id="link-led-a" target="_blank">LED A Sponsors</a></li>
+        <li><a href="led_c_title_bitcoin_asia.html" id="link-led-c" target="_blank">LED C - Event Schedule</a></li>
     </ul>
 
-    <!-- Direct links section (hidden by default, shown when credentials are available) -->
-    <div id="direct-links-section" style="display: none;">
-        <h2>Copy-Paste Links with Credentials</h2>
-        <div class="note">
-            <strong>These links include your credentials:</strong><br>
-            Right-click and "Copy Link Address" to share with your team or bookmark.
-            <button class="btn btn-secondary" onclick="toggleDirectLinks()" style="margin-left: 10px;">Hide Links</button>
-        </div>
-        <div style="background: #1a1a1a; padding: 15px; border-radius: 5px; margin: 10px 0;">
-            <h3 style="color: #ff8c00; font-size: 1rem; margin-top: 0;">Treasury Stage</h3>
-            <ul style="list-style: none; padding: 0;">
-                <li style="margin: 8px 0;"><a id="link-treasury" href="#" style="word-break: break-all; font-size: 0.9rem;">Treasury Stage Sponsors</a></li>
-                <li style="margin: 8px 0;"><a href="price.html" style="word-break: break-all; font-size: 0.9rem;">Bitcoin Price (no credentials needed)</a></li>
-                <li style="margin: 8px 0;"><a href="hashrate.html" style="word-break: break-all; font-size: 0.9rem;">Network Hashrate (no credentials needed)</a></li>
-            </ul>
-            
-            <h3 style="color: #ff8c00; font-size: 1rem;">Orange Stage</h3>
-            <ul style="list-style: none; padding: 0;">
-                <li style="margin: 8px 0;"><a id="link-genesis" href="#" style="word-break: break-all; font-size: 0.9rem;">Genesis Stage Sponsors</a></li>
-            </ul>
-            
-            <h3 style="color: #ff8c00; font-size: 1rem;">Tools & Assets</h3>
-            <ul style="list-style: none; padding: 0;">
-                <li style="margin: 8px 0;"><a id="link-assets" href="#" style="word-break: break-all; font-size: 0.9rem;">Sponsor Assets & Images</a></li>
-                <li style="margin: 8px 0;"><a href="setup.html" style="word-break: break-all; font-size: 0.9rem;">Credentials Setup Helper</a></li>
-            </ul>
-            
-            <h3 style="color: #ff8c00; font-size: 1rem;">Not in Use</h3>
-            <ul style="list-style: none; padding: 0;">
-                <li style="margin: 8px 0;"><a id="link-led-a" href="#" style="word-break: break-all; font-size: 0.9rem;">LED A Sponsors</a></li>
-                <li style="margin: 8px 0;"><a id="link-led-c" href="#" style="word-break: break-all; font-size: 0.9rem;">LED C - Event Schedule</a></li>
-            </ul>
-        </div>
-    </div>
-    
     <div id="credentials-status" class="credentials-status empty">
         <strong>No credentials stored</strong>
         <p style="margin: 5px 0;">Add credentials to the URL to access the pages.</p>
@@ -291,124 +274,100 @@
             }
         }
 
-        // Function to toggle direct links section visibility
-        function toggleDirectLinks() {
-            const section = document.getElementById('direct-links-section');
-            section.style.display = section.style.display === 'none' ? 'block' : 'none';
-        }
-
-        // Function to generate direct links with credentials
-        function generateDirectLinks() {
+        // Function to get credentials from URL or localStorage
+        function getCredentials() {
             const urlParams = new URLSearchParams(window.location.search);
             
-            // Get sponsors credentials
-            const sponsorsToken = urlParams.get('sponsorsAccessToken') || urlParams.get('accessToken');
-            const sponsorsBase = urlParams.get('sponsorsBaseId') || urlParams.get('baseId');
-            const sponsorsTable = urlParams.get('sponsorsTableName') || urlParams.get('tableName');
+            // Try URL first
+            let sponsorsToken = urlParams.get('sponsorsAccessToken') || urlParams.get('accessToken');
+            let sponsorsBase = urlParams.get('sponsorsBaseId') || urlParams.get('baseId');
+            let sponsorsTable = urlParams.get('sponsorsTableName') || urlParams.get('tableName');
+            let agendaToken = urlParams.get('agendaAccessToken');
+            let agendaBase = urlParams.get('agendaBaseId');
+            let agendaTable = urlParams.get('agendaTableName');
             
-            // Get agenda credentials (fall back to sponsors if not provided)
-            let agendaToken = urlParams.get('agendaAccessToken') || sponsorsToken;
-            let agendaBase = urlParams.get('agendaBaseId') || sponsorsBase;
-            let agendaTable = urlParams.get('agendaTableName') || sponsorsTable;
-            
-            const baseUrl = window.location.origin + window.location.pathname.replace('index.html', '');
-            
-            // Build sponsor URLs
-            if (sponsorsToken && sponsorsBase && sponsorsTable) {
-                const sponsorParams = new URLSearchParams({
-                    sponsorsAccessToken: sponsorsToken,
-                    sponsorsBaseId: sponsorsBase,
-                    sponsorsTableName: sponsorsTable
-                });
-                
-                document.getElementById('link-treasury').href = baseUrl + 'treasury_stage_sponsors.html?' + sponsorParams.toString();
-                document.getElementById('link-genesis').href = baseUrl + 'genesis_stage_sponsors.html?' + sponsorParams.toString();
-                document.getElementById('link-led-a').href = baseUrl + 'led_a_sponsors.html?' + sponsorParams.toString();
-                document.getElementById('link-assets').href = baseUrl + 'sponsor_assets.html?' + sponsorParams.toString();
+            // If not in URL, try localStorage
+            if (!sponsorsToken) {
+                sponsorsToken = localStorage.getItem(STORAGE_KEYS.SPONSORS_TOKEN);
+                sponsorsBase = localStorage.getItem(STORAGE_KEYS.SPONSORS_BASE);
+                sponsorsTable = localStorage.getItem(STORAGE_KEYS.SPONSORS_TABLE);
             }
             
-            // Build agenda URL
-            if (agendaToken && agendaBase && agendaTable) {
-                const agendaParams = new URLSearchParams({
-                    agendaAccessToken: agendaToken,
-                    agendaBaseId: agendaBase,
-                    agendaTableName: agendaTable
-                });
-                
-                document.getElementById('link-led-c').href = baseUrl + 'led_c_title_bitcoin_asia.html?' + agendaParams.toString();
+            if (!agendaToken) {
+                agendaToken = localStorage.getItem(STORAGE_KEYS.AGENDA_TOKEN);
+                agendaBase = localStorage.getItem(STORAGE_KEYS.AGENDA_BASE);
+                agendaTable = localStorage.getItem(STORAGE_KEYS.AGENDA_TABLE);
             }
             
-            // Show the direct links section
-            if (sponsorsToken || agendaToken) {
-                document.getElementById('direct-links-section').style.display = 'block';
-                console.log('📋 Generated direct links with credentials');
+            // If sponsors credentials exist but not agenda, use sponsors for agenda
+            if (sponsorsToken && sponsorsBase && sponsorsTable && !agendaToken) {
+                agendaToken = sponsorsToken;
+                agendaBase = sponsorsBase;
+                agendaTable = sponsorsTable;
             }
+            
+            return {
+                sponsors: (sponsorsToken && sponsorsBase && sponsorsTable) ? {
+                    token: sponsorsToken,
+                    base: sponsorsBase,
+                    table: sponsorsTable
+                } : null,
+                agenda: (agendaToken && agendaBase && agendaTable) ? {
+                    token: agendaToken,
+                    base: agendaBase,
+                    table: agendaTable
+                } : null
+            };
         }
 
-        // Function to append URL parameters to page links
-        function appendParametersToLinks() {
-            const urlParams = new URLSearchParams(window.location.search);
+        // Function to add credentials to links
+        function addCredentialsToLinks() {
+            const creds = getCredentials();
             
-            // Only proceed if we have parameters
-            if (urlParams.toString().length === 0) {
+            // Show warning if no credentials found
+            if (!creds.sponsors && !creds.agenda) {
+                document.getElementById('credentials-warning').style.display = 'block';
+                console.log('⚠️ No credentials found - warning displayed');
                 return;
             }
             
-            console.log('🔗 Adding URL parameters to page links...');
+            // Hide warning if credentials exist
+            document.getElementById('credentials-warning').style.display = 'none';
+            console.log('✅ Adding credentials to links...');
             
-            // Get all links on the page (except external ones)
-            const links = document.querySelectorAll('a[href]:not([href^="http"]):not([href^="#"])');
+            // Add credentials to sponsor pages
+            if (creds.sponsors) {
+                const sponsorParams = new URLSearchParams({
+                    sponsorsAccessToken: creds.sponsors.token,
+                    sponsorsBaseId: creds.sponsors.base,
+                    sponsorsTableName: creds.sponsors.table
+                });
+                
+                ['link-treasury', 'link-genesis', 'link-led-a', 'link-assets'].forEach(id => {
+                    const link = document.getElementById(id);
+                    if (link) {
+                        const href = link.getAttribute('href').split('?')[0]; // Remove existing params
+                        link.href = href + '?' + sponsorParams.toString();
+                        console.log(`  ✅ Added sponsors params to: ${id}`);
+                    }
+                });
+            }
             
-            links.forEach(link => {
-                const href = link.getAttribute('href');
+            // Add credentials to agenda pages
+            if (creds.agenda) {
+                const agendaParams = new URLSearchParams({
+                    agendaAccessToken: creds.agenda.token,
+                    agendaBaseId: creds.agenda.base,
+                    agendaTableName: creds.agenda.table
+                });
                 
-                // Skip if already has parameters or is a price/hashrate link
-                if (href.includes('?') || href.includes('price.html') || href.includes('hashrate.html')) {
-                    return;
+                const link = document.getElementById('link-led-c');
+                if (link) {
+                    const href = link.getAttribute('href').split('?')[0]; // Remove existing params
+                    link.href = href + '?' + agendaParams.toString();
+                    console.log(`  ✅ Added agenda params to: link-led-c`);
                 }
-                
-                // Determine which parameters to add based on the page
-                let paramsToAdd = new URLSearchParams();
-                
-                // For sponsor pages
-                if (href.includes('sponsors') || href.includes('led_a') || href.includes('sponsor_assets')) {
-                    const sponsorsToken = urlParams.get('sponsorsAccessToken') || urlParams.get('accessToken');
-                    const sponsorsBase = urlParams.get('sponsorsBaseId') || urlParams.get('baseId');
-                    const sponsorsTable = urlParams.get('sponsorsTableName') || urlParams.get('tableName');
-                    
-                    if (sponsorsToken && sponsorsBase && sponsorsTable) {
-                        paramsToAdd.append('sponsorsAccessToken', sponsorsToken);
-                        paramsToAdd.append('sponsorsBaseId', sponsorsBase);
-                        paramsToAdd.append('sponsorsTableName', sponsorsTable);
-                    }
-                }
-                
-                // For agenda/LED C pages
-                if (href.includes('led_c') || href.includes('asia')) {
-                    let agendaToken = urlParams.get('agendaAccessToken');
-                    let agendaBase = urlParams.get('agendaBaseId');
-                    let agendaTable = urlParams.get('agendaTableName');
-                    
-                    // Fall back to sponsors credentials if no agenda credentials
-                    if (!agendaToken) {
-                        agendaToken = urlParams.get('sponsorsAccessToken') || urlParams.get('accessToken');
-                        agendaBase = urlParams.get('sponsorsBaseId') || urlParams.get('baseId');
-                        agendaTable = urlParams.get('sponsorsTableName') || urlParams.get('tableName');
-                    }
-                    
-                    if (agendaToken && agendaBase && agendaTable) {
-                        paramsToAdd.append('agendaAccessToken', agendaToken);
-                        paramsToAdd.append('agendaBaseId', agendaBase);
-                        paramsToAdd.append('agendaTableName', agendaTable);
-                    }
-                }
-                
-                // Add parameters to link if any were found
-                if (paramsToAdd.toString().length > 0) {
-                    link.href = href + '?' + paramsToAdd.toString();
-                    console.log(`  ✅ Added params to: ${href}`);
-                }
-            });
+            }
         }
 
         // Initialize on page load
@@ -419,19 +378,18 @@
             // Update status display
             updateCredentialsStatus();
             
-            // Append parameters to links BEFORE cleaning up URL
-            appendParametersToLinks();
-            
-            // Generate direct copy-paste links
-            generateDirectLinks();
+            // Add credentials to links (from URL or localStorage)
+            addCredentialsToLinks();
             
             // If credentials were just captured, clean up the URL after a short delay
-            // (delay allows user to click links with params if needed)
             if (foundCredentials) {
                 setTimeout(() => {
                     // Remove parameters from URL bar for cleaner appearance
                     window.history.replaceState({}, document.title, window.location.pathname);
                     console.log('🧹 Cleaned up URL parameters from address bar');
+                    
+                    // Update links again after URL cleanup (now using localStorage)
+                    addCredentialsToLinks();
                 }, 1000); // 1 second delay
             }
         });
