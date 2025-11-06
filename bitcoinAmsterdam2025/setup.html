@@ -142,6 +142,18 @@
         <input type="text" id="agenda-table" placeholder="tblXXXXXXXXXXXXXXX">
     </div>
 
+    <h2>Screen Control Configuration (Optional)</h2>
+    <div class="input-section" style="border-left-color: #4caf50;">
+        <div class="note" style="margin-bottom: 15px;">
+            <strong>🎮 Remote Screen Control (NEW)</strong><br>
+            Control screen refreshes remotely via Airtable. Only requires an access token (READ-only).<br>
+            Base ID: <code>appjW5y1eLS1obdKY</code> | Table ID: <code>tblLDRiARsdXqbDSP</code>
+        </div>
+        
+        <label for="screen-token">Access Token (starts with "pat"):</label>
+        <input type="text" id="screen-token" placeholder="patXXXXXXXXXXXXXXX.YYYYYYYYYYYY... (READ-only permission)">
+    </div>
+
     <button class="btn" onclick="generateURL()">Generate Setup URL</button>
     <button class="btn btn-secondary" onclick="loadFromConfig()">Load from config.js</button>
 
@@ -203,6 +215,7 @@
             const agendaToken = document.getElementById('agenda-token').value.trim();
             const agendaBase = document.getElementById('agenda-base').value.trim();
             const agendaTable = document.getElementById('agenda-table').value.trim();
+            const screenToken = document.getElementById('screen-token').value.trim();
 
             // Validate
             if (!sponsorsToken || !sponsorsBase || !sponsorsTable) {
@@ -227,6 +240,11 @@
             } else if (sponsorsToken && sponsorsBase && sponsorsTable) {
                 // Use sponsors credentials for agenda if not provided
                 console.log('Using sponsors credentials for agenda as well');
+            }
+            
+            // Add screen control token if provided
+            if (screenToken) {
+                params.append('screenAccessToken', screenToken);
             }
 
             generatedURL = baseUrl + '?' + params.toString();

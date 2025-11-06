@@ -153,6 +153,19 @@
         Copy <code>config.example.js</code> to <code>config.js</code> and add your Airtable credentials.
     </div>
 
+    <div class="note" style="border-left: 3px solid #4caf50;">
+        <strong>🎮 Remote Screen Control (NEW)</strong><br><br>
+        Control screen refreshes remotely via Airtable without manual file updates or Git deployments.<br><br>
+        <strong>Setup:</strong><br>
+        1. Add <code>?screenAccessToken=TOKEN</code> to any screen page URL<br>
+        2. In Airtable, check the "Refresh" or "ClearCache" box for that screen<br>
+        3. Screen will auto-detect and execute the command within 5 seconds<br>
+        4. Manually uncheck the box in Airtable after refresh occurs<br><br>
+        <strong>Airtable Table:</strong> <code>appjW5y1eLS1obdKY / tblLDRiARsdXqbDSP</code><br>
+        <strong>Permissions Required:</strong> READ-only<br><br>
+        <em style="font-size: 0.85em;">💡 Tip: Add screenAccessToken to index page URL and it will be passed to all screen links automatically.</em>
+    </div>
+
    
 
     <script>
@@ -163,7 +176,8 @@
             SPONSORS_TABLE: 'airtable_sponsors_tableName',
             AGENDA_TOKEN: 'airtable_agenda_accessToken',
             AGENDA_BASE: 'airtable_agenda_baseId',
-            AGENDA_TABLE: 'airtable_agenda_tableName'
+            AGENDA_TABLE: 'airtable_agenda_tableName',
+            SCREEN_TOKEN: 'airtable_screen_accessToken'
         };
 
         // Function to capture URL parameters and store in localStorage
@@ -200,6 +214,15 @@
                 console.log('   📅 agendaAccessToken:', agendaToken.substring(0, 15) + '...');
                 console.log('   📅 agendaBaseId:', agendaBase);
                 console.log('   📅 agendaTableName:', agendaTable);
+                credentialsFound = true;
+            }
+
+            // Check for screen control token
+            const screenToken = urlParams.get('screenAccessToken');
+            if (screenToken) {
+                localStorage.setItem(STORAGE_KEYS.SCREEN_TOKEN, screenToken);
+                console.log('✅ Screen control token stored in localStorage');
+                console.log('   🎮 screenAccessToken:', screenToken.substring(0, 15) + '...');
                 credentialsFound = true;
             }
 
@@ -285,6 +308,7 @@
             let agendaToken = urlParams.get('agendaAccessToken');
             let agendaBase = urlParams.get('agendaBaseId');
             let agendaTable = urlParams.get('agendaTableName');
+            let screenToken = urlParams.get('screenAccessToken');
             
             // If not in URL, try localStorage
             if (!sponsorsToken) {
@@ -297,6 +321,10 @@
                 agendaToken = localStorage.getItem(STORAGE_KEYS.AGENDA_TOKEN);
                 agendaBase = localStorage.getItem(STORAGE_KEYS.AGENDA_BASE);
                 agendaTable = localStorage.getItem(STORAGE_KEYS.AGENDA_TABLE);
+            }
+            
+            if (!screenToken) {
+                screenToken = localStorage.getItem(STORAGE_KEYS.SCREEN_TOKEN);
             }
             
             // If sponsors credentials exist but not agenda, use sponsors for agenda
@@ -316,7 +344,8 @@
                     token: agendaToken,
                     base: agendaBase,
                     table: agendaTable
-                } : null
+                } : null,
+                screen: screenToken ? screenToken : null
             };
         }
 
@@ -343,6 +372,11 @@
                     sponsorsTableName: creds.sponsors.table
                 });
                 
+                // Add screen token if available
+                if (creds.screen) {
+                    sponsorParams.append('screenAccessToken', creds.screen);
+                }
+                
                 ['link-treasury', 'link-genesis', 'link-led-a', 'link-assets'].forEach(id => {
                     const link = document.getElementById(id);
                     if (link) {
@@ -361,12 +395,38 @@
                     agendaTableName: creds.agenda.table
                 });
                 
+                // Add screen token if available
+                if (creds.screen) {
+                    agendaParams.append('screenAccessToken', creds.screen);
+                }
+                
                 const link = document.getElementById('link-led-c');
                 if (link) {
                     const href = link.getAttribute('href').split('?')[0]; // Remove existing params
                     link.href = href + '?' + agendaParams.toString();
                     console.log(`  ✅ Added agenda params to: link-led-c`);
                 }
+            }
+            
+            // Add screen token to all screen pages (even if they don't have sponsors/agenda credentials)
+            if (creds.screen) {
+                // Price and hashrate pages
+                ['price.html', 'hashrate.html'].forEach(page => {
+                    const links = document.querySelectorAll(`a[href="${page}"]`);
+                    links.forEach(link => {
+                        const params = new URLSearchParams({ screenAccessToken: creds.screen });
+                        link.href = page + '?' + params.toString();
+                    });
+                });
+                
+                // PubPay page
+                const pubpayLink = document.querySelector('a[href="pubpayQR.html"]');
+                if (pubpayLink) {
+                    const params = new URLSearchParams({ screenAccessToken: creds.screen });
+                    pubpayLink.href = 'pubpayQR.html?' + params.toString();
+                }
+                
+                console.log('  ✅ Added screen control token to all screen pages');
             }
         }
 
