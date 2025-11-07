@@ -96,23 +96,81 @@
             border-top: 2px solid #333;
             margin: 40px 0;
         }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0 30px 0;
+        }
+        th, td {
+            padding: 12px 12px 12px 0;
+            text-align: left;
+            border-bottom: 1px solid #333;
+        }
+        th {
+            color: #ff8c00;
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+        }
+        td:first-child {
+            width: 35%;
+        }
+        td:last-child {
+            color: #999;
+            font-size: 0.95rem;
+        }
     </style>
 </head>
 <body>
     <h1>Bitcoin Amsterdam 2025</h1>
 
     <h2 class="stage">Treasury Stage</h2>
-    <ul>
-        <li><a href="treasury_stage_sponsors.html" id="link-treasury" target="_blank">Treasury Stage Sponsors</a></li>
-        <li><a href="price.html?chart=false&layout=row" target="_blank">Bitcoin Price</a></li>
-        <li><a href="hashrate.html?chart=false&layout=row&reverse=true" target="_blank">Network Hashrate</a></li>
-        <li><a href="pubpayQR.html" target="_blank">PubPay QR</a></li>
-    </ul>
+    <table>
+        <thead>
+            <tr>
+                <th>Screen</th>
+                <th>Notes</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><a href="treasury_stage_sponsors.html" id="link-treasury" target="_blank">Treasury Stage Sponsors</a></td>
+                <td>Show on breaks, side screens</td>
+            </tr>
+            <tr>
+                <td><a href="price.html?chart=false&layout=row" target="_blank">Bitcoin Price</a></td>
+                <td>Always on, right side stripsr</td>
+            </tr>
+            <tr>
+                <td><a href="hashrate.html?chart=false&layout=row&reverse=true" target="_blank">Network Hashrate</a></td>
+                <td>Always on, left side strips</td>
+            </tr>
+            <tr>
+                <td><a href="pubpayQR.html" target="_blank">PubPay QR</a></td>
+                <td>Activate on some breaks (TBD). Payable interactive QR. Main screen only, centered.</td>
+            </tr>
+        </tbody>
+    </table>
+    
     <h2 class="stage">Orange Stage</h2>
-    <ul>
-        <li><a href="genesis_stage_sponsors.html" id="link-genesis" target="_blank">Genesis Stage Sponsors</a></li>
-        <li><a href="pubpayQR.html" target="_blank">PubPay QR</a></li>
-    </ul>
+    <table>
+        <thead>
+            <tr>
+                <th>Screen</th>
+                <th>Notes</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><a href="genesis_stage_sponsors.html" id="link-genesis" target="_blank">Genesis Stage Sponsors</a></td>
+                <td>Show on breaks, side screens</td>
+            </tr>
+            <tr>
+                <td><a href="pubpayQR.html" target="_blank">PubPay QR</a></td>
+                <td>Activate on some breaks (TBD). Payable interactive QR. Main screen only, centered.</td>
+            </tr>
+        </tbody>
+    </table>
 
     <hr>
 
