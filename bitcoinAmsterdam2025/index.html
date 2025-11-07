@@ -100,18 +100,13 @@
 </head>
 <body>
     <h1>Bitcoin Amsterdam 2025</h1>
-    
-    <!-- Warning for missing credentials -->
-    <div id="credentials-warning" class="note" style="display: none; background: #4d1a1a; border-left: 3px solid #f44336;">
-        <strong>⚠️ No Credentials Detected</strong>
-        <p style="margin: 10px 0 5px 0;">Some pages below require Airtable credentials to work. Please use the <a href="setup.html" target="_blank" style="color: #ff8c00;">Credentials Setup Helper</a> to configure access.</p>
-    </div>
 
     <h2 class="stage">Treasury Stage</h2>
     <ul>
         <li><a href="treasury_stage_sponsors.html" id="link-treasury" target="_blank">Treasury Stage Sponsors</a></li>
         <li><a href="price.html?chart=false&layout=row" target="_blank">Bitcoin Price</a></li>
         <li><a href="hashrate.html?chart=false&layout=row&reverse=true" target="_blank">Network Hashrate</a></li>
+        <li><a href="pubpayQR.html" target="_blank">PubPay QR</a></li>
     </ul>
     <h2 class="stage">Orange Stage</h2>
     <ul>
@@ -130,42 +125,13 @@
     <h2>Not in Use</h2>
     <ul>
         <li><a href="led_a_sponsors.html" id="link-led-a" target="_blank">LED A Sponsors</a></li>
-        <li><a href="led_c_title_bitcoin_asia.html" id="link-led-c" target="_blank">LED C - Event Schedule</a></li>
+        <li><a href="led_c_title_bitcoin_asia.html" id="link-led-c" target="_blank">LED C Event Schedule</a></li>
     </ul>
 
     <div id="credentials-status" class="credentials-status empty">
         <strong>No credentials stored</strong>
         <p style="margin: 5px 0;">Add credentials to the URL to access the pages.</p>
     </div>
-    
-    <div class="note">
-        <strong>Two Ways to Provide Credentials:</strong><br><br>
-        <strong>Option 1: URL Parameters (Recommended for GitHub Pages)</strong><br>
-        Add credentials to the URL of this index page:<br><br>
-        <strong>For Sponsors pages only:</strong><br>
-        <code style="font-size: 0.8em; display: block; margin: 5px 0;">?sponsorsAccessToken=TOKEN&sponsorsBaseId=BASE&sponsorsTableName=TABLE</code><br>
-        <strong>For Agenda/LED C pages only:</strong><br>
-        <code style="font-size: 0.8em; display: block; margin: 5px 0;">?agendaAccessToken=TOKEN&agendaBaseId=BASE&agendaTableName=TABLE</code><br>
-        <strong>For ALL pages (recommended):</strong><br>
-        <code style="font-size: 0.75em; display: block; margin: 5px 0; white-space: normal; word-break: break-all;">?sponsorsAccessToken=TOKEN1&sponsorsBaseId=BASE1&sponsorsTableName=TABLE1&agendaAccessToken=TOKEN2&agendaBaseId=BASE2&agendaTableName=TABLE2</code><br>
-        <em style="font-size: 0.85em;">Note: If using same credentials for both, just provide sponsors parameters - they'll be shared automatically.</em><br><br>
-        <strong>Option 2: Local Config File</strong><br>
-        Copy <code>config.example.js</code> to <code>config.js</code> and add your Airtable credentials.
-    </div>
-
-    <div class="note" style="border-left: 3px solid #4caf50;">
-        <strong>🎮 Remote Screen Control (NEW)</strong><br><br>
-        Control screen refreshes remotely via Airtable without manual file updates or Git deployments.<br><br>
-        <strong>Setup:</strong><br>
-        1. Add <code>?screenAccessToken=TOKEN</code> to any screen page URL<br>
-        2. In Airtable, check the "Refresh" or "ClearCache" box for that screen<br>
-        3. Screen will auto-detect and execute the command within 5 seconds<br>
-        4. Manually uncheck the box in Airtable after refresh occurs<br><br>
-        <strong>Airtable Table:</strong> <code>appjW5y1eLS1obdKY / tblLDRiARsdXqbDSP</code><br>
-        <strong>Permissions Required:</strong> READ-only<br><br>
-        <em style="font-size: 0.85em;">💡 Tip: Add screenAccessToken to index page URL and it will be passed to all screen links automatically.</em>
-    </div>
-
    
 
     <script>
@@ -349,19 +315,23 @@
             };
         }
 
+        // Function to merge credentials into existing URL parameters
+        function mergeParamsIntoUrl(href, newParams) {
+            const [baseUrl, existingQuery] = href.split('?');
+            const existingParams = new URLSearchParams(existingQuery || '');
+            
+            // Add new params (will overwrite if they already exist)
+            newParams.forEach((value, key) => {
+                existingParams.set(key, value);
+            });
+            
+            return baseUrl + '?' + existingParams.toString();
+        }
+
         // Function to add credentials to links
         function addCredentialsToLinks() {
             const creds = getCredentials();
             
-            // Show warning if no credentials found
-            if (!creds.sponsors && !creds.agenda) {
-                document.getElementById('credentials-warning').style.display = 'block';
-                console.log('⚠️ No credentials found - warning displayed');
-                return;
-            }
-            
-            // Hide warning if credentials exist
-            document.getElementById('credentials-warning').style.display = 'none';
             console.log('✅ Adding credentials to links...');
             
             // Add credentials to sponsor pages
@@ -380,8 +350,8 @@
                 ['link-treasury', 'link-genesis', 'link-led-a', 'link-assets'].forEach(id => {
                     const link = document.getElementById(id);
                     if (link) {
-                        const href = link.getAttribute('href').split('?')[0]; // Remove existing params
-                        link.href = href + '?' + sponsorParams.toString();
+                        const originalHref = link.getAttribute('href');
+                        link.href = mergeParamsIntoUrl(originalHref, sponsorParams);
                         console.log(`  ✅ Added sponsors params to: ${id}`);
                     }
                 });
@@ -402,29 +372,23 @@
                 
                 const link = document.getElementById('link-led-c');
                 if (link) {
-                    const href = link.getAttribute('href').split('?')[0]; // Remove existing params
-                    link.href = href + '?' + agendaParams.toString();
+                    const originalHref = link.getAttribute('href');
+                    link.href = mergeParamsIntoUrl(originalHref, agendaParams);
                     console.log(`  ✅ Added agenda params to: link-led-c`);
                 }
             }
             
             // Add screen token to all screen pages (even if they don't have sponsors/agenda credentials)
             if (creds.screen) {
-                // Price and hashrate pages
-                ['price.html', 'hashrate.html'].forEach(page => {
-                    const links = document.querySelectorAll(`a[href="${page}"]`);
-                    links.forEach(link => {
-                        const params = new URLSearchParams({ screenAccessToken: creds.screen });
-                        link.href = page + '?' + params.toString();
-                    });
-                });
+                const screenParams = new URLSearchParams({ screenAccessToken: creds.screen });
                 
-                // PubPay page
-                const pubpayLink = document.querySelector('a[href="pubpayQR.html"]');
-                if (pubpayLink) {
-                    const params = new URLSearchParams({ screenAccessToken: creds.screen });
-                    pubpayLink.href = 'pubpayQR.html?' + params.toString();
-                }
+                // Price and hashrate pages - need to find them by checking href contains the page
+                document.querySelectorAll('a').forEach(link => {
+                    const href = link.getAttribute('href');
+                    if (href && (href.includes('price.html') || href.includes('hashrate.html') || href.includes('pubpayQR.html'))) {
+                        link.href = mergeParamsIntoUrl(href, screenParams);
+                    }
+                });
                 
                 console.log('  ✅ Added screen control token to all screen pages');
             }
@@ -441,17 +405,18 @@
             // Add credentials to links (from URL or localStorage)
             addCredentialsToLinks();
             
+            // Keep URL parameters visible for easy copy/paste
             // If credentials were just captured, clean up the URL after a short delay
-            if (foundCredentials) {
-                setTimeout(() => {
-                    // Remove parameters from URL bar for cleaner appearance
-                    window.history.replaceState({}, document.title, window.location.pathname);
-                    console.log('🧹 Cleaned up URL parameters from address bar');
-                    
-                    // Update links again after URL cleanup (now using localStorage)
-                    addCredentialsToLinks();
-                }, 1000); // 1 second delay
-            }
+            // if (foundCredentials) {
+            //     setTimeout(() => {
+            //         // Remove parameters from URL bar for cleaner appearance
+            //         window.history.replaceState({}, document.title, window.location.pathname);
+            //         console.log('🧹 Cleaned up URL parameters from address bar');
+            //         
+            //         // Update links again after URL cleanup (now using localStorage)
+            //         addCredentialsToLinks();
+            //     }, 1000); // 1 second delay
+            // }
         });
     </script>
 </body>
