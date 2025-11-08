@@ -401,7 +401,7 @@ function createSlides(filteredRecords) {
                     const createSponsorHtml = (sponsor, slideNumber) => {
                         const slideClass = `all-sponsors-slide-${slideNumber}`;
                         // Combine the uniform overview scaling (0.5) with custom logo scale
-                        const combinedScale = 0.5 * (sponsor.logoScale || 1);
+                        const combinedScale = 0.7 * (sponsor.logoScale || 1);
                         const customScale = `style="transform: scale(${combinedScale}) !important;"`;
                         
                         if (sponsor.hasImage) {

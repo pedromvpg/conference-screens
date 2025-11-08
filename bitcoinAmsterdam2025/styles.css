@@ -151,29 +151,28 @@ h1 {
 
 
 
-.expo-led-a-sponsors .sponsor-item[class*="bhk25-title"] {
+/* LED A Display - Tier-specific sizing (vertical layout uses vh units) */
+.expo-led-a-sponsors .sponsor-item[class*="ams25-title"] {
     max-width: 51vh;
     max-height: 50vh;
-
 }
-.expo-led-a-sponsors .sponsor-item[class*="bhk25-title"] .sponsor-logo {
+.expo-led-a-sponsors .sponsor-item[class*="ams25-title"] .sponsor-logo {
     max-width: 51vh;
 }
 
-
-.expo-led-a-sponsors .sponsor-item[class*="bhk25-moon"] {
+.expo-led-a-sponsors .sponsor-item[class*="ams25-moon"] {
     max-width: 29vh;
     max-height: 15vh;
 }
-.expo-led-a-sponsors .sponsor-item[class*="bhk25-moon"] .sponsor-logo {
+.expo-led-a-sponsors .sponsor-item[class*="ams25-moon"] .sponsor-logo {
     max-width: 41vh;
 }
 
-.expo-led-a-sponsors .sponsor-item[class*="bhk25-3-block"] {
+.expo-led-a-sponsors .sponsor-item[class*="ams25-3-block"] {
     max-width: 29vh;
     max-height: 15vh;
 }
-.expo-led-a-sponsors .sponsor-item[class*="bhk25-3-block"] .sponsor-logo {
+.expo-led-a-sponsors .sponsor-item[class*="ams25-3-block"] .sponsor-logo {
     max-width: 31vh;
 }
 
@@ -394,37 +393,44 @@ h1 {
     }
 }
 
-/* Sponsor logo sizing based on type */
-.sponsor-logo.bhk25-title {
-    /* Full size - no additional scaling */
+/* Sponsor logo sizing based on tier (AMS25 - Amsterdam 2025)
+ * Tier scaling: Title (largest) → Moon → 3 Block → 2 Block → 1 Block (smallest)
+ */
+.sponsor-logo.ams25-title {
+    /* Title tier - Full size, no additional scaling */
+    transform: scale(1.9);
+    max-width: 40vw;
 }
 
-.sponsor-logo.bhk25-moon {
-    transform: scale(0.9);
+
+.sponsor-logo.ams25-moon {
+    transform: scale(1.1);
+    max-width: 23vw;
 }
 
-.sponsor-logo.bhk25-3-block {
+.sponsor-logo.ams25-3-block {
     transform: scale(0.8);
 }
 
-.sponsor-logo.bhk25-2-block {
+.sponsor-logo.ams25-2-block {
     transform: scale(0.7);
 }
 
-.sponsor-logo.bhk25-1-block {
+.sponsor-logo.ams25-1-block {
     transform: scale(0.6);
 }
 
 /* All sponsors slide specific styling */
 .all-sponsors-row {
     flex-wrap: wrap;
-    gap: 0vw;
+    gap: 1.5vw;
     justify-content: center;
+    padding: 1vw;
 }
 
 /* Slide 4 - All sponsors uniform 50% sizing */
 .sponsor-logo.all-sponsors-uniform {
-    transform: scale(0.5) !important;
+    transform: scale(0.7) !important;
     /* max-width: 10vw !important; */
     /* max-height: 8vh !important; */
 }
@@ -436,6 +442,12 @@ h1 {
     width: 8vw;
     height: 8vw;
     padding: 0;
+}
+
+/* AMSTERDAM 2025 ALL SPONSORS */ 
+.sponsor-item[class*="all-sponsors-slide-"] {
+    width: 12vw;
+    height: 10vw;
 }
 
 /* Placeholder logo styling */
@@ -472,6 +484,7 @@ h1 {
 
 
 
+/* Stage-specific sizing */
 .genesis-sponsors .sponsor-logo {
     max-width: 11vw;
 }
