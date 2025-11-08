@@ -3,17 +3,27 @@ let priceChart = null;
 
 class BitcoinPriceDisplay {
     constructor() {
+        // Check URL parameter for currency (default to USD)
+        const urlParams = new URLSearchParams(window.location.search);
+        this.currency = urlParams.get('currency')?.toUpperCase() === 'EUR' ? 'EUR' : 'USD';
+        
         this.latestApiUrl = 'https://mempool.space/api/v1/prices';
-        this.historicalApiUrl = 'https://mempool.space/api/v1/historical-price?currency=USD';
+        this.historicalApiUrl = `https://mempool.space/api/v1/historical-price?currency=${this.currency}`;
         this.refreshInterval = 3000; // 3 seconds to match the reference script
         this.priceElement = document.getElementById('price');
         this.errorElement = document.getElementById('error-message');
         this.loadingElement = document.getElementById('loading-spinner');
         this.lastUpdatedElement = document.getElementById('last-updated');
         this.priceValueContainer = document.getElementById('price-value');
+        this.currencyElement = document.querySelector('.currency');
         
         this.currentPrice = null;
         this.startOfYearPrice = null;
+        
+        // Update currency label in HTML
+        if (this.currencyElement) {
+            this.currencyElement.textContent = this.currency;
+        }
         
         this.init();
     }
@@ -29,11 +39,11 @@ class BitcoinPriceDisplay {
             // Fetch latest price from mempool.space
             const latestResponse = await fetch(this.latestApiUrl);
             const latestJson = await latestResponse.json();
-            const priceText = Number(latestJson.USD).toLocaleString();
+            const priceText = Number(latestJson[this.currency]).toLocaleString();
             
             if (this.priceElement) {
                 this.priceElement.textContent = priceText;
-                this.currentPrice = latestJson.USD;
+                this.currentPrice = latestJson[this.currency];
             }
 
             // Fetch historical prices for chart
@@ -49,7 +59,7 @@ class BitcoinPriceDisplay {
                     const d = new Date(p.time * 1000);
                     return d.toLocaleDateString();
                 });
-                const data = pricesYTD.map(p => p.USD);
+                const data = pricesYTD.map(p => p[this.currency]);
 
                 // Draw chart
                 this.updateChart(labels, data);
@@ -92,7 +102,7 @@ class BitcoinPriceDisplay {
                         data: {
                             labels: labels,
                             datasets: [{
-                                label: 'BTC/USD',
+                                label: `BTC/${this.currency}`,
                                 data: data,
                                 borderColor: '#ffffff',
                                 backgroundColor: 'rgba(255, 255, 255, 0)',
