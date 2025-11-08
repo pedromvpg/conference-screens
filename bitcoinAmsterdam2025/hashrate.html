@@ -68,7 +68,11 @@
             
             // Apply row-specific styles
             const hashrateValue = document.querySelector('.hashrate-value');
-            if (hashrateValue) hashrateValue.style.fontSize = '8vw';
+            if (hashrateValue) {
+                hashrateValue.style.fontSize = '8vw';
+                hashrateValue.style.flexDirection = 'row';
+                hashrateValue.style.gap = '1vw';
+            }
             
             const unit = document.querySelector('.unit');
             if (unit) unit.style.fontSize = '4vw';

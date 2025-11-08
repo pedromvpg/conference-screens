@@ -68,7 +68,11 @@
             
             // Apply row-specific styles
             const priceValue = document.querySelector('.price-value');
-            if (priceValue) priceValue.style.fontSize = '8vw';
+            if (priceValue) {
+                priceValue.style.fontSize = '8vw';
+                priceValue.style.flexDirection = 'row';
+                priceValue.style.gap = '1vw';
+            }
             
             const currency = document.querySelector('.currency');
             if (currency) currency.style.fontSize = '4vw';

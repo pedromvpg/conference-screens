@@ -106,6 +106,7 @@
             padding: 12px 12px 12px 0;
             text-align: left;
             border-bottom: 1px solid #333;
+            vertical-align: top;
         }
         th {
             color: #ffffff69;
@@ -145,6 +146,16 @@
         .stage-box h2 {
             margin-top: 0;
         }
+        td:nth-child(3) {
+            width: 150px;
+        }
+        .preview-iframe {
+            width: 100%;
+            height: 100px;
+            border: 1px solid #333;
+            border-radius: 4px;
+            background: #000;
+        }
     </style>
 </head>
 <body>
@@ -157,24 +168,29 @@
                 <tr>
                     <th>Screen</th>
                     <th>Notes</th>
+                    <th>Preview</th>
                 </tr>
             </thead>
             <tbody>
                 <tr>
                     <td><a href="treasury_stage_sponsors.html" id="link-treasury" target="_blank">Treasury Stage Sponsors</a></td>
                     <td>Show on breaks, side screens</td>
+                    <td><iframe src="treasury_stage_sponsors.html" class="preview-iframe"></iframe></td>
                 </tr>
                 <tr>
                     <td><a href="price.html?chart=false&layout=row&currency=EUR" target="_blank">Bitcoin Price</a></td>
                     <td>Always on, right side stripsr</td>
+                    <td><iframe src="price.html?chart=false&layout=row&currency=EUR" class="preview-iframe"></iframe></td>
                 </tr>
                 <tr>
                     <td><a href="hashrate.html?chart=false&layout=row&reverse=true" target="_blank">Network Hashrate</a></td>
                     <td>Always on, left side strips</td>
+                    <td><iframe src="hashrate.html?chart=false&layout=row&reverse=true" class="preview-iframe"></iframe></td>
                 </tr>
                 <tr>
                     <td><a href="pubpayQR.html" target="_blank">PubPay QR</a></td>
                     <td>Activate on some breaks (TBD). Payable interactive QR. Main screen only, centered.</td>
+                    <td><iframe src="pubpayQR.html" class="preview-iframe"></iframe></td>
                 </tr>
             </tbody>
         </table>
@@ -187,16 +203,19 @@
                 <tr>
                     <th>Screen</th>
                     <th>Notes</th>
+                    <th>Preview</th>
                 </tr>
             </thead>
             <tbody>
                 <tr>
                     <td><a href="orange_stage_sponsors.html" id="link-orange" target="_blank">Orange Stage Sponsors</a></td>
                     <td>Show on breaks, side screens</td>
+                    <td><iframe src="orange_stage_sponsors.html" class="preview-iframe"></iframe></td>
                 </tr>
                 <tr>
                     <td><a href="pubpayQR.html" target="_blank">PubPay QR</a></td>
                     <td>Activate on some breaks (TBD). Payable interactive QR. Main screen only, centered.</td>
+                    <td><iframe src="pubpayQR.html" class="preview-iframe"></iframe></td>
                 </tr>
             </tbody>
         </table>
