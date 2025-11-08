@@ -271,8 +271,54 @@
             const agendaStored = localStorage.getItem(STORAGE_KEYS.AGENDA_TOKEN) &&
                                 localStorage.getItem(STORAGE_KEYS.AGENDA_BASE) &&
                                 localStorage.getItem(STORAGE_KEYS.AGENDA_TABLE);
+            
+            const screenStored = localStorage.getItem(STORAGE_KEYS.SCREEN_TOKEN);
 
-            return { sponsorsStored, agendaStored };
+            return { sponsorsStored, agendaStored, screenStored };
+        }
+
+        // Function to copy link with credentials
+        function copyLinkWithCredentials() {
+            const { sponsorsStored, agendaStored, screenStored } = hasStoredCredentials();
+            
+            if (!sponsorsStored && !agendaStored && !screenStored) {
+                alert('No credentials stored to copy!');
+                return;
+            }
+            
+            const baseUrl = window.location.origin + window.location.pathname;
+            const params = new URLSearchParams();
+            
+            // Add sponsors credentials if stored
+            if (sponsorsStored) {
+                params.append('sponsorsAccessToken', localStorage.getItem(STORAGE_KEYS.SPONSORS_TOKEN));
+                params.append('sponsorsBaseId', localStorage.getItem(STORAGE_KEYS.SPONSORS_BASE));
+                params.append('sponsorsTableName', localStorage.getItem(STORAGE_KEYS.SPONSORS_TABLE));
+            }
+            
+            // Add agenda credentials if stored
+            if (agendaStored) {
+                params.append('agendaAccessToken', localStorage.getItem(STORAGE_KEYS.AGENDA_TOKEN));
+                params.append('agendaBaseId', localStorage.getItem(STORAGE_KEYS.AGENDA_BASE));
+                params.append('agendaTableName', localStorage.getItem(STORAGE_KEYS.AGENDA_TABLE));
+            }
+            
+            // Add screen control token if stored
+            if (screenStored) {
+                params.append('screenAccessToken', localStorage.getItem(STORAGE_KEYS.SCREEN_TOKEN));
+            }
+            
+            const fullUrl = baseUrl + '?' + params.toString();
+            
+            // Copy to clipboard
+            navigator.clipboard.writeText(fullUrl).then(() => {
+                alert('✅ Link copied to clipboard!\n\nYou can now paste this link to share or bookmark it with all credentials.');
+                console.log('📋 Copied URL:', fullUrl);
+            }).catch(err => {
+                console.error('Failed to copy:', err);
+                alert('❌ Failed to copy to clipboard. Please copy manually from console.');
+                console.log('URL to copy:', fullUrl);
+            });
         }
 
         // Function to clear stored credentials
@@ -288,9 +334,9 @@
         // Function to update the credentials status display
         function updateCredentialsStatus() {
             const statusDiv = document.getElementById('credentials-status');
-            const { sponsorsStored, agendaStored } = hasStoredCredentials();
+            const { sponsorsStored, agendaStored, screenStored } = hasStoredCredentials();
 
-            if (sponsorsStored || agendaStored) {
+            if (sponsorsStored || agendaStored || screenStored) {
                 statusDiv.className = 'credentials-status';
                 
                 let statusHTML = '<strong>Credentials Stored</strong><br>';
@@ -304,6 +350,12 @@
                     const maskedToken = token ? token.substring(0, 15) + '...' : '';
                     statusHTML += `<p style="margin: 5px 0; font-size: 0.9em;">Agenda: ${maskedToken}</p>`;
                 }
+                if (screenStored) {
+                    const token = localStorage.getItem(STORAGE_KEYS.SCREEN_TOKEN);
+                    const maskedToken = token ? token.substring(0, 15) + '...' : '';
+                    statusHTML += `<p style="margin: 5px 0; font-size: 0.9em;">Screen Control: ${maskedToken}</p>`;
+                }
+                statusHTML += '<button class="btn" onclick="copyLinkWithCredentials()">Copy Link with Credentials</button> ';
                 statusHTML += '<button class="btn btn-danger" onclick="clearStoredCredentials()">Clear Stored Credentials</button>';
                 
                 statusDiv.innerHTML = statusHTML;
