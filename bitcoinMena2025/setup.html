@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Credentials Setup Helper - Bitcoin Amsterdam 2025</title>
+    <style>
+        body {
+            font-family: system-ui, -apple-system, sans-serif;
+            max-width: 900px;
+            margin: 50px auto;
+            padding: 20px;
+            background: #000;
+            color: #fff;
+        }
+        h1 {
+            color: #ff6600;
+            margin-bottom: 30px;
+        }
+        h2 {
+            color: #ff8c00;
+            margin-top: 30px;
+            font-size: 1.2rem;
+        }
+        .input-section {
+            background: #1a1a1a;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            border-left: 4px solid #ff6600;
+        }
+        label {
+            display: block;
+            margin: 15px 0 5px 0;
+            color: #ff8c00;
+            font-weight: 600;
+        }
+        input, textarea {
+            width: 100%;
+            padding: 10px;
+            background: #2a2a2a;
+            border: 1px solid #444;
+            color: #fff;
+            border-radius: 4px;
+            font-family: monospace;
+            font-size: 14px;
+            box-sizing: border-box;
+        }
+        textarea {
+            min-height: 80px;
+            resize: vertical;
+        }
+        .btn {
+            background: #ff6600;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1rem;
+            margin: 10px 10px 10px 0;
+            font-weight: 600;
+        }
+        .btn:hover {
+            background: #ff8800;
+        }
+        .btn-secondary {
+            background: #555;
+        }
+        .btn-secondary:hover {
+            background: #666;
+        }
+        .output-section {
+            background: #0a2a0a;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            border-left: 4px solid #4caf50;
+            display: none;
+        }
+        .output-section.show {
+            display: block;
+        }
+        .url-output {
+            background: #2a2a2a;
+            padding: 15px;
+            border-radius: 4px;
+            word-break: break-all;
+            font-family: monospace;
+            font-size: 13px;
+            margin: 10px 0;
+            border: 1px solid #4caf50;
+        }
+        .note {
+            background: #1a1a4d;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 20px 0;
+            border-left: 3px solid #4da6ff;
+            font-size: 0.9rem;
+        }
+        .warning {
+            background: #4d1a1a;
+            border-left-color: #ff6b6b;
+        }
+        .success {
+            background: #1a4d1a;
+            border-left-color: #4caf50;
+        }
+    </style>
+</head>
+<body>
+    <h1>Credentials Setup Helper</h1>
+    
+    <div class="note">
+        <strong>What this does:</strong><br>
+        This helper page properly URL-encodes your Airtable credentials and generates a link to store them in localStorage.
+        Special characters (like periods in tokens) need to be encoded to work correctly in URLs.
+    </div>
+
+    <h2>Sponsors Configuration</h2>
+    <div class="input-section">
+        <label for="sponsors-token">Access Token (starts with "pat"):</label>
+        <input type="text" id="sponsors-token" placeholder="patXXXXXXXXXXXXXXX.YYYYYYYYYYYY...">
+        
+        <label for="sponsors-base">Base ID (starts with "app"):</label>
+        <input type="text" id="sponsors-base" placeholder="appXXXXXXXXXXXXXXX">
+        
+        <label for="sponsors-table">Table Name (starts with "tbl"):</label>
+        <input type="text" id="sponsors-table" placeholder="tblXXXXXXXXXXXXXXX">
+    </div>
+
+    <h2>Agenda Configuration</h2>
+    <div class="input-section">
+        <label for="agenda-token">Access Token (starts with "pat"):</label>
+        <input type="text" id="agenda-token" placeholder="patXXXXXXXXXXXXXXX.YYYYYYYYYYYY...">
+        
+        <label for="agenda-base">Base ID (starts with "app"):</label>
+        <input type="text" id="agenda-base" placeholder="appXXXXXXXXXXXXXXX">
+        
+        <label for="agenda-table">Table Name (starts with "tbl"):</label>
+        <input type="text" id="agenda-table" placeholder="tblXXXXXXXXXXXXXXX">
+    </div>
+
+    <h2>Screen Control Configuration (Optional)</h2>
+    <div class="input-section" style="border-left-color: #4caf50;">
+        <div class="note" style="margin-bottom: 15px;">
+            <strong>🎮 Remote Screen Control (NEW)</strong><br>
+            Control screen refreshes remotely via Airtable. Only requires an access token (READ-only).<br>
+            Base ID: <code>appjW5y1eLS1obdKY</code> | Table ID: <code>tblLDRiARsdXqbDSP</code>
+        </div>
+        
+        <label for="screen-token">Access Token (starts with "pat"):</label>
+        <input type="text" id="screen-token" placeholder="patXXXXXXXXXXXXXXX.YYYYYYYYYYYY... (READ-only permission)">
+    </div>
+
+    <button class="btn" onclick="generateURL()">Generate Setup URL</button>
+    <button class="btn btn-secondary" onclick="loadFromConfig()">Load from config.js</button>
+
+    <div id="output" class="output-section">
+        <h2>Your Setup URL</h2>
+        
+        <div class="note success">
+            <strong>URL Generated!</strong><br>
+            Click the button below to open the index page and automatically store your credentials.
+        </div>
+
+        <div class="url-output" id="url-display"></div>
+        
+        <button class="btn" onclick="openURL()">Open & Store Credentials</button>
+        <button class="btn btn-secondary" onclick="copyURL()">Copy to Clipboard</button>
+        
+        <div class="note">
+            <strong>Next Steps:</strong><br>
+            1. Click "Open & Store Credentials" button above<br>
+            2. The index page will open and store your credentials<br>
+            3. You'll see a green "Credentials Stored" message<br>
+            4. After that, all pages will work without URL parameters!
+        </div>
+    </div>
+
+    <div class="note warning">
+        <strong>Security Note:</strong><br>
+        Your credentials are only stored locally in your browser's localStorage. They are never sent anywhere except to Airtable's API.
+        The generated URL contains your credentials, so handle it securely.
+    </div>
+
+    <script>
+        // Try to load from config.js if available
+        function loadFromConfig() {
+            if (typeof CONFIG !== 'undefined') {
+                if (CONFIG.sponsors) {
+                    document.getElementById('sponsors-token').value = CONFIG.sponsors.accessToken || '';
+                    document.getElementById('sponsors-base').value = CONFIG.sponsors.baseId || '';
+                    document.getElementById('sponsors-table').value = CONFIG.sponsors.tableName || '';
+                }
+                if (CONFIG.agenda) {
+                    document.getElementById('agenda-token').value = CONFIG.agenda.accessToken || '';
+                    document.getElementById('agenda-base').value = CONFIG.agenda.baseId || '';
+                    document.getElementById('agenda-table').value = CONFIG.agenda.tableName || '';
+                }
+                alert('Loaded credentials from config.js');
+            } else {
+                alert('config.js not found or not loaded. Please enter credentials manually.');
+            }
+        }
+
+        let generatedURL = '';
+
+        function generateURL() {
+            // Get values
+            const sponsorsToken = document.getElementById('sponsors-token').value.trim();
+            const sponsorsBase = document.getElementById('sponsors-base').value.trim();
+            const sponsorsTable = document.getElementById('sponsors-table').value.trim();
+            const agendaToken = document.getElementById('agenda-token').value.trim();
+            const agendaBase = document.getElementById('agenda-base').value.trim();
+            const agendaTable = document.getElementById('agenda-table').value.trim();
+            const screenToken = document.getElementById('screen-token').value.trim();
+
+            // Validate
+            if (!sponsorsToken || !sponsorsBase || !sponsorsTable) {
+                alert('Please fill in all Sponsors fields');
+                return;
+            }
+
+            // Build URL with proper encoding
+            const baseUrl = window.location.origin + window.location.pathname.replace('setup.html', 'index.html');
+            const params = new URLSearchParams();
+            
+            // Add sponsors params
+            params.append('sponsorsAccessToken', sponsorsToken);
+            params.append('sponsorsBaseId', sponsorsBase);
+            params.append('sponsorsTableName', sponsorsTable);
+            
+            // Add agenda params if provided
+            if (agendaToken && agendaBase && agendaTable) {
+                params.append('agendaAccessToken', agendaToken);
+                params.append('agendaBaseId', agendaBase);
+                params.append('agendaTableName', agendaTable);
+            } else if (sponsorsToken && sponsorsBase && sponsorsTable) {
+                // Use sponsors credentials for agenda if not provided
+                console.log('Using sponsors credentials for agenda as well');
+            }
+            
+            // Add screen control token if provided
+            if (screenToken) {
+                params.append('screenAccessToken', screenToken);
+            }
+
+            generatedURL = baseUrl + '?' + params.toString();
+            
+            // Display
+            document.getElementById('url-display').textContent = generatedURL;
+            document.getElementById('output').classList.add('show');
+            
+            console.log('✅ Generated URL:', generatedURL);
+        }
+
+        function openURL() {
+            if (generatedURL) {
+                window.location.href = generatedURL;
+            } else {
+                alert('Please generate a URL first');
+            }
+        }
+
+        function copyURL() {
+            if (generatedURL) {
+                navigator.clipboard.writeText(generatedURL).then(() => {
+                    alert('URL copied to clipboard!');
+                }).catch(err => {
+                    // Fallback for older browsers
+                    const textarea = document.createElement('textarea');
+                    textarea.value = generatedURL;
+                    document.body.appendChild(textarea);
+                    textarea.select();
+                    document.execCommand('copy');
+                    document.body.removeChild(textarea);
+                    alert('URL copied to clipboard!');
+                });
+            } else {
+                alert('Please generate a URL first');
+            }
+        }
+    </script>
+    
+    <!-- Try to load config.js if it exists -->
+    <script src="config.js" onerror="console.log('config.js not found - manual entry required')"></script>
+</body>
+</html>
+

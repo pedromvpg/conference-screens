@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Treasury StageBitcoin Price Display - Bitcoin Amsterdam 2025</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="price.css">
+</head>
+<body>
+    <div class="container">
+
+        <div class="price-display">
+            <div class="bitcoin-title">1 Bitcoin</div>
+            <div class="price-value" id="price-value">
+                <div class="loading-spinner" id="loading-spinner"></div>
+                <span id="price" style="display: none;">116,015</span>
+                <span class="currency">USD</span>
+            </div>
+            <div class="error-message" id="error-message" style="display: none;"></div>
+        </div>
+
+        <div class="ytd-header">YTD</div>
+
+        <div class="chart-section">
+            <div class="chart-container">
+                <canvas id="price-chart"></canvas>
+            </div>
+        </div>
+
+        <div class="sponsor-section">
+            <div class="sponsor-label">Sponsored by</div>
+            <img style="margin-top: 0.8vw;" src="https://i.ibb.co/GQ9Mv07z/image.png" 
+                 loading="lazy" 
+                 alt="SALT Logo" 
+                 class="sponsor-logo">
+        </div>
+    </div>
+
+    <div class="last-updated" id="last-updated"></div>
+    
+    <!-- URL Parameters Control -->
+    <script>
+        // Parse URL parameters
+        const urlParams = new URLSearchParams(window.location.search);
+        
+        // Handle chart visibility (chart=hide or chart=false)
+        const chartParam = urlParams.get('chart');
+        if (chartParam === 'hide' || chartParam === 'false') {
+            const chartSection = document.querySelector('.chart-section');
+            const ytdHeader = document.querySelector('.ytd-header');
+            if (chartSection) chartSection.style.display = 'none';
+            if (ytdHeader) ytdHeader.style.display = 'none';
+        }
+        
+        // Handle layout direction (layout=row)
+        const layoutParam = urlParams.get('layout');
+        const reverseParam = urlParams.get('reverse');
+        
+        if (layoutParam === 'row') {
+            const container = document.querySelector('.container');
+            if (container) {
+                container.style.flexDirection = reverseParam === 'true' ? 'row-reverse' : 'row';
+                container.style.justifyContent = 'center';
+                container.style.textAlign = 'left';
+                container.style.alignItems = 'flex-start';
+            }
+            
+            // Apply row-specific styles
+            const priceValue = document.querySelector('.price-value');
+            if (priceValue) {
+                priceValue.style.fontSize = '8vw';
+                priceValue.style.flexDirection = 'row';
+                priceValue.style.gap = '1vw';
+            }
+            
+            const currency = document.querySelector('.currency');
+            if (currency) currency.style.fontSize = '4vw';
+            
+            const sponsorLogo = document.querySelector('.sponsor-logo');
+            if (sponsorLogo) sponsorLogo.style.maxWidth = '30vw';
+            
+            const sponsorSection = document.querySelector('.sponsor-section');
+            if (sponsorSection) {
+                sponsorSection.style.gap = '0';
+                sponsorSection.style.textAlign = 'left';
+                sponsorSection.style.alignItems = 'flex-start';
+            }
+            
+            const sponsorLabel = document.querySelector('.sponsor-label');
+            if (sponsorLabel) {
+                sponsorLabel.style.marginBottom = '0.5vw';
+                sponsorLabel.style.fontSize = '1.5vw';
+            }
+            
+            const bitcoinTitle = document.querySelector('.bitcoin-title');
+            if (bitcoinTitle) bitcoinTitle.style.fontSize = '1.5vw';
+        }
+    </script>
+    
+    <script src="refresh.js?screen=asia25NakamotoPrice"></script>
+    <script src="price.js"></script>
+    <!-- Screen Control -->
+    <script src="screen-control.js"></script>
+</body>
+</html>

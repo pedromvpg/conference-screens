@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LED C - Bitcoin Asia</title>
+    
+    <!-- Swiper CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="led_c_styles.css" />
+</head>
+<body>
+    <div class="container">
+        <!-- Background video -->
+        <video id="background-video" class="background-video" autoplay muted loop>
+            <source src="imgs/LED_1.mp4" type="video/mp4">
+            <!-- Fallback to image if video fails to load -->
+        </video>
+        
+        <!-- Image overlay on top of video -->
+        <div id="image-overlay" class="image-overlay"></div>
+        
+        <div id="loading" class="loading" style="display: none;">
+            <div class="spinner"></div>
+            <p>Initializing display...</p>
+        </div>
+
+        <div id="error" class="error" style="display: none;"></div>
+        
+        <!-- Fixed header with price and sponsor -->
+        <div id="fixed-header" class="fixed-header" style="display: none;">
+            <div class="background-animation"></div>
+            <div class="header-content">
+                <div class="price-display">
+                    <div class="bitcoin-title">1 Bitcoin</div>
+                    <div class="price-value" id="price-value-header">
+                        <span id="price-header">Loading...</span>
+                        <span class="currency">USD</span>
+                    </div>
+                    <div class="error-message" id="error-message-header" style="display: none;"></div>
+                </div>
+
+                <div class="sponsor-section">
+                    <div class="sponsor-label">Sponsored by</div>
+                    <img src="https://i.ibb.co/C3bW25mp/image.png" 
+                         loading="lazy" 
+                         alt="SALT Logo" 
+                         class="sponsor-logo">
+                </div>
+            </div>
+        </div>
+        
+        <div id="swiper-container" class="expo-led-c-title-bitcoin-asia">
+            <div class="swiper">
+                <div class="swiper-wrapper" id="swiper-wrapper">
+                    <!-- Placeholder slides will be dynamically added here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Swiper JS -->
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    
+    <!-- Chart.js for price charts -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <!-- Add error handling for failed script loads -->
+    <script>
+        // Check if external dependencies loaded successfully
+        window.addEventListener('load', function() {
+            const missingDeps = [];
+            
+            if (typeof Swiper === 'undefined') {
+                missingDeps.push('Swiper');
+            }
+            if (typeof Chart === 'undefined') {
+                missingDeps.push('Chart.js');
+            }
+            
+            if (missingDeps.length > 0) {
+                console.error('❌ Missing dependencies:', missingDeps);
+                const errorEl = document.getElementById('error');
+                if (errorEl) {
+                    errorEl.innerHTML = `
+                        <div style="color: #ff4757; padding: 20px; text-align: center; font-family: Inter;">
+                            <h3>Dependency Error</h3>
+                            <p>Failed to load required libraries: ${missingDeps.join(', ')}</p>
+                            <p>Please check your internet connection and reload the page.</p>
+                            <button onclick="location.reload()" style="margin-top: 10px; padding: 10px 20px; background: #ff6600; color: white; border: none; cursor: pointer;">
+                                Reload Page
+                            </button>
+                        </div>
+                    `;
+                    errorEl.style.display = 'block';
+                    document.getElementById('loading').style.display = 'none';
+                }
+            } else {
+                console.log('✅ All external dependencies loaded successfully');
+            }
+        });
+        
+        // Add error handlers for script loading failures
+        window.addEventListener('error', function(e) {
+            if (e.target && e.target.src) {
+                console.error('❌ Failed to load script:', e.target.src);
+                if (e.target.src.includes('swiper') || e.target.src.includes('chart.js')) {
+                    const errorEl = document.getElementById('error');
+                    if (errorEl) {
+                        errorEl.innerHTML = `
+                            <div style="color: #ff4757; padding: 20px; text-align: center; font-family: Inter;">
+                                <h3>Script Loading Error</h3>
+                                <p>Failed to load external dependencies.</p>
+                                <p>Please check your internet connection and reload the page.</p>
+                                <button onclick="location.reload()" style="margin-top: 10px; padding: 10px 20px; background: #ff6600; color: white; border: none; cursor: pointer;">
+                                    Reload Page
+                                </button>
+                            </div>
+                        `;
+                        errorEl.style.display = 'block';
+                        document.getElementById('loading').style.display = 'none';
+                    }
+                }
+            }
+        });
+    </script>
+    
+    <script src="refresh.js?screen=asia25_expo_led_c"></script>
+    <!-- Configuration (optional - will use URL params or localStorage if not present) -->
+    <script src="config.js" onerror="console.log('config.js not found, will use URL parameters or localStorage')"></script>
+    <!-- LED C Placeholder Script -->
+    <script src="led_c_scripts.js"></script>
+    <!-- Screen Control -->
+    <script src="screen-control.js"></script>
+</body>
+</html>
+
+
+

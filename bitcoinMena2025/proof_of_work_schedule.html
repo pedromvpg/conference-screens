@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Proof of Work Stage Schedule</title>
+</head>
+<body>
+    <div id="pow-schedule-container">
+        <style>
+            #pow-schedule-container {
+                max-width: 1200px;
+                margin: 0 auto;
+                padding: 20px;
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+                color: #000000;
+                background-color: transparent;
+            }
+            
+            #pow-schedule-container * {
+                box-sizing: border-box;
+            }
+            
+            .pow-title {
+                font-size: clamp(2rem, 5vw, 4rem);
+                font-weight: 900;
+                text-align: center;
+                margin: 40px 0;
+                letter-spacing: 2px;
+                text-transform: uppercase;
+                line-height: 1.2;
+            }
+            
+            .pow-title-subtitle {
+                font-size: clamp(1.2rem, 3vw, 2rem);
+                font-weight: 700;
+                text-align: center;
+                margin: 20px 0;
+                letter-spacing: 4px;
+                border: 3px solid #000000;
+                padding: 10px 20px;
+                display: inline-block;
+                width: auto;
+            }
+            
+            .pow-blurb {
+                max-width: 900px;
+                margin: 0 auto 60px auto;
+                line-height: 1.8;
+            }
+            
+            .pow-blurb h2 {
+                font-size: clamp(1.5rem, 4vw, 2.5rem);
+                font-weight: 900;
+                margin-bottom: 30px;
+                text-align: center;
+                text-transform: uppercase;
+                letter-spacing: 2px;
+            }
+            
+            .pow-blurb p {
+                margin-bottom: 20px;
+                font-size: clamp(0.95rem, 2vw, 1.1rem);
+            }
+            
+            .pow-blurb strong {
+                font-weight: 700;
+            }
+            
+            .pow-title-date {
+                font-size: clamp(1rem, 2.5vw, 1.8rem);
+                font-weight: 700;
+                text-align: center;
+                margin: 20px 0 40px 0;
+                letter-spacing: 2px;
+            }
+            
+            .pow-title-date .day-number {
+                color: #ff9500;
+            }
+            
+            .pow-schedule-table {
+                width: 100%;
+                border-collapse: collapse;
+                margin: 20px 0;
+            }
+            
+            .pow-schedule-table th {
+                
+                padding: 15px;
+                text-align: left;
+                font-weight: 700;
+                font-size: clamp(0.9rem, 2vw, 1.1rem);
+                border-bottom: 1px solid #cccccc;
+                font-family: monospace;
+            }
+            
+            .pow-schedule-table td {
+                padding: 15px;
+                border-bottom: 1px solid #eeeeee;
+                font-size: clamp(0.85rem, 1.8vw, 1rem);
+            }
+            
+            .pow-schedule-table tr:hover {
+                background-color: #f5f5f5;
+            }
+            
+            .pow-time {
+                font-weight: 700;
+                font-size: clamp(1rem, 2vw, 1.3rem);
+                white-space: nowrap;
+                width: 100px;
+                font-family: 'Courier New', 'Monaco', monospace;
+            }
+            
+            .pow-event {
+                font-weight: 700;
+                font-size: clamp(0.9rem, 2vw, 1.1rem);
+                text-transform: uppercase;
+                letter-spacing: 0.5px;
+                color: #000000;
+            }
+            
+            .pow-speaker {
+                color: #333333;
+                font-size: clamp(0.85rem, 1.8vw, 1rem);
+            }
+            
+            .pow-speaker-container {
+                display: flex;
+                align-items: center;
+                gap: 10px;
+                flex-wrap: wrap;
+            }
+            
+            .pow-speaker-profile {
+                display: inline-flex;
+                align-items: center;
+                gap: 8px;
+                text-decoration: none;
+                color: #333333;
+                transition: color 0.2s ease;
+            }
+            
+            .pow-speaker-profile:hover {
+                color: #ff9500;
+            }
+            
+            .pow-speaker-img {
+                width: 32px;
+                height: 32px;
+                border-radius: 50%;
+                object-fit: cover;
+                border: 2px solid #cccccc;
+                transition: border-color 0.2s ease;
+            }
+            
+            .pow-speaker-profile:hover .pow-speaker-img {
+                border-color: #ff9500;
+            }
+            
+            .pow-speaker-name {
+                font-size: clamp(0.85rem, 1.8vw, 1rem);
+            }
+            
+            .pow-event-open,
+            .pow-event-close {
+                font-family: monospace;
+                color: #666666;
+                font-weight: 200;
+            }
+            
+            @media (max-width: 768px) {
+                #pow-schedule-container {
+                    padding: 10px;
+                }
+                
+                .pow-schedule-table td,
+                .pow-schedule-table th {
+                    padding: 10px 8px;
+                }
+                
+                .pow-time {
+                    width: 70px;
+                }
+                
+                .pow-speaker {
+                    display: block;
+                    margin-top: 5px;
+                }
+                
+                .pow-speaker-img {
+                    width: 28px;
+                    height: 28px;
+                }
+                
+                .pow-speaker-container {
+                    gap: 8px;
+                }
+            }
+            
+            @media (max-width: 480px) {
+                .pow-schedule-table td,
+                .pow-schedule-table th {
+                    padding: 8px 5px;
+                }
+                
+                .pow-time {
+                    width: 60px;
+                }
+                
+                .pow-speaker-img {
+                    width: 24px;
+                    height: 24px;
+                }
+                
+                .pow-speaker-container {
+                    gap: 6px;
+                }
+                
+                .pow-speaker-profile {
+                    gap: 6px;
+                }
+            }
+        </style>
+        
+        <div class="pow-blurb">
+            
+            <p style="font-size: 1.5rem; letter-spacing: 0.03rem; margin-bottom: 20px; display: inline-block;">Bitcoin doesn't run on promises—it runs on code you can audit and hardware you can build. The Open Source Hub brings together the devices, applications, and protocols that make Bitcoin unstoppable.</p>
+            
+            <p><strong>Expo Hall (Nov 13-14):</strong><br> Visit our showcase booth to interact with hardware signers, mesh networking devices, Bitcoin miners, and the developers building them. Live demos, real hardware, no intermediaries.</p>
+            
+            <p><strong>Proof of Work Stage (Friday, Nov 14)</strong><br> Full-day workshops where you'll set up signing devices, configure mesh networks, mine on BitAxe hardware, and master privacy protocols. Hands-on, expert-led, open-source only.</p>
+        </div>
+        
+        <div style="text-align: center; margin-bottom: 20px; margin-top: 140px;">
+            <h1 class="pow-title">PROOF OF WORK STAGE</h1>
+            <h2 class="pow-title-date" style="letter-spacing: 0.02rem;">FRIDAY, NOVEMBER 14 <span class="day-number">(DAY 2)</span></h2>
+        </div>
+        
+        <table class="pow-schedule-table">
+            <thead>
+                <tr>
+                    <th>Time</th>
+                    <th>Event</th>
+                    <th>Presented by</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="pow-time">08:00</td>
+                    <td class="pow-event pow-event-open">Open</td>
+                    <td class="pow-speaker">—</td>
+                </tr>
+                <tr>
+                    <td class="pow-time">10:00</td>
+                    <td class="pow-event">Bitcoin: The Last Lifeline for Gen Z and Beyond?</td>
+                    <td class="pow-speaker">
+                        <div class="pow-speaker-container">
+                            <a href="https://www.sbanetherlands.nl/" class="pow-speaker-profile" target="_blank" rel="noopener noreferrer">
+                                <img src="https://media.licdn.com/dms/image/v2/D4E03AQFqUbD3kZw4BQ/profile-displayphoto-shrink_200_200/profile-displayphoto-shrink_200_200/0/1702370335069?e=2147483647&v=beta&t=Xtc_BR3Uu-xi9e-cbkoHDpEV01BjdvP7zmZV8ltNZAs" alt="Jordy den Toom" class="pow-speaker-img">
+                                <span class="pow-speaker-name">Jordy den Toom</span>
+                            </a>
+                            <span style="color: #666;">&</span>
+                            <a href="https://www.sbanetherlands.nl/" class="pow-speaker-profile" target="_blank" rel="noopener noreferrer">
+                                <img src="https://www.sbanetherlands.nl/_next/image?url=%2Fteam%2Fvince.jpeg&w=384&q=75" alt="Vince van Hoesel" class="pow-speaker-img">
+                                <span class="pow-speaker-name">Vince van Hoesel</span>
+                            </a>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="pow-time">10:30</td>
+                    <td class="pow-event">Meshtastic Workshop</td>
+                    <td class="pow-speaker">
+                        <div class="pow-speaker-container">
+                            <a href="https://primal.net/p/npub1kxsfat3hktq6s8h8yanlhws68e6mw0pgkfxcfngs23jwhsdf7lqq26d9rs" class="pow-speaker-profile" target="_blank" rel="noopener noreferrer">
+                                <img src="https://nostr.build/i/nostr.build_0129efa28c93d3c6070c4d59d62c8efadf66aaa65481449d4528c45b6e0f44cd.jpg" alt="Pieter" class="pow-speaker-img">
+                                <span class="pow-speaker-name">Pieter</span>
+                            </a>
+                            <span style="color: #666;">&</span>
+                            <a href="#" class="pow-speaker-profile" target="_blank" rel="noopener noreferrer">
+                                <img src="https://cdn.pixabay.com/photo/2023/02/18/11/00/icon-7797704_1280.png" alt="Steef" class="pow-speaker-img">
+                                <span class="pow-speaker-name">Steef</span>
+                            </a>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="pow-time">11:00</td>
+                    <td class="pow-event">Superuser Friendly Bitcoin - SatSigner</td>
+                    <td class="pow-speaker">
+                        <div class="pow-speaker-container">
+                            <a href="https://primal.net/pedromvpg" class="pow-speaker-profile" target="_blank" rel="noopener noreferrer">
+                                <img src="https://r2.primal.net/cache/3/97/11/397118509603f96356176eb2568f077628215e45dc4ecb06ac19b18bdc77f11c.jpg" alt="Pedro" class="pow-speaker-img">
+                                <span class="pow-speaker-name">Pedro🧨</span>
+                            </a>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="pow-time">11:30</td>
+                    <td class="pow-event">Nostr Workshop</td>
+                    <td class="pow-speaker">
+                        <div class="pow-speaker-container">
+                            <a href="https://primal.net/p/nprofile1qqsqvcu68pkfcyq5y9mz9n9u7sys33835rpnuglc6mtg7j4lv40c7ugfe0raa" class="pow-speaker-profile" target="_blank" rel="noopener noreferrer">
+                                <img src="https://profilepics.nostur.com/profilepic_v1/dde6bcfa9e3aa7b142f71902733fa258a769c92c625b4468ea7ee01b43076e4e/profilepic.jpg?1724429282" alt="Sebastix" class="pow-speaker-img">
+                                <span class="pow-speaker-name">Sebastix</span>
+                            </a>
+                            <span style="color: #666;">&</span>
+                            <a href="https://nostr.ae/npub1t6jxfqz9hv0lygn9thwndekuahwyxkgvycyscjrtauuw73gd5k7sqvksrw" class="pow-speaker-profile" target="_blank" rel="noopener noreferrer">
+                                <img src="https://cdn.satellite.earth/df5d576903d480a7c392ce4ec4b0652a2d8e914879054750e32faf60b208dd86.jpg" alt="Constant" class="pow-speaker-img">
+                                <span class="pow-speaker-name">Constant</span>
+                            </a>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="pow-time">12:00</td>
+                    <td class="pow-event">BitcoinTaps Dev+Operations</td>
+                    <td class="pow-speaker">
+                        <div class="pow-speaker-container">
+                            <a href="https://primal.net/p/nprofile1qqsvqfj8zvc048h28yw3lt5m207vkjvy252ynnyyn4xv6q9fc5gygpccry0zk" class="pow-speaker-profile" target="_blank" rel="noopener noreferrer">
+                                <img src="https://media.primal.net/cache/1/56/2c/1562c622e3462f3016091dc7d2c165b007166946fbad9925db12323ce9eba882.jpg" alt="Arno" class="pow-speaker-img">
+                                <span class="pow-speaker-name">Arno</span>
+                            </a>
+                            <span style="color: #666;">&</span>
+                            <a href="https://primal.net/p/npub1dmjpqu44ey3au9wnm9vgjqejrc699sq074n2yx3gc59lsf57nfdqg4zwv0" class="pow-speaker-profile" target="_blank" rel="noopener noreferrer">
+                                <img src="https://r2.primal.net/cache/0/ee/ff/0eeffc9523877bccc729c3704f4d359920b959bcc77a7b01185652026d687c96.jpg" alt="Herovk" class="pow-speaker-img">
+                                <span class="pow-speaker-name">Herovk</span>
+                            </a>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="pow-time">12:30</td>
+                    <td class="pow-event">Become a Sovereign Bitcoiner</td>
+                    <td class="pow-speaker">
+                        <div class="pow-speaker-container">
+                            <a href="https://primal.net/p/nprofile1qqszh43kydgua9jq0h0ed0uvqq54n0d0utf92v8hax8rgk3xxlnnjrgvpj022" class="pow-speaker-profile" target="_blank" rel="noopener noreferrer">
+                                <img src="https://r2.primal.net/cache/1/c8/89/1c88984bc91fcd89436c04e0643990443044339c593ce868d84b7be8f9934688.jpg" alt="Keypleb" class="pow-speaker-img">
+                                <span class="pow-speaker-name">Keypleb</span>
+                            </a>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="pow-time">13:00</td>
+                    <td class="pow-event">Privacy and Collaborative Transactions</td>
+                    <td class="pow-speaker">
+                        <div class="pow-speaker-container">
+                            <a href="https://primal.net/kevinrav" class="pow-speaker-profile" target="_blank" rel="noopener noreferrer">
+                                <img src="https://r2.primal.net/cache/d/1c/d4/d1cd475fed4815ef8d44d9d3473f4e9644d098b1113fb0c172395e1294d9489c.gif" alt="Kevin Ravensberg" class="pow-speaker-img">
+                                <span class="pow-speaker-name">Kevin Ravensberg</span>
+                            </a>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="pow-time">13:30</td>
+                    <td class="pow-event">SeedSigner with Smartcard Support</td>
+                    <td class="pow-speaker">
+                        <div class="pow-speaker-container">
+                            <a href="https://primal.net/p/npub1mw6tm8kery0dwmz670vvg74z0xzttwt3y7yppya5rulufpkkaj7qmg2922" class="pow-speaker-profile" target="_blank" rel="noopener noreferrer">
+                                <img src="https://primaldata.s3.us-east-005.backblazeb2.com/cache/8/35/e5/835e5a1126fa255704cec7263c576b317f191c2635196a627e58071fc151b64d.gif" alt="Filip" class="pow-speaker-img">
+                                <span class="pow-speaker-name">Filip</span>
+                            </a>
+                            <span style="color: #666;">&</span>
+                            <a href="https://x.com/satochip" class="pow-speaker-profile" target="_blank" rel="noopener noreferrer">
+                                <img src="https://pbs.twimg.com/profile_images/1704049761949540352/efn5Nugn_400x400.jpg" alt="Bastien" class="pow-speaker-img">
+                                <span class="pow-speaker-name">Bastien</span>
+                            </a>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="pow-time">14:00</td>
+                    <td class="pow-event">BitAxe Workshop</td>
+                    <td class="pow-speaker">
+                        <div class="pow-speaker-container">
+                            <a href="https://x.com/incognitojohn23" class="pow-speaker-profile" target="_blank" rel="noopener noreferrer">
+                                <img src="https://pbs.twimg.com/profile_images/1915355263768399872/AKUtCz0Z_400x400.jpg" alt="Decentralized_Mind" class="pow-speaker-img">
+                                <span class="pow-speaker-name">Decentralized_Mind</span>
+                            </a>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="pow-time">14:30</td>
+                    <td class="pow-event">Chain Duel Tournament</td>
+                    <td class="pow-speaker">
+                        <div class="pow-speaker-container">
+                            <a href="https://primal.net/p/nprofile1qqsfe2xzm5nv5zwqp23zkys5wzlnq5wlkhad8gqnwkj8dmc07cw89ygvvgqpf" class="pow-speaker-profile" target="_blank" rel="noopener noreferrer">
+                                <img src="https://primaldata.s3.us-east-005.backblazeb2.com/cache/6/a1/1d/6a11d8cb93ef19e544f78a0d9969fc1472e2b968938a12f97bef5ca6c3fb79a8.jpg" alt="Brinkie" class="pow-speaker-img">
+                                <span class="pow-speaker-name">Brinkie</span>
+                            </a>
+                            <span style="color: #666;">&</span>
+                            <a href="https://primal.net/pedromvpg" class="pow-speaker-profile" target="_blank" rel="noopener noreferrer">
+                                <img src="https://r2.primal.net/cache/3/97/11/397118509603f96356176eb2568f077628215e45dc4ecb06ac19b18bdc77f11c.jpg" alt="Pedro" class="pow-speaker-img">
+                                <span class="pow-speaker-name">Pedro🧨</span>
+                            </a>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="pow-time">15:30</td>
+                    <td class="pow-event pow-event-close">Close</td>
+                    <td class="pow-speaker">—</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>
+

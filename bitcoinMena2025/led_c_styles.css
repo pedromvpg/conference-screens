@@ -1,0 +1,655 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&display=swap');
+
+
+body {
+    background: #111111;
+}
+
+.container {
+    position: relative;
+    width: 133.33vh;
+    height: 100vh;
+    overflow: hidden;
+}
+
+/* Background video styling */
+.background-video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: -2;
+}
+
+/* Image overlay on top of video */
+.image-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('imgs/LED_Tower_B4_C.png') no-repeat center center;
+    background-size: cover;
+    z-index: -1;
+    opacity: 1;
+}
+
+/* Loading and Error States */
+.loading {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #111111;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    font-family: 'Inter', sans-serif;
+    color: white;
+}
+
+.loading .spinner {
+    width: 50px;
+    height: 50px;
+    border: 4px solid rgba(255, 102, 0, 0.3);
+    border-top: 4px solid #ff6600;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin-bottom: 20px;
+}
+
+.loading p {
+    font-size: 18px;
+    margin: 0;
+    opacity: 0.8;
+}
+
+.error {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #111111;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    font-family: 'Inter', sans-serif;
+}
+
+/* Fallback background image if video fails */
+.background-video:not([src]) {
+    display: none;
+}
+
+.background-video[style*="display: none"] + .image-overlay {
+    opacity: 1 !important;
+    display: block !important;
+}
+
+/* Fixed Header Styles */
+.fixed-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 133.33vh;
+    height: 28vh;
+    z-index: 10;
+    background: transparent;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
+    font-family: 'Inter', sans-serif;
+    color: #ffffff;
+}
+
+.fixed-header .background-animation {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+}
+
+.fixed-header .header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    width: 90%;
+    /* max-width: 1200px; */
+    gap: 2rem;
+    z-index: 1;
+    border-bottom: 1px #ffffff47 solid;
+    padding-bottom: 3vh;
+}
+
+.fixed-header .price-display {
+    flex: 1;
+    text-align: left;
+}
+
+.fixed-header .bitcoin-title {
+    font-size: 2vh;
+    font-weight: 400;
+    letter-spacing: 0.2em;
+    color: #ffffff;
+    text-transform: uppercase;
+    margin-bottom: 0vh;
+}
+
+.fixed-header .price-value {
+    font-size: 8vh;
+    font-weight: 900;
+    color: #ffffff;
+    text-shadow: 0 0 30px rgba(255, 255, 255, 0.3);
+    display: flex;
+    align-items: baseline;
+    gap: 1rem;
+    line-height: 1;
+}
+
+.fixed-header .currency {
+    font-size: 4vh;
+    font-weight: 900;
+}
+
+.fixed-header .sponsor-section {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 1vh;
+    flex-shrink: 0;
+    align-content: flex-end;
+}
+
+.fixed-header .sponsor-label {
+    font-size: 1.5vh;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    font-weight: 400;
+    display: none;
+}
+
+.fixed-header .sponsor-logo {
+    max-width: 33vh;
+    max-height: 20vh;
+    filter: brightness(1.2);
+}
+
+.fixed-header .loading-spinner {
+    width: 30px;
+    height: 30px;
+    border: 3px solid rgba(255, 102, 0, 0.3);
+    border-top: 3px solid #ff6600;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+.fixed-header .error-message {
+    color: #ff4757;
+    font-size: 1rem;
+    margin-top: 1rem;
+}
+
+.fixed-header .last-updated {
+    position: absolute;
+    bottom: 10px;
+    right: 20px;
+    font-size: 0.8rem;
+    color: #666666;
+    opacity: 0.7;
+}
+
+/* Adjust swiper container to account for fixed header */
+.expo-led-c-title-bitcoin-asia {
+    margin-top: 30vh;
+    height: 70vh;
+}
+
+.expo-led-c-title-bitcoin-asia .swiper {
+    width: 133.33vh;
+    height: 70vh;
+}
+
+.expo-led-c-title-bitcoin-asia .swiper-slide {
+    background: transparent;
+}
+
+/* Date Picker Styles */
+.date-picker-container {
+    position: fixed;
+    top: 2vh;
+    right: 2vh;
+    z-index: 1000;
+    background: transparent;
+    border: 1px solid #333333;
+    padding: 1.5vh;
+    font-family: 'Inter', sans-serif;
+    opacity: 0.01;
+    transition: opacity 0.3s ease;
+}
+
+.date-picker-container:hover {
+    opacity: 1;
+}
+
+.date-picker-label {
+    color: white;
+    font-size: 1.8vh;
+    font-weight: 500;
+    margin-bottom: 1vh;
+    display: block;
+}
+
+.date-picker-input {
+    background: transparent;
+    color: white;
+    border: 1px solid #666666;
+    padding: 1vh;
+    font-size: 1.6vh;
+    font-family: 'Inter', sans-serif;
+    width: 20vh;
+    margin-bottom: 1vh;
+}
+
+.time-picker-input {
+    background: transparent;
+    color: white;
+    border: 1px solid #666666;
+    padding: 1vh;
+    font-size: 1.6vh;
+    font-family: 'Inter', sans-serif;
+    width: 15vh;
+}
+
+.date-picker-input:focus {
+    outline: none;
+    border-color: white;
+}
+
+.current-time-display {
+    color: #999999;
+    font-size: 1.4vh;
+    margin-top: 1vh;
+    font-weight: 400;
+}
+
+/* Chart Content Styles */
+.chart-content {
+    width: 100%;
+    height: 70vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 4vh;
+    box-sizing: border-box;
+    text-align: center;
+    color: white;
+    background: transparent;
+    font-family: 'Inter', sans-serif;
+}
+
+/* Chart Content Animations */
+.chart-content .ytd-header {
+    font-size: 4vh;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    color: #ffffff;
+    text-transform: uppercase;
+    margin-bottom: 4vh;
+    
+    /* Initial state for animation */
+    opacity: 0;
+    transform: translateY(-20px);
+}
+
+.chart-content .chart-section {
+    width: 100%;
+    max-width: 100vh;
+    height: 50vh;
+    flex: 1;
+}
+
+.chart-content .chart-container {
+    position: relative;
+    height: 100%;
+    width: 100%;
+    
+    /* Initial state for animation */
+    opacity: 0;
+    transform: translateY(30px);
+}
+
+.chart-content #price-chart-slide {
+    width: 100% !important;
+    height: 100% !important;
+}
+
+/* Event Styles */
+.event-content {
+    width: 100%;
+    height: 70vh;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    justify-content: flex-start;
+    padding: 4vh 8vh;
+    box-sizing: border-box;
+    text-align: center;
+    color: white;
+    background: transparent;
+    font-family: 'Inter', sans-serif;
+}
+
+/* Video Styles */
+.video-content {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    background: transparent;
+}
+
+.full-screen-video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+}
+
+.slide-header {
+    font-size: 6vh;
+    font-weight: 900;
+    margin-bottom: 4vh;
+    line-height: 1.2;
+    color: #FF9500;
+    text-transform: uppercase;
+    letter-spacing: 0.2vh;
+}
+
+.stages-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12vh;
+    width: 100%;
+    max-width: none;
+}
+
+/* Stage Section Animations */
+.stage-section {
+    background: transparent;
+    /* padding: 6vh; */
+    /* border: 1px solid #333333; */
+    min-height: 50vh;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    
+    /* Initial state for animation */
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94), 
+                transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.stage-section.animate-in {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.stage-section.animate-in.delay-1 {
+    transition-delay: 0.2s;
+}
+
+.stage-section.animate-in.delay-2 {
+    transition-delay: 0.4s;
+}
+
+/* Additional smooth animations for child elements */
+.stage-section .event-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: left;
+    align-items: flex-start;
+    text-align: left;
+    
+    /* Subtle child element animation */
+    opacity: 0;
+    transform: translateY(15px);
+    transition: opacity 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94), 
+                transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.stage-section.animate-in .event-info {
+    opacity: 1;
+    transform: translateY(0);
+    transition-delay: 0.3s;
+}
+
+.stage-section.animate-in.delay-1 .event-info {
+    transition-delay: 0.5s;
+}
+
+.stage-section.animate-in.delay-2 .event-info {
+    transition-delay: 0.7s;
+}
+
+/* Enhanced stage title animation */
+.stage-title {
+    font-size: 2.5vh;
+    font-weight: 400;
+    /* margin-bottom: 1vh; */
+    line-height: 1.2;
+    color: #ffffff96;
+    text-transform: uppercase;
+    
+    /* Animation properties */
+    opacity: 0;
+    transform: translateY(10px);
+    transition: opacity 0.5s ease-out, 
+                transform 0.5s ease-out;
+}
+
+.stage-section.animate-in .stage-title {
+    opacity: 1;
+    transform: translateY(0);
+    transition-delay: 0.4s;
+}
+
+.stage-section.animate-in.delay-1 .stage-title {
+    transition-delay: 0.6s;
+}
+
+.stage-section.animate-in.delay-2 .stage-title {
+    transition-delay: 0.8s;
+}
+
+/* Session content animations */
+.session-title {
+    font-size: 5vh;
+    font-weight: 900;
+    margin-bottom: 1vh;
+    line-height: 1;
+    color: white;
+    text-transform: uppercase;
+    
+    /* Animation properties */
+    opacity: 0;
+    transform: translateY(15px);
+    transition: opacity 0.6s ease-out, 
+                transform 0.6s ease-out;
+}
+
+.stage-section.animate-in .session-title {
+    opacity: 1;
+    transform: translateY(0);
+    transition-delay: 0.5s;
+}
+
+.stage-section.animate-in.delay-1 .session-title {
+    transition-delay: 0.7s;
+}
+
+.stage-section.animate-in.delay-2 .session-title {
+    transition-delay: 0.9s;
+}
+
+.session-title.long-title {
+    font-size: 4vh;
+}
+
+.session-speakers {
+    font-size: 2.5vh;
+    margin-bottom: 2vh;
+    color: white;
+    font-weight: 400;
+    line-height: 1.4;
+    
+    /* Animation properties */
+    opacity: 0;
+    transform: translateY(10px);
+    transition: opacity 0.5s ease-out, 
+                transform 0.5s ease-out;
+}
+
+.stage-section.animate-in .session-speakers {
+    opacity: 1;
+    transform: translateY(0);
+    transition-delay: 0.6s;
+}
+
+.stage-section.animate-in.delay-1 .session-speakers {
+    transition-delay: 0.8s;
+}
+
+.stage-section.animate-in.delay-2 .session-speakers {
+    transition-delay: 1.0s;
+}
+
+.speaker-name {
+    font-weight: 900; /* Heavy */
+}
+
+.speaker-company {
+    font-weight: 300; /* Light */
+}
+
+.session-time {
+    font-size: 2.8vh;
+    font-weight: 600;
+    color: white;
+    background: transparent;
+    border: none;
+    margin-bottom: 2vh;
+    
+    /* Animation properties */
+    opacity: 0;
+    transform: translateY(8px);
+    transition: opacity 0.4s ease-out, 
+                transform 0.4s ease-out;
+}
+
+.stage-section.animate-in .session-time {
+    opacity: 1;
+    transform: translateY(0);
+    transition-delay: 0.45s;
+}
+
+.stage-section.animate-in.delay-1 .session-time {
+    transition-delay: 0.65s;
+}
+
+.stage-section.animate-in.delay-2 .session-time {
+    transition-delay: 0.85s;
+}
+
+.slide-content {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Animations */
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 0.3; }
+    50% { opacity: 0.6; }
+} 
+
+/* Chart loading state */
+.chart-container {
+    position: relative;
+}
+
+.chart-container::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 30px;
+    height: 30px;
+    border: 3px solid rgba(255, 255, 255, 0.3);
+    border-top: 3px solid #ffffff;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    transform: translate(-50%, -50%);
+    z-index: 1;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.chart-container.loading::before {
+    opacity: 1;
+}
+
+/* Improved video error handling */
+.video-content video {
+    transition: opacity 0.3s ease;
+}
+
+.video-content video[style*="display: none"] {
+    opacity: 0;
+}
+
+/* Better price loading states */
+.price-value {
+    position: relative;
+}
+
+.loading-spinner {
+    display: none;
+}
+
+.loading-spinner.active {
+    display: inline-block;
+}
+
+/* Responsive error messages */
+@media (max-width: 768px) {
+    .error div, .loading p {
+        font-size: 16px;
+        padding: 15px;
+    }
+    
+    .error h3 {
+        font-size: 20px;
+    }
+} 

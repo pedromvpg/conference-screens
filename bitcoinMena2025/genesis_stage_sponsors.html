@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Genesis Sponsor Slider</title>
+    
+    <!-- Swiper CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="styles.css" />
+    
+</head>
+<body>
+    <div class="container">
+        <div id="loading" class="loading">
+            <div class="spinner"></div>
+            <p>Loading sponsor data...</p>
+            <p id="loading-progress" style="font-size: 0.9rem; margin-top: 10px;"></p>
+        </div>
+
+        <div id="error" class="error" style="display: none;"></div>
+        
+        <button id="clear-cache-btn" class="clear-cache-btn" onclick="clearCache()">
+            🔄 Clear Cache & Refresh
+        </button>
+        
+        <button id="pause-btn" class="pause-btn" onclick="togglePause()">
+            ⏸️ Pause
+        </button>
+        
+        <div id="swiper-container" style="display: none;" class="genesis-sponsors">
+            <div class="swiper">
+                <div class="swiper-wrapper" id="swiper-wrapper">
+                    <!-- Slides will be dynamically added here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Swiper JS -->
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script src="refresh.js?screen=asia25GenesisSponsors"></script>
+    
+    <!-- Configuration (optional - will use URL params or localStorage if not present) -->
+    <script src="config.js" onerror="console.log('config.js not found, will use URL parameters or localStorage')"></script>
+    <!-- Custom JS -->
+    <script src="script.js"></script>
+    <!-- Screen Control -->
+    <script src="screen-control.js"></script>
+</body>
+</html>
+
+
+

@@ -1,0 +1,509 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background: rgb(227, 227, 227);
+    color: #333;
+    min-height: 100vh;
+    display: flex;
+}
+
+.container {
+    width: 100vw;
+    height: 100vh;
+}
+
+.container.expo-led-a-sponsors {
+    position: relative;
+    max-width: 100vw;
+    width: 133.33vh;
+    height: 100vh;
+    overflow: hidden;
+}
+
+/* Background video styling for LED A */
+.expo-led-a-sponsors .background-video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: -2;
+}
+
+/* Image overlay on top of video */
+.image-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('imgs/LED_Tower_B4_A.png') no-repeat center center;
+    background-size: cover;
+    z-index: -1;
+    opacity: 1;
+}
+
+/* Fallback background image if video fails for LED A */
+.expo-led-a-sponsors .background-video:not([src]) {
+    display: none;
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 4vw;
+    font-size: 2.5rem;
+    color: #5a5a5a;
+}
+
+.loading {
+    text-align: center;
+    font-size: 1.2rem;
+    color: #535353;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    width: 100%;
+}
+
+.spinner {
+    border: 4px solid rgba(77, 77, 77, 0.3);
+    border-top: 4px solid #bebebe;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    animation: spin 1s linear infinite;
+    margin: 20px auto;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.swiper {
+    width: 100vw;
+    height: 56.25vw;
+    margin: 0;
+    background: transparent;
+}
+
+
+
+#swiper-container{
+    background: #fff;
+}
+
+
+#swiper-container.expo-led-c-title-bitcoin-asia,
+#swiper-container.expo-led-a-sponsors {
+    background: transparent;
+}
+
+/* EXCEPTIONS */
+
+
+.genesis-sponsors .swiper{
+    width: 100vw;
+    height: 14vw;
+}
+
+.genesis-sponsors .sponsor-item[class*="all-sponsors-slide-"] {
+    height: 4vw;
+}
+
+
+
+.expo-led-a-sponsors{
+    background: #111111;
+}
+
+
+
+.expo-led-a-sponsors .swiper{
+    width: 100vh;
+    height: 54vh;
+    margin: auto;
+    border-radius: 12vh;
+    margin-top: 26vh;
+    background: transparent;
+}
+
+.expo-led-a-sponsors{
+    background: transparent;
+}
+
+.expo-led-a-sponsors .sponsor-logo {
+    /*
+    max-width: 21vh;
+    max-height: 30vh;
+    */
+}
+
+.expo-led-a-sponsors .sponsors-row {
+    flex-wrap: wrap;
+}
+
+
+.expo-led-a-sponsors .sponsor-item {
+    padding: 1vh;
+}
+
+#metaplanet-slide1{
+  padding: 7vh;
+}
+
+
+
+/* LED A Display - Tier-specific sizing (vertical layout uses vh units) */
+.expo-led-a-sponsors .sponsor-item[class*="ams25-title"] {
+    max-width: 51vh;
+    max-height: 50vh;
+}
+.expo-led-a-sponsors .sponsor-item[class*="ams25-title"] .sponsor-logo {
+    max-width: 51vh;
+}
+
+.expo-led-a-sponsors .sponsor-item[class*="ams25-moon"] {
+    max-width: 29vh;
+    max-height: 15vh;
+}
+.expo-led-a-sponsors .sponsor-item[class*="ams25-moon"] .sponsor-logo {
+    max-width: 41vh;
+}
+
+.expo-led-a-sponsors .sponsor-item[class*="ams25-3-block"] {
+    max-width: 29vh;
+    max-height: 15vh;
+}
+.expo-led-a-sponsors .sponsor-item[class*="ams25-3-block"] .sponsor-logo {
+    max-width: 31vh;
+}
+
+.expo-led-a-sponsors .sponsor-item[class*="all-sponsors-slide-"] {
+    height: 11vh;
+    width: 15vh;
+    padding: 0;
+}
+
+#keychainx-slide6 {
+    mix-blend-mode: screen;
+}
+
+
+
+
+
+
+.expo-led-b-title-sponsor .swiper{
+    width: 133.33vh;
+    height: 100vh;
+}
+
+
+.expo-led-c-title-bitcoin-asia .swiper{
+    width: 133.33vh;
+    height: 100vh;
+}
+
+
+
+/*
+
+.expo-led-a-sponsors .sponsors-row {
+    flex-direction: column;
+    gap: 20px;
+}
+
+.expo-led-a-sponsors .sponsor-logo {
+    max-width: 32vh;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.expo-led-a-sponsors .sponsor-item {
+    object-fit: contain;
+}
+*/
+
+
+
+.swiper-slide {
+    background: transparent;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: transform 0.3s ease;
+    /* padding: 1vw; */
+}
+
+.swiper-slide:hover {
+    transform: scale(1.05);
+}
+
+.sponsor-logo {
+    max-width: 80%;
+    max-height: 80%;
+    object-fit: contain;
+    width: 100%;
+}
+
+.error {
+    color: #ff6b6b;
+    text-align: center;
+    padding: 20px;
+    background: #fff5f5;
+    border-radius: 10px;
+    border: 1px solid #ff6b6b;
+}
+
+.clear-cache-btn {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: rgba(161, 161, 161, 0.1);
+    color: #636363;
+    border: 1px solid rgba(101, 101, 101, 0.3);
+    padding: 8px 16px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: 400;
+    transition: all 0.3s ease;
+    z-index: 1000;
+    display: none;
+    backdrop-filter: blur(10px);
+    opacity: 0.02;
+}
+
+.clear-cache-btn:hover {
+    background: rgba(126, 126, 126, 0.2);
+    border-color: rgba(154, 154, 154, 0.5);
+    transform: translateY(-1px);
+    opacity: 1;
+}
+
+.clear-cache-btn:active {
+    transform: translateY(0);
+    background: rgba(66, 66, 66, 0.15);
+}
+
+.pause-btn {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    background: rgba(161, 161, 161, 0.1);
+    color: #636363;
+    border: 1px solid rgba(101, 101, 101, 0.3);
+    padding: 8px 16px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: 400;
+    transition: all 0.3s ease;
+    z-index: 1000;
+    display: none;
+    backdrop-filter: blur(10px);
+    opacity: 0.02;
+}
+
+.pause-btn:hover {
+    background: rgba(126, 126, 126, 0.2);
+    border-color: rgba(154, 154, 154, 0.5);
+    transform: translateY(-1px);
+    opacity: 1;
+}
+
+.pause-btn:active {
+    transform: translateY(0);
+    background: rgba(66, 66, 66, 0.15);
+}
+
+.slide-content {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.sponsors-row {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-items: center;
+    gap: 4vw;
+    width: 100%;
+    overflow-x: auto;
+    /* padding: 20px 0; */
+    overflow: visible;
+}
+
+.sponsor-item {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1vw;
+    flex-shrink: 0;
+    opacity: 0;
+    transform: translateY(3vw);
+}
+
+.sponsor-logo {
+    max-width: 21vw;
+    max-height: 30vw;
+    object-fit: contain;
+}
+
+/* LED C Placeholder Styles */
+.placeholder-content {
+    text-align: center;
+    /* padding: 4vw; */
+    opacity: 0;
+    transform: translateY(5vw) scale(0.9);
+    transition: opacity 1s ease-out, transform 1s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.placeholder-title {
+    font-size: 4rem;
+    font-weight: bold;
+    margin-bottom: 2vw;
+    line-height: 1.2;
+}
+
+.placeholder-subtitle {
+    font-size: 2rem;
+    margin-bottom: 3vw;
+    opacity: 0.8;
+}
+
+.bitcoin-symbol {
+    font-size: 6rem;
+    font-weight: bold;
+    opacity: 0.6;
+    animation: pulse 3s ease-in-out infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { 
+        opacity: 0.6; 
+        transform: scale(1);
+    }
+    50% { 
+        opacity: 1; 
+        transform: scale(1.1);
+    }
+}
+
+/* Sponsor logo sizing based on tier (AMS25 - Amsterdam 2025)
+ * Tier scaling: Title (largest) → Moon → 3 Block → 2 Block → 1 Block (smallest)
+ */
+.sponsor-logo.sponsor-item-title {
+    /* Title tier - Full size, no additional scaling */
+    transform: scale(1.9);
+    max-width: 40vw;
+}
+
+
+.sponsor-item-moon .sponsor-logo{
+    transform: scale(1);
+    max-width: 12vw;
+}
+
+.sponsor-item-3-block .sponsor-logo{
+    transform: scale(0.8);
+}
+
+.sponsor-item-2-block .sponsor-logo{
+    transform: scale(0.7);
+}
+
+.sponsor-item-1-block .sponsor-logo{
+    transform: scale(0.6);
+}
+
+/* All sponsors slide specific styling */
+.all-sponsors-row {
+    flex-wrap: wrap;
+    gap: 1.5vw;
+    justify-content: center;
+    padding: 1vw;
+}
+
+/* Slide 4 - All sponsors uniform 50% sizing */
+.sponsor-logo.all-sponsors-uniform {
+    transform: scale(0.7) !important;
+    /* max-width: 10vw !important; */
+    /* max-height: 8vh !important; */
+}
+
+/* All sponsor overview slides - reduced width for more per line */
+.sponsor-item[class*="all-sponsors-slide-"] {
+    flex: 0 0 auto;
+    width: auto;
+    width: 8vw;
+    height: 8vw;
+    padding: 0;
+}
+
+
+/* MENA 2025 ALL SPONSORS */ 
+.sponsor-item[class*="all-sponsors-slide-"] {
+    width: 5vw;
+    height: 3.5vw;
+}
+
+
+.sponsors-row {
+    flex-wrap: wrap;
+    gap: 1.5vw;
+}
+
+
+/* Placeholder logo styling */
+.placeholder-logo {
+    border: 0.1vw dashed #ff0000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 8vw;
+    position: relative;
+}
+
+.placeholder-text {
+    color: #ff0000;
+    font-size: 2vw;
+    font-weight: 600;
+    text-align: center;
+    padding: 10px;
+    line-height: 1.2;
+    max-width: 100%;
+    word-wrap: break-word;
+}
+
+/* Specific styling for placeholders on all sponsor overview slides */
+[class*="all-sponsors-slide-"] .placeholder-logo {
+    min-height: 3vw;
+}
+
+[class*="all-sponsors-slide-"] .placeholder-text {
+    font-size: 1.5vw;
+    padding: 0.5vw;
+}
+
+
+
+
+/* Stage-specific sizing */
+.genesis-sponsors .sponsor-logo {
+    max-width: 11vw;
+}

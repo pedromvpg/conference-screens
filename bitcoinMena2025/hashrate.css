@@ -1,0 +1,251 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background: #000000;
+    color: #ffffff;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+    line-height: 1.4;
+    font-weight: 400;
+}
+
+
+
+.container {
+    text-align: center;
+    z-index: 1;
+    padding: 2rem;
+    max-width: 1000px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6vh;
+}
+
+.bitcoin-header {
+    opacity: 1;
+}
+
+.bitcoin-title {
+    font-size: 2vh;
+    font-weight: 400;
+    letter-spacing: 0.2em;
+    color: #ffffff;
+    font-family: 'Inter', sans-serif;
+    text-transform: uppercase;
+}
+
+.hashrate-display {
+    opacity: 1;
+}
+
+.hashrate-value {
+    font-size: 14vh;
+    font-weight: 300;
+    color: #ffffff;
+    text-shadow: 0 0 30px rgba(255, 255, 255, 0.3);
+    transition: all 0.3s ease;
+    position: relative;
+    font-family: 'Inter', sans-serif;
+    line-height: 1;
+    display: flex;
+    align-items: baseline;
+    justify-content: center;
+    gap: 1vw;
+    font-weight: 900;
+}
+
+.unit {
+    font-size: 7vh;
+    color: #ffffff;
+    font-weight: 900;
+    font-family: 'Inter', sans-serif;
+}
+
+.ytd-header {
+    font-size: 1.5rem;
+    font-size: 2vh;
+    font-weight: 400;
+    letter-spacing: 0.2em;
+    color: #ffffff;
+    font-family: 'Inter', sans-serif;
+    text-transform: uppercase;
+    margin-bottom: 0;
+    opacity: 1;
+}
+
+.chart-section {
+    opacity: 1;
+    width: 100%;
+    max-width: 800px;
+    width: 72vh;
+    height: 21vh;
+    margin-top: -11vh;
+}
+
+.chart-container {
+    position: relative;
+    height: 25vh;
+    margin: 0 auto;
+    width: 100%;
+}
+
+#hashrate-chart {
+    width: 100% !important;
+    height: 100% !important;
+}
+
+.sponsor-section {
+    opacity: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+}
+
+.sponsor-label {
+    font-size: 2vh;
+    color: #ffffff;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    font-weight: 400;
+    font-family: 'Inter', sans-serif;
+}
+
+.sponsor-logo {
+    max-width: 50vh;
+    /* max-height: 100px; */
+    filter: brightness(1.2);
+    transition: all 0.3s ease;
+}
+
+.sponsor-logo:hover {
+    filter: brightness(1.5);
+    transform: scale(1.05);
+}
+
+.loading-spinner {
+    width: 5vw;
+    height: 5vw;
+    border: 4px solid rgba(255, 102, 0, 0.3);
+    border-top: 4px solid #ff6600;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin: 0 auto;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+
+
+.error-message {
+    color: #ff4757;
+    font-size: 1.4rem;
+    margin-top: 2rem;
+    padding: 1.5rem;
+    background: transparent;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 71, 87, 0.3);
+    font-family: 'Inter', sans-serif;
+    font-weight: 400;
+}
+
+.last-updated {
+    position: absolute;
+    bottom: 2vw;
+    right: 2vw;
+    font-size: 1vw;
+    color: #666666;
+    opacity: 0.7;
+    font-family: 'Inter', sans-serif;
+    font-weight: 300;
+}
+
+@media (max-width: 768px) {
+    .hashrate-value {
+        font-size: 6rem;
+    }
+    
+    .unit {
+        font-size: 6rem;
+    }
+    
+    .bitcoin-title {
+        font-size: 1.2rem;
+    }
+    
+    .container {
+        padding: 1.5rem;
+        gap: 2rem;
+    }
+
+    .chart-container {
+        height: 150px;
+    }
+
+    .sponsor-logo {
+        max-width: 200px;
+        max-height: 80px;
+    }
+}
+
+@media (max-width: 480px) {
+    .hashrate-value {
+        font-size: 4rem;
+        flex-direction: column;
+        gap: 0;
+    }
+    
+    .unit {
+        font-size: 4rem;
+    }
+    
+    .bitcoin-title {
+        font-size: 1rem;
+    }
+
+    .chart-container {
+        height: 120px;
+    }
+
+    .sponsor-logo {
+        max-width: 150px;
+        max-height: 60px;
+    }
+
+    .ytd-header {
+        font-size: 1.2rem;
+    }
+}
+
+.hashrate-flash {
+    animation: hashrateFlash 0.5s ease-in-out;
+}
+
+@keyframes hashrateFlash {
+    0% { background: transparent; }
+    50% { background: transparent; }
+    100% { background: transparent; }
+}
+
+/* Better focus states for accessibility */
+*:focus {
+    outline: 2px solid #ff6600;
+    outline-offset: 2px;
+}

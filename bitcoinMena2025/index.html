@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bitcoin MENA 2025 - Screens</title>
+    <style>
+        body {
+            font-family: system-ui, -apple-system, sans-serif;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background: #000;
+            color: #fff;
+        }
+        h1 {
+            color: #fff;
+            margin-bottom: 30px;
+            text-transform: uppercase;
+        }
+        h2 {
+            color: #ff6600;
+            margin-top: 30px;
+            margin-bottom: 15px;
+            font-size: 1.2rem;
+        }
+        h2.stage {
+            color: #fff;
+            text-transform: uppercase;
+        }
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+        li {
+            margin: 10px 0;
+        }
+        a {
+            color: #acacac;
+            text-decoration: none;
+            font-size: 1.1rem;
+        }
+        a:hover {
+            color: #ff8800;
+            text-decoration: underline;
+        }
+        .note {
+            background: #1a1a1a;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 20px 0;
+            border-left: 3px solid #ff6600;
+        }
+        code {
+            background: #1a1a1a;
+            padding: 2px 6px;
+            border-radius: 3px;
+        }
+        .credentials-status {
+            background: #1a4d1a;
+            border-left: 3px solid #4caf50;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 60px 0 20px 0;
+        }
+        .credentials-status.empty {
+            background: #4d1a1a;
+            border-left: 3px solid #f44336;
+        }
+        .btn {
+            background: #ff6600;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            margin-top: 10px;
+        }
+        .btn:hover {
+            background: #ff8800;
+        }
+        .btn-danger {
+            background: #f44336;
+        }
+        .btn-danger:hover {
+            background: #d32f2f;
+        }
+        .btn-secondary {
+            background: #555;
+        }
+        .btn-secondary:hover {
+            background: #666;
+        }
+        hr {
+            border: none;
+            border-top: 2px solid #333;
+            margin: 40px 0;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0 30px 0;
+        }
+        th, td {
+            padding: 12px 12px 12px 0;
+            text-align: left;
+            border-bottom: 1px solid #333;
+            vertical-align: top;
+        }
+        th {
+            color: #ffffff69;
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+        }
+        td:first-child {
+            width: 35%;
+        }
+        td:last-child {
+            color: #999;
+            font-size: 0.95rem;
+        }
+        table a {
+            color: #fff;
+            background: #ff6600;
+            padding: 8px 16px;
+            border-radius: 6px;
+            display: inline-block;
+            border: none;
+            transition: all 0.2s ease;
+        }
+        table a:hover {
+            background: #ff8800;
+            color: #fff;
+            text-decoration: none;
+            transform: translateY(-1px);
+        }
+        .stage-box {
+            background: #1a1a1a;
+            border: 1px solid #333;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+        .stage-box h2 {
+            margin-top: 0;
+        }
+        td:nth-child(3) {
+            width: 150px;
+        }
+        .preview-iframe {
+            width: 100%;
+            height: 100px;
+            border: 1px solid #333;
+            border-radius: 4px;
+            background: #000;
+        }
+    </style>
+</head>
+<body>
+    <h1>Bitcoin MENA 2025</h1>
+
+    <div class="stage-box">
+        <h2 class="stage">Falcon Stage</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Screen</th>
+                    <th>Notes</th>
+                    <th>Preview</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        <a href="falcon_stage_sponsors.html?event=MENA25" id="link-falcon" target="_blank">Falcon Stage Sponsors</a>
+                        <div style="margin-top: 10px; font-size: 0.85em;">
+                            <label style="display: block; margin-bottom: 5px;">
+                                Width: 
+                                <input type="text" id="falcon-width" value="100vw" style="width: 80px; padding: 4px; background: #333; border: 1px solid #555; color: #fff; border-radius: 3px;">
+                            </label>
+                            <label style="display: block;">
+                                Height: 
+                                <input type="text" id="falcon-height" value="56.25vw" style="width: 80px; padding: 4px; background: #333; border: 1px solid #555; color: #fff; border-radius: 3px;">
+                            </label>
+                        </div>
+                    </td>
+                    <td>Show on breaks, side screens</td>
+                    <td><iframe src="falcon_stage_sponsors.html?event=MENA25" id="falcon-iframe" class="preview-iframe"></iframe></td>
+                </tr>
+                <tr>
+                    <td><a href="price.html?chart=false&layout=row&currency=EUR" target="_blank">Bitcoin Price</a></td>
+                    <td>Always on, right side stripsr</td>
+                    <td><iframe src="price.html?chart=false&layout=row&currency=EUR" class="preview-iframe"></iframe></td>
+                </tr>
+                <tr>
+                    <td><a href="hashrate.html?chart=false&layout=row&reverse=true" target="_blank">Network Hashrate</a></td>
+                    <td>Always on, left side strips</td>
+                    <td><iframe src="hashrate.html?chart=false&layout=row&reverse=true" class="preview-iframe"></iframe></td>
+                </tr>
+                <tr>
+                    <td><a href="pubpayQR.html" target="_blank">PubPay QR</a></td>
+                    <td>Activate on some breaks (TBD). Payable interactive QR. Main screen only, centered.</td>
+                    <td><iframe src="pubpayQR.html" class="preview-iframe"></iframe></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    
+    <div class="stage-box">
+        <h2 class="stage">Orange Stage</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Screen</th>
+                    <th>Notes</th>
+                    <th>Preview</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><a href="orange_stage_sponsors.html?event=MENA25" id="link-orange" target="_blank">Orange Stage Sponsors</a></td>
+                    <td>Show on breaks, side screens</td>
+                    <td><iframe src="orange_stage_sponsors.html?event=MENA25" class="preview-iframe"></iframe></td>
+                </tr>
+                <tr>
+                    <td><a href="pubpayQR.html" target="_blank">PubPay QR</a></td>
+                    <td>Activate on some breaks (TBD). Payable interactive QR. Main screen only, centered.</td>
+                    <td><iframe src="pubpayQR.html" class="preview-iframe"></iframe></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <hr>
+
+    <h2>Tools & Assets</h2>
+    <ul>
+        <li><a href="sponsor_assets.html?event=MENA25" id="link-assets" target="_blank">Sponsor Assets & Images</a></li>
+        <li><a href="setup.html" target="_blank">Credentials Setup Helper</a></li>
+    </ul>
+
+    <h2>Not in Use</h2>
+    <ul>
+        <li><a href="genesis_stage_sponsors.html?event=MENA25" id="link-genesis" target="_blank">Genesis Stage Sponsors</a></li>
+        <li><a href="led_a_sponsors.html?event=MENA25" id="link-led-a" target="_blank">LED A Sponsors</a></li>
+        <li><a href="led_c_title_bitcoin_asia.html" id="link-led-c" target="_blank">LED C Event Schedule</a></li>
+    </ul>
+
+    <div id="credentials-status" class="credentials-status empty">
+        <strong>No credentials stored</strong>
+        <p style="margin: 5px 0;">Add credentials to the URL to access the pages.</p>
+    </div>
+   
+
+    <script>
+        // Credential storage keys
+        const STORAGE_KEYS = {
+            SPONSORS_TOKEN: 'airtable_sponsors_accessToken',
+            SPONSORS_BASE: 'airtable_sponsors_baseId',
+            SPONSORS_TABLE: 'airtable_sponsors_tableName',
+            AGENDA_TOKEN: 'airtable_agenda_accessToken',
+            AGENDA_BASE: 'airtable_agenda_baseId',
+            AGENDA_TABLE: 'airtable_agenda_tableName',
+            SCREEN_TOKEN: 'airtable_screen_accessToken'
+        };
+
+        // Function to capture URL parameters and store in localStorage
+        function captureAndStoreCredentials() {
+            const urlParams = new URLSearchParams(window.location.search);
+            let credentialsFound = false;
+
+            // Check for sponsors credentials
+            const sponsorsToken = urlParams.get('sponsorsAccessToken') || urlParams.get('accessToken');
+            const sponsorsBase = urlParams.get('sponsorsBaseId') || urlParams.get('baseId');
+            const sponsorsTable = urlParams.get('sponsorsTableName') || urlParams.get('tableName');
+
+            if (sponsorsToken && sponsorsBase && sponsorsTable) {
+                localStorage.setItem(STORAGE_KEYS.SPONSORS_TOKEN, sponsorsToken);
+                localStorage.setItem(STORAGE_KEYS.SPONSORS_BASE, sponsorsBase);
+                localStorage.setItem(STORAGE_KEYS.SPONSORS_TABLE, sponsorsTable);
+                console.log('✅ Sponsors credentials stored in localStorage');
+                console.log('   📊 sponsorsAccessToken:', sponsorsToken.substring(0, 15) + '...');
+                console.log('   📊 sponsorsBaseId:', sponsorsBase);
+                console.log('   📊 sponsorsTableName:', sponsorsTable);
+                credentialsFound = true;
+            }
+
+            // Check for agenda credentials (separate from sponsors)
+            const agendaToken = urlParams.get('agendaAccessToken');
+            const agendaBase = urlParams.get('agendaBaseId');
+            const agendaTable = urlParams.get('agendaTableName');
+
+            if (agendaToken && agendaBase && agendaTable) {
+                localStorage.setItem(STORAGE_KEYS.AGENDA_TOKEN, agendaToken);
+                localStorage.setItem(STORAGE_KEYS.AGENDA_BASE, agendaBase);
+                localStorage.setItem(STORAGE_KEYS.AGENDA_TABLE, agendaTable);
+                console.log('✅ Agenda credentials stored in localStorage');
+                console.log('   📅 agendaAccessToken:', agendaToken.substring(0, 15) + '...');
+                console.log('   📅 agendaBaseId:', agendaBase);
+                console.log('   📅 agendaTableName:', agendaTable);
+                credentialsFound = true;
+            }
+
+            // Check for screen control token
+            const screenToken = urlParams.get('screenAccessToken');
+            if (screenToken) {
+                localStorage.setItem(STORAGE_KEYS.SCREEN_TOKEN, screenToken);
+                console.log('✅ Screen control token stored in localStorage');
+                console.log('   🎮 screenAccessToken:', screenToken.substring(0, 15) + '...');
+                credentialsFound = true;
+            }
+
+            // If sponsors credentials were found but not agenda, use sponsors for agenda too
+            if (sponsorsToken && sponsorsBase && sponsorsTable && !agendaToken) {
+                localStorage.setItem(STORAGE_KEYS.AGENDA_TOKEN, sponsorsToken);
+                localStorage.setItem(STORAGE_KEYS.AGENDA_BASE, sponsorsBase);
+                localStorage.setItem(STORAGE_KEYS.AGENDA_TABLE, sponsorsTable);
+                console.log('ℹ️ Using sponsors credentials for agenda as well (no separate agenda credentials provided)');
+            }
+
+            return credentialsFound;
+        }
+
+        // Function to check if credentials are stored
+        function hasStoredCredentials() {
+            const sponsorsStored = localStorage.getItem(STORAGE_KEYS.SPONSORS_TOKEN) &&
+                                  localStorage.getItem(STORAGE_KEYS.SPONSORS_BASE) &&
+                                  localStorage.getItem(STORAGE_KEYS.SPONSORS_TABLE);
+            
+            const agendaStored = localStorage.getItem(STORAGE_KEYS.AGENDA_TOKEN) &&
+                                localStorage.getItem(STORAGE_KEYS.AGENDA_BASE) &&
+                                localStorage.getItem(STORAGE_KEYS.AGENDA_TABLE);
+            
+            const screenStored = localStorage.getItem(STORAGE_KEYS.SCREEN_TOKEN);
+
+            return { sponsorsStored, agendaStored, screenStored };
+        }
+
+        // Function to copy link with credentials
+        function copyLinkWithCredentials() {
+            const { sponsorsStored, agendaStored, screenStored } = hasStoredCredentials();
+            const creds = getCredentials();
+            
+            if (!sponsorsStored && !agendaStored && !screenStored) {
+                alert('No credentials stored to copy!');
+                return;
+            }
+            
+            const baseUrl = window.location.origin + window.location.pathname;
+            const params = new URLSearchParams();
+            
+            // Add sponsors credentials if stored
+            if (sponsorsStored) {
+                params.append('sponsorsAccessToken', localStorage.getItem(STORAGE_KEYS.SPONSORS_TOKEN));
+                params.append('sponsorsBaseId', localStorage.getItem(STORAGE_KEYS.SPONSORS_BASE));
+                params.append('sponsorsTableName', localStorage.getItem(STORAGE_KEYS.SPONSORS_TABLE));
+            }
+            
+            // Add agenda credentials if stored
+            if (agendaStored) {
+                params.append('agendaAccessToken', localStorage.getItem(STORAGE_KEYS.AGENDA_TOKEN));
+                params.append('agendaBaseId', localStorage.getItem(STORAGE_KEYS.AGENDA_BASE));
+                params.append('agendaTableName', localStorage.getItem(STORAGE_KEYS.AGENDA_TABLE));
+            }
+            
+            // Add screen control token if stored
+            if (screenStored) {
+                params.append('screenAccessToken', localStorage.getItem(STORAGE_KEYS.SCREEN_TOKEN));
+            }
+            
+            // Add event code
+            params.append('event', creds.event);
+            
+            // Add swiper dimensions
+            params.append('swiperWidth', creds.swiperWidth);
+            params.append('swiperHeight', creds.swiperHeight);
+            
+            const fullUrl = baseUrl + '?' + params.toString();
+            
+            // Copy to clipboard
+            navigator.clipboard.writeText(fullUrl).then(() => {
+                alert('✅ Link copied to clipboard!\n\nYou can now paste this link to share or bookmark it with all credentials.');
+                console.log('📋 Copied URL:', fullUrl);
+            }).catch(err => {
+                console.error('Failed to copy:', err);
+                alert('❌ Failed to copy to clipboard. Please copy manually from console.');
+                console.log('URL to copy:', fullUrl);
+            });
+        }
+
+        // Function to clear stored credentials
+        function clearStoredCredentials() {
+            Object.values(STORAGE_KEYS).forEach(key => localStorage.removeItem(key));
+            console.log('🗑️ Cleared all stored credentials');
+            updateCredentialsStatus();
+            
+            // Remove URL parameters and reload
+            window.history.replaceState({}, document.title, window.location.pathname);
+        }
+
+        // Function to update the credentials status display
+        function updateCredentialsStatus() {
+            const statusDiv = document.getElementById('credentials-status');
+            const { sponsorsStored, agendaStored, screenStored } = hasStoredCredentials();
+
+            if (sponsorsStored || agendaStored || screenStored) {
+                statusDiv.className = 'credentials-status';
+                
+                let statusHTML = '<strong>Credentials Stored</strong><br>';
+                if (sponsorsStored) {
+                    const token = localStorage.getItem(STORAGE_KEYS.SPONSORS_TOKEN);
+                    const maskedToken = token ? token.substring(0, 15) + '...' : '';
+                    statusHTML += `<p style="margin: 5px 0; font-size: 0.9em;">Sponsors: ${maskedToken}</p>`;
+                }
+                if (agendaStored) {
+                    const token = localStorage.getItem(STORAGE_KEYS.AGENDA_TOKEN);
+                    const maskedToken = token ? token.substring(0, 15) + '...' : '';
+                    statusHTML += `<p style="margin: 5px 0; font-size: 0.9em;">Agenda: ${maskedToken}</p>`;
+                }
+                if (screenStored) {
+                    const token = localStorage.getItem(STORAGE_KEYS.SCREEN_TOKEN);
+                    const maskedToken = token ? token.substring(0, 15) + '...' : '';
+                    statusHTML += `<p style="margin: 5px 0; font-size: 0.9em;">Screen Control: ${maskedToken}</p>`;
+                }
+                statusHTML += '<button class="btn" onclick="copyLinkWithCredentials()">Copy Link with Credentials</button> ';
+                statusHTML += '<button class="btn btn-danger" onclick="clearStoredCredentials()">Clear Stored Credentials</button>';
+                
+                statusDiv.innerHTML = statusHTML;
+            } else {
+                statusDiv.className = 'credentials-status empty';
+                statusDiv.innerHTML = `
+                    <strong>No credentials stored</strong>
+                    <p style="margin: 5px 0;">Add credentials to the URL of this page to store them.</p>
+                    <p style="margin: 5px 0; font-size: 0.8em;"><strong>Sponsors only:</strong><br>
+                    <code style="font-size: 0.85em;">?sponsorsAccessToken=TOKEN&sponsorsBaseId=BASE&sponsorsTableName=TABLE</code></p>
+                    <p style="margin: 5px 0; font-size: 0.8em;"><strong>Agenda only:</strong><br>
+                    <code style="font-size: 0.85em;">?agendaAccessToken=TOKEN&agendaBaseId=BASE&agendaTableName=TABLE</code></p>
+                    <p style="margin: 5px 0; font-size: 0.8em;"><strong>Both (all pages work):</strong><br>
+                    <code style="font-size: 0.75em;">?sponsorsAccessToken=T1&sponsorsBaseId=B1&sponsorsTableName=TB1&agendaAccessToken=T2&agendaBaseId=B2&agendaTableName=TB2</code></p>
+                    <p style="margin: 15px 0 5px 0; font-size: 0.8em;"><strong>Optional parameters:</strong><br>
+                    • <code style="font-size: 0.85em;">&event=MENA25</code> (or AMS25, B26, etc.) to filter sponsors by event code. Defaults to MENA25.<br>
+                    • <code style="font-size: 0.85em;">&swiperWidth=100vw&swiperHeight=56.25vw</code> to control Falcon stage dimensions.</p>
+                `;
+            }
+        }
+
+        // Function to get credentials from URL or localStorage
+        function getCredentials() {
+            const urlParams = new URLSearchParams(window.location.search);
+            
+            // Try URL first
+            let sponsorsToken = urlParams.get('sponsorsAccessToken') || urlParams.get('accessToken');
+            let sponsorsBase = urlParams.get('sponsorsBaseId') || urlParams.get('baseId');
+            let sponsorsTable = urlParams.get('sponsorsTableName') || urlParams.get('tableName');
+            let agendaToken = urlParams.get('agendaAccessToken');
+            let agendaBase = urlParams.get('agendaBaseId');
+            let agendaTable = urlParams.get('agendaTableName');
+            let screenToken = urlParams.get('screenAccessToken');
+            let eventCode = urlParams.get('event'); // Get event code from URL if present
+            let swiperWidth = urlParams.get('swiperWidth');
+            let swiperHeight = urlParams.get('swiperHeight');
+            
+            // If not in URL, try localStorage
+            if (!sponsorsToken) {
+                sponsorsToken = localStorage.getItem(STORAGE_KEYS.SPONSORS_TOKEN);
+                sponsorsBase = localStorage.getItem(STORAGE_KEYS.SPONSORS_BASE);
+                sponsorsTable = localStorage.getItem(STORAGE_KEYS.SPONSORS_TABLE);
+            }
+            
+            if (!agendaToken) {
+                agendaToken = localStorage.getItem(STORAGE_KEYS.AGENDA_TOKEN);
+                agendaBase = localStorage.getItem(STORAGE_KEYS.AGENDA_BASE);
+                agendaTable = localStorage.getItem(STORAGE_KEYS.AGENDA_TABLE);
+            }
+            
+            if (!screenToken) {
+                screenToken = localStorage.getItem(STORAGE_KEYS.SCREEN_TOKEN);
+            }
+            
+            // If sponsors credentials exist but not agenda, use sponsors for agenda
+            if (sponsorsToken && sponsorsBase && sponsorsTable && !agendaToken) {
+                agendaToken = sponsorsToken;
+                agendaBase = sponsorsBase;
+                agendaTable = sponsorsTable;
+            }
+            
+            return {
+                sponsors: (sponsorsToken && sponsorsBase && sponsorsTable) ? {
+                    token: sponsorsToken,
+                    base: sponsorsBase,
+                    table: sponsorsTable
+                } : null,
+                agenda: (agendaToken && agendaBase && agendaTable) ? {
+                    token: agendaToken,
+                    base: agendaBase,
+                    table: agendaTable
+                } : null,
+                screen: screenToken ? screenToken : null,
+                event: eventCode || 'MENA25', // Default to MENA25 if not specified
+                swiperWidth: swiperWidth || '100vw',
+                swiperHeight: swiperHeight || '56.25vw'
+            };
+        }
+
+        // Function to merge credentials into existing URL parameters
+        function mergeParamsIntoUrl(href, newParams) {
+            const [baseUrl, existingQuery] = href.split('?');
+            const existingParams = new URLSearchParams(existingQuery || '');
+            
+            // Add new params (will overwrite if they already exist)
+            newParams.forEach((value, key) => {
+                existingParams.set(key, value);
+            });
+            
+            return baseUrl + '?' + existingParams.toString();
+        }
+
+        // Function to update Falcon link with current input values
+        function updateFalconLink() {
+            const creds = getCredentials();
+            const widthInput = document.getElementById('falcon-width');
+            const heightInput = document.getElementById('falcon-height');
+            const link = document.getElementById('link-falcon');
+            const iframe = document.getElementById('falcon-iframe');
+            
+            if (!link || !widthInput || !heightInput) return;
+            
+            const width = widthInput.value || '100vw';
+            const height = heightInput.value || '56.25vw';
+            
+            const params = new URLSearchParams({
+                event: creds.event,
+                swiperWidth: width,
+                swiperHeight: height
+            });
+            
+            // Add credentials if available
+            if (creds.sponsors) {
+                params.append('sponsorsAccessToken', creds.sponsors.token);
+                params.append('sponsorsBaseId', creds.sponsors.base);
+                params.append('sponsorsTableName', creds.sponsors.table);
+            }
+            
+            if (creds.screen) {
+                params.append('screenAccessToken', creds.screen);
+            }
+            
+            const originalHref = link.getAttribute('href').split('?')[0];
+            const newUrl = originalHref + '?' + params.toString();
+            
+            link.href = newUrl;
+            iframe.src = newUrl;
+            
+            console.log(`📐 Updated Falcon link: width=${width}, height=${height}`);
+        }
+        
+        // Function to add credentials to links
+        function addCredentialsToLinks() {
+            const creds = getCredentials();
+            
+            console.log('✅ Adding credentials to links...');
+            console.log(`🎯 Using event code: ${creds.event}`);
+            
+            // Update Falcon link with dimension inputs
+            updateFalconLink();
+            
+            // Add credentials to other sponsor pages
+            if (creds.sponsors) {
+                const sponsorParams = new URLSearchParams({
+                    sponsorsAccessToken: creds.sponsors.token,
+                    sponsorsBaseId: creds.sponsors.base,
+                    sponsorsTableName: creds.sponsors.table,
+                    event: creds.event
+                });
+                
+                // Add screen token if available
+                if (creds.screen) {
+                    sponsorParams.append('screenAccessToken', creds.screen);
+                }
+                
+                ['link-orange', 'link-genesis', 'link-led-a', 'link-assets'].forEach(id => {
+                    const link = document.getElementById(id);
+                    if (link) {
+                        const originalHref = link.getAttribute('href');
+                        link.href = mergeParamsIntoUrl(originalHref, sponsorParams);
+                        console.log(`  ✅ Added sponsors params to: ${id}`);
+                    }
+                });
+            } else {
+                // Even without credentials, add the event parameter to sponsor pages
+                const eventParams = new URLSearchParams({
+                    event: creds.event
+                });
+                
+                ['link-orange', 'link-genesis', 'link-led-a', 'link-assets'].forEach(id => {
+                    const link = document.getElementById(id);
+                    if (link) {
+                        const originalHref = link.getAttribute('href');
+                        link.href = mergeParamsIntoUrl(originalHref, eventParams);
+                        console.log(`  ✅ Added event param to: ${id}`);
+                    }
+                });
+            }
+            
+            // Add credentials to agenda pages
+            if (creds.agenda) {
+                const agendaParams = new URLSearchParams({
+                    agendaAccessToken: creds.agenda.token,
+                    agendaBaseId: creds.agenda.base,
+                    agendaTableName: creds.agenda.table
+                });
+                
+                // Add screen token if available
+                if (creds.screen) {
+                    agendaParams.append('screenAccessToken', creds.screen);
+                }
+                
+                const link = document.getElementById('link-led-c');
+                if (link) {
+                    const originalHref = link.getAttribute('href');
+                    link.href = mergeParamsIntoUrl(originalHref, agendaParams);
+                    console.log(`  ✅ Added agenda params to: link-led-c`);
+                }
+            }
+            
+            // Add screen token to all screen pages (even if they don't have sponsors/agenda credentials)
+            if (creds.screen) {
+                const screenParams = new URLSearchParams({ screenAccessToken: creds.screen });
+                
+                // Price and hashrate pages - need to find them by checking href contains the page
+                document.querySelectorAll('a').forEach(link => {
+                    const href = link.getAttribute('href');
+                    if (href && (href.includes('price.html') || href.includes('hashrate.html') || href.includes('pubpayQR.html'))) {
+                        link.href = mergeParamsIntoUrl(href, screenParams);
+                    }
+                });
+                
+                console.log('  ✅ Added screen control token to all screen pages');
+            }
+        }
+
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            // Capture credentials from URL if present
+            const foundCredentials = captureAndStoreCredentials();
+            
+            // Update status display
+            updateCredentialsStatus();
+            
+            // Prepopulate swiper dimension inputs from URL
+            const creds = getCredentials();
+            const widthInput = document.getElementById('falcon-width');
+            const heightInput = document.getElementById('falcon-height');
+            
+            if (widthInput && heightInput) {
+                widthInput.value = creds.swiperWidth;
+                heightInput.value = creds.swiperHeight;
+                
+                // Add event listeners to update link when inputs change
+                widthInput.addEventListener('input', updateFalconLink);
+                heightInput.addEventListener('input', updateFalconLink);
+                widthInput.addEventListener('change', updateFalconLink);
+                heightInput.addEventListener('change', updateFalconLink);
+                
+                console.log(`📐 Prepopulated dimensions: ${creds.swiperWidth} x ${creds.swiperHeight}`);
+            }
+            
+            // Add credentials to links (from URL or localStorage)
+            addCredentialsToLinks();
+            
+            // Keep URL parameters visible for easy copy/paste
+            // If credentials were just captured, clean up the URL after a short delay
+            // if (foundCredentials) {
+            //     setTimeout(() => {
+            //         // Remove parameters from URL bar for cleaner appearance
+            //         window.history.replaceState({}, document.title, window.location.pathname);
+            //         console.log('🧹 Cleaned up URL parameters from address bar');
+            //         
+            //         // Update links again after URL cleanup (now using localStorage)
+            //         addCredentialsToLinks();
+            //     }, 1000); // 1 second delay
+            // }
+        });
+    </script>
+</body>
+</html>

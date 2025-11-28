@@ -48,7 +48,7 @@ const FILTER_VALUES = [
 
 // Cache configuration
 const CACHE_CONFIG = {
-    key: 'bitcoin_asia_sponsors_cache',
+    key: 'sponsors_cache',
     expiryHours: 24, // Cache expires after 24 hours
     version: '1.0' // Increment this when you want to force cache refresh
 };
