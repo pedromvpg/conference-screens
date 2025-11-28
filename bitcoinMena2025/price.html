@@ -11,7 +11,7 @@
     <div class="container">
 
         <div class="price-display">
-            <div class="bitcoin-title">1 Bitcoin</div>
+            <div class="bitcoin-title">1&nbsp;Bitcoin</div>
             <div class="price-value" id="price-value">
                 <div class="loading-spinner" id="loading-spinner"></div>
                 <span id="price" style="display: none;">116,015</span>
@@ -29,7 +29,7 @@
         </div>
 
         <div class="sponsor-section">
-            <div class="sponsor-label">Sponsored by</div>
+            <div class="sponsor-label">Sponsored&nbsp;by</div>
             <img style="margin-top: 0.8vw;" src="https://i.ibb.co/GQ9Mv07z/image.png" 
                  loading="lazy" 
                  alt="SALT Logo" 
@@ -53,7 +53,7 @@
             if (ytdHeader) ytdHeader.style.display = 'none';
         }
         
-        // Handle layout direction (layout=row)
+        // Handle layout direction (layout=row or layout=row-inline)
         const layoutParam = urlParams.get('layout');
         const reverseParam = urlParams.get('reverse');
         
@@ -95,6 +95,68 @@
             
             const bitcoinTitle = document.querySelector('.bitcoin-title');
             if (bitcoinTitle) bitcoinTitle.style.fontSize = '1.5vw';
+        }
+        
+        // Handle row-inline layout
+        if (layoutParam === 'row-inline') {
+            const container = document.querySelector('.container');
+            if (container) {
+                container.style.flexDirection = reverseParam === 'true' ? 'row-reverse' : 'row';
+                container.style.justifyContent = 'center';
+                container.style.textAlign = 'left';
+                container.style.alignItems = 'flex-end';
+                container.style.gap = '3vw';
+            }
+            
+            // Price display with inline title
+            const priceDisplay = document.querySelector('.price-display');
+            if (priceDisplay) {
+                priceDisplay.style.display = 'flex';
+                priceDisplay.style.flexDirection = 'row';
+                priceDisplay.style.alignItems = 'flex-end';
+                priceDisplay.style.gap = '1vw';
+            }
+            
+            const bitcoinTitle = document.querySelector('.bitcoin-title');
+            if (bitcoinTitle) {
+                bitcoinTitle.style.fontSize = '1.5vw';
+                bitcoinTitle.style.marginBottom = '0.5vw';
+            }
+            
+            const priceValue = document.querySelector('.price-value');
+            if (priceValue) {
+                priceValue.style.fontSize = '7vw';
+                priceValue.style.flexDirection = 'row';
+                priceValue.style.gap = '1vw';
+            }
+            
+            const priceNumber = document.querySelector('#price');
+            if (priceNumber) priceNumber.style.fontSize = '6.5vw';
+            
+            const currency = document.querySelector('.currency');
+            if (currency) currency.style.fontSize = '4vw';
+            
+            // Sponsor section with inline label
+            const sponsorSection = document.querySelector('.sponsor-section');
+            if (sponsorSection) {
+                sponsorSection.style.display = 'flex';
+                sponsorSection.style.flexDirection = 'row';
+                sponsorSection.style.alignItems = 'flex-end';
+                sponsorSection.style.alignContent = 'flex-end';
+                sponsorSection.style.gap = '1vw';
+            }
+            
+            const sponsorLabel = document.querySelector('.sponsor-label');
+            if (sponsorLabel) {
+                sponsorLabel.style.fontSize = '1.5vw';
+                sponsorLabel.style.marginBottom = '0.5vw';
+            }
+            
+            const sponsorLogo = document.querySelector('.sponsor-logo');
+            if (sponsorLogo) {
+                sponsorLogo.style.maxWidth = '25vw';
+                sponsorLogo.style.marginBottom = '0.6vw';
+            }
         }
     </script>
     

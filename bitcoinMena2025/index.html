@@ -190,26 +190,76 @@
                     <td><iframe src="falcon_stage_sponsors.html?event=MENA25" id="falcon-iframe" class="preview-iframe"></iframe></td>
                 </tr>
                 <tr>
-                    <td><a href="price.html?chart=false&layout=row&currency=EUR" target="_blank">Bitcoin Price</a></td>
-                    <td>Always on, right side stripsr</td>
-                    <td><iframe src="price.html?chart=false&layout=row&currency=EUR" class="preview-iframe"></iframe></td>
+                    <td>
+                        <a href="price.html?chart=false&layout=row&currency=EUR" id="link-falcon-price" target="_blank">Bitcoin Price</a>
+                        <div style="margin-top: 10px; font-size: 0.85em;">
+                            <label style="display: block; margin-bottom: 5px;">
+                                <input type="checkbox" id="falcon-price-chart" style="margin-right: 5px;">
+                                Show Chart
+                            </label>
+                            <label style="display: block; margin-bottom: 5px;">
+                                Layout: 
+                                <select id="falcon-price-layout" style="padding: 4px; background: #333; border: 1px solid #555; color: #fff; border-radius: 3px;">
+                                    <option value="column">Column</option>
+                                    <option value="row" selected>Row</option>
+                                    <option value="row-inline">Row Inline</option>
+                                </select>
+                            </label>
+                            <label style="display: block; margin-bottom: 5px;">
+                                <input type="checkbox" id="falcon-price-reverse" style="margin-right: 5px;">
+                                Reverse Layout
+                            </label>
+                            <label style="display: block;">
+                                Currency: 
+                                <select id="falcon-price-currency" style="padding: 4px; background: #333; border: 1px solid #555; color: #fff; border-radius: 3px;">
+                                    <option value="USD">USD</option>
+                                    <option value="EUR" selected>EUR</option>
+                                    <option value="GBP">GBP</option>
+                                </select>
+                            </label>
+                        </div>
+                    </td>
+                    <td>Always on, side screens</td>
+                    <td><iframe src="price.html?chart=false&layout=row&currency=EUR" id="falcon-price-iframe" class="preview-iframe"></iframe></td>
                 </tr>
+                <!--
                 <tr>
-                    <td><a href="hashrate.html?chart=false&layout=row&reverse=true" target="_blank">Network Hashrate</a></td>
+                    <td>
+                        <a href="hashrate.html?chart=false&layout=row&reverse=true" id="link-falcon-hashrate" target="_blank">Network Hashrate</a>
+                        <div style="margin-top: 10px; font-size: 0.85em;">
+                            <label style="display: block; margin-bottom: 5px;">
+                                <input type="checkbox" id="falcon-hashrate-chart" style="margin-right: 5px;">
+                                Show Chart
+                            </label>
+                            <label style="display: block; margin-bottom: 5px;">
+                                Layout: 
+                                <select id="falcon-hashrate-layout" style="padding: 4px; background: #333; border: 1px solid #555; color: #fff; border-radius: 3px;">
+                                    <option value="column">Column</option>
+                                    <option value="row" selected>Row</option>
+                                    <option value="row-inline">Row Inline</option>
+                                </select>
+                            </label>
+                            <label style="display: block;">
+                                <input type="checkbox" id="falcon-hashrate-reverse" checked style="margin-right: 5px;">
+                                Reverse Layout
+                            </label>
+                        </div>
+                    </td>
                     <td>Always on, left side strips</td>
-                    <td><iframe src="hashrate.html?chart=false&layout=row&reverse=true" class="preview-iframe"></iframe></td>
+                    <td><iframe src="hashrate.html?chart=false&layout=row&reverse=true" id="falcon-hashrate-iframe" class="preview-iframe"></iframe></td>
                 </tr>
                 <tr>
                     <td><a href="pubpayQR.html" target="_blank">PubPay QR</a></td>
                     <td>Activate on some breaks (TBD). Payable interactive QR. Main screen only, centered.</td>
                     <td><iframe src="pubpayQR.html" class="preview-iframe"></iframe></td>
                 </tr>
+                -->
             </tbody>
         </table>
     </div>
     
     <div class="stage-box">
-        <h2 class="stage">Orange Stage</h2>
+        <h2 class="stage">Proof of Work Stage</h2>
         <table>
             <thead>
                 <tr>
@@ -225,13 +275,96 @@
                     <td><iframe src="orange_stage_sponsors.html?event=MENA25" class="preview-iframe"></iframe></td>
                 </tr>
                 <tr>
-                    <td><a href="pubpayQR.html" target="_blank">PubPay QR</a></td>
-                    <td>Activate on some breaks (TBD). Payable interactive QR. Main screen only, centered.</td>
-                    <td><iframe src="pubpayQR.html" class="preview-iframe"></iframe></td>
+                    <td>
+                        <a href="price.html?chart=false&layout=row&currency=EUR" id="link-pow-price" target="_blank">Bitcoin Price</a>
+                        <div style="margin-top: 10px; font-size: 0.85em;">
+                            <label style="display: block; margin-bottom: 5px;">
+                                <input type="checkbox" id="pow-price-chart" style="margin-right: 5px;">
+                                Show Chart
+                            </label>
+                            <label style="display: block; margin-bottom: 5px;">
+                                Layout: 
+                                <select id="pow-price-layout" style="padding: 4px; background: #333; border: 1px solid #555; color: #fff; border-radius: 3px;">
+                                    <option value="column">Column</option>
+                                    <option value="row" selected>Row</option>
+                                    <option value="row-inline">Row Inline</option>
+                                </select>
+                            </label>
+                            <label style="display: block; margin-bottom: 5px;">
+                                <input type="checkbox" id="pow-price-reverse" style="margin-right: 5px;">
+                                Reverse Layout
+                            </label>
+                            <label style="display: block;">
+                                Currency: 
+                                <select id="pow-price-currency" style="padding: 4px; background: #333; border: 1px solid #555; color: #fff; border-radius: 3px;">
+                                    <option value="USD">USD</option>
+                                    <option value="EUR" selected>EUR</option>
+                                    <option value="GBP">GBP</option>
+                                </select>
+                            </label>
+                        </div>
+                    </td>
+                    <td>Always on, side screens</td>
+                    <td><iframe src="price.html?chart=false&layout=row&currency=EUR" id="pow-price-iframe" class="preview-iframe"></iframe></td>
                 </tr>
             </tbody>
         </table>
     </div>
+
+
+    <div class="stage-box">
+        <h2 class="stage">Enterprise stage Stage</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Screen</th>
+                    <th>Notes</th>
+                    <th>Preview</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><a href="orange_stage_sponsors.html?event=MENA25" id="link-orange" target="_blank">Orange Stage Sponsors</a></td>
+                    <td>Show on breaks, side screens</td>
+                    <td><iframe src="orange_stage_sponsors.html?event=MENA25" class="preview-iframe"></iframe></td>
+                </tr>
+                <tr>
+                    <td>
+                        <a href="price.html?chart=false&layout=row&currency=EUR" id="link-enterprise-price" target="_blank">Bitcoin Price</a>
+                        <div style="margin-top: 10px; font-size: 0.85em;">
+                            <label style="display: block; margin-bottom: 5px;">
+                                <input type="checkbox" id="enterprise-price-chart" style="margin-right: 5px;">
+                                Show Chart
+                            </label>
+                            <label style="display: block; margin-bottom: 5px;">
+                                Layout: 
+                                <select id="enterprise-price-layout" style="padding: 4px; background: #333; border: 1px solid #555; color: #fff; border-radius: 3px;">
+                                    <option value="column">Column</option>
+                                    <option value="row" selected>Row</option>
+                                    <option value="row-inline">Row Inline</option>
+                                </select>
+                            </label>
+                            <label style="display: block; margin-bottom: 5px;">
+                                <input type="checkbox" id="enterprise-price-reverse" style="margin-right: 5px;">
+                                Reverse Layout
+                            </label>
+                            <label style="display: block;">
+                                Currency: 
+                                <select id="enterprise-price-currency" style="padding: 4px; background: #333; border: 1px solid #555; color: #fff; border-radius: 3px;">
+                                    <option value="USD">USD</option>
+                                    <option value="EUR" selected>EUR</option>
+                                    <option value="GBP">GBP</option>
+                                </select>
+                            </label>
+                        </div>
+                    </td>
+                    <td>Always on, side screens</td>
+                    <td><iframe src="price.html?chart=false&layout=row&currency=EUR" id="enterprise-price-iframe" class="preview-iframe"></iframe></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
 
     <hr>
 
@@ -556,6 +689,94 @@
             console.log(`📐 Updated Falcon link: width=${width}, height=${height}`);
         }
         
+        // Function to update price display link with toggle values
+        function updatePriceLink(prefix) {
+            const creds = getCredentials();
+            const chartCheckbox = document.getElementById(`${prefix}-price-chart`);
+            const layoutSelect = document.getElementById(`${prefix}-price-layout`);
+            const reverseCheckbox = document.getElementById(`${prefix}-price-reverse`);
+            const currencySelect = document.getElementById(`${prefix}-price-currency`);
+            const link = document.getElementById(`link-${prefix}-price`);
+            const iframe = document.getElementById(`${prefix}-price-iframe`);
+            
+            if (!link || !chartCheckbox || !layoutSelect || !currencySelect) return;
+            
+            const params = new URLSearchParams();
+            
+            // Add chart parameter
+            if (!chartCheckbox.checked) {
+                params.append('chart', 'false');
+            }
+            
+            // Add layout parameter
+            const layout = layoutSelect.value;
+            if (layout === 'row' || layout === 'row-inline') {
+                params.append('layout', layout);
+            }
+            
+            // Add reverse parameter (only for row layouts)
+            if ((layout === 'row' || layout === 'row-inline') && reverseCheckbox.checked) {
+                params.append('reverse', 'true');
+            }
+            
+            // Add currency parameter
+            params.append('currency', currencySelect.value);
+            
+            // Add credentials if available
+            if (creds.screen) {
+                params.append('screenAccessToken', creds.screen);
+            }
+            
+            const newUrl = 'price.html?' + params.toString();
+            
+            link.href = newUrl;
+            if (iframe) iframe.src = newUrl;
+            
+            console.log(`💰 Updated ${prefix} price link:`, newUrl);
+        }
+        
+        // Function to update hashrate display link with toggle values
+        function updateHashrateLink(prefix) {
+            const creds = getCredentials();
+            const chartCheckbox = document.getElementById(`${prefix}-hashrate-chart`);
+            const layoutSelect = document.getElementById(`${prefix}-hashrate-layout`);
+            const reverseCheckbox = document.getElementById(`${prefix}-hashrate-reverse`);
+            const link = document.getElementById(`link-${prefix}-hashrate`);
+            const iframe = document.getElementById(`${prefix}-hashrate-iframe`);
+            
+            if (!link || !chartCheckbox || !layoutSelect) return;
+            
+            const params = new URLSearchParams();
+            
+            // Add chart parameter
+            if (!chartCheckbox.checked) {
+                params.append('chart', 'false');
+            }
+            
+            // Add layout parameter
+            const layout = layoutSelect.value;
+            if (layout === 'row' || layout === 'row-inline') {
+                params.append('layout', layout);
+            }
+            
+            // Add reverse parameter (only for row layouts)
+            if ((layout === 'row' || layout === 'row-inline') && reverseCheckbox.checked) {
+                params.append('reverse', 'true');
+            }
+            
+            // Add credentials if available
+            if (creds.screen) {
+                params.append('screenAccessToken', creds.screen);
+            }
+            
+            const newUrl = 'hashrate.html?' + params.toString();
+            
+            link.href = newUrl;
+            if (iframe) iframe.src = newUrl;
+            
+            console.log(`⚡ Updated ${prefix} hashrate link:`, newUrl);
+        }
+        
         // Function to add credentials to links
         function addCredentialsToLinks() {
             const creds = getCredentials();
@@ -666,6 +887,40 @@
                 
                 console.log(`📐 Prepopulated dimensions: ${creds.swiperWidth} x ${creds.swiperHeight}`);
             }
+            
+            // Setup price and hashrate toggle event listeners
+            const stages = ['falcon', 'pow', 'enterprise'];
+            stages.forEach(stage => {
+                // Price toggles
+                const priceChart = document.getElementById(`${stage}-price-chart`);
+                const priceLayout = document.getElementById(`${stage}-price-layout`);
+                const priceReverse = document.getElementById(`${stage}-price-reverse`);
+                const priceCurrency = document.getElementById(`${stage}-price-currency`);
+                
+                if (priceChart) {
+                    priceChart.addEventListener('change', () => updatePriceLink(stage));
+                    priceLayout.addEventListener('change', () => updatePriceLink(stage));
+                    priceReverse.addEventListener('change', () => updatePriceLink(stage));
+                    priceCurrency.addEventListener('change', () => updatePriceLink(stage));
+                    
+                    // Initialize the link
+                    updatePriceLink(stage);
+                }
+                
+                // Hashrate toggles
+                const hashrateChart = document.getElementById(`${stage}-hashrate-chart`);
+                const hashrateLayout = document.getElementById(`${stage}-hashrate-layout`);
+                const hashrateReverse = document.getElementById(`${stage}-hashrate-reverse`);
+                
+                if (hashrateChart) {
+                    hashrateChart.addEventListener('change', () => updateHashrateLink(stage));
+                    hashrateLayout.addEventListener('change', () => updateHashrateLink(stage));
+                    hashrateReverse.addEventListener('change', () => updateHashrateLink(stage));
+                    
+                    // Initialize the link
+                    updateHashrateLink(stage);
+                }
+            });
             
             // Add credentials to links (from URL or localStorage)
             addCredentialsToLinks();
