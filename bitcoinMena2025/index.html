@@ -209,13 +209,22 @@
                                 <input type="checkbox" id="falcon-price-reverse" style="margin-right: 5px;">
                                 Reverse Layout
                             </label>
-                            <label style="display: block;">
+                            <label style="display: block; margin-bottom: 5px;">
+                                <input type="checkbox" id="falcon-price-dual" style="margin-right: 5px;">
+                                Dual Currency Animation
+                            </label>
+                            <label style="display: block; margin-bottom: 5px;">
                                 Currency: 
                                 <select id="falcon-price-currency" style="padding: 4px; background: #333; border: 1px solid #555; color: #fff; border-radius: 3px;">
                                     <option value="USD">USD</option>
                                     <option value="EUR" selected>EUR</option>
                                     <option value="GBP">GBP</option>
+                                    <option value="AED">AED</option>
+                                    <option value="CNY">CNY</option>
                                 </select>
+                            </label>
+                            <label style="display: block; font-size: 0.9em; color: #888;">
+                                (Dual mode: USD ↔ Currency)
                             </label>
                         </div>
                     </td>
@@ -294,13 +303,22 @@
                                 <input type="checkbox" id="pow-price-reverse" style="margin-right: 5px;">
                                 Reverse Layout
                             </label>
-                            <label style="display: block;">
+                            <label style="display: block; margin-bottom: 5px;">
+                                <input type="checkbox" id="pow-price-dual" style="margin-right: 5px;">
+                                Dual Currency Animation
+                            </label>
+                            <label style="display: block; margin-bottom: 5px;">
                                 Currency: 
                                 <select id="pow-price-currency" style="padding: 4px; background: #333; border: 1px solid #555; color: #fff; border-radius: 3px;">
                                     <option value="USD">USD</option>
                                     <option value="EUR" selected>EUR</option>
                                     <option value="GBP">GBP</option>
+                                    <option value="AED">AED</option>
+                                    <option value="CNY">CNY</option>
                                 </select>
+                            </label>
+                            <label style="display: block; font-size: 0.9em; color: #888;">
+                                (Dual mode: USD ↔ Currency)
                             </label>
                         </div>
                     </td>
@@ -348,13 +366,22 @@
                                 <input type="checkbox" id="enterprise-price-reverse" style="margin-right: 5px;">
                                 Reverse Layout
                             </label>
-                            <label style="display: block;">
+                            <label style="display: block; margin-bottom: 5px;">
+                                <input type="checkbox" id="enterprise-price-dual" style="margin-right: 5px;">
+                                Dual Currency Animation
+                            </label>
+                            <label style="display: block; margin-bottom: 5px;">
                                 Currency: 
                                 <select id="enterprise-price-currency" style="padding: 4px; background: #333; border: 1px solid #555; color: #fff; border-radius: 3px;">
                                     <option value="USD">USD</option>
                                     <option value="EUR" selected>EUR</option>
                                     <option value="GBP">GBP</option>
+                                    <option value="AED">AED</option>
+                                    <option value="CNY">CNY</option>
                                 </select>
+                            </label>
+                            <label style="display: block; font-size: 0.9em; color: #888;">
+                                (Dual mode: USD ↔ Currency)
                             </label>
                         </div>
                     </td>
@@ -650,6 +677,35 @@
             return baseUrl + '?' + existingParams.toString();
         }
 
+        // Function to restore settings from URL
+        function restoreSettingsFromUrl() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const stages = ['falcon', 'pow', 'enterprise'];
+            
+            stages.forEach(stage => {
+                // Restore price settings
+                const chartValue = urlParams.get(`${stage}-chart`);
+                const layoutValue = urlParams.get(`${stage}-layout`);
+                const reverseValue = urlParams.get(`${stage}-reverse`);
+                const dualValue = urlParams.get(`${stage}-dual`);
+                const currencyValue = urlParams.get(`${stage}-currency`);
+                
+                const chartCheckbox = document.getElementById(`${stage}-price-chart`);
+                const layoutSelect = document.getElementById(`${stage}-price-layout`);
+                const reverseCheckbox = document.getElementById(`${stage}-price-reverse`);
+                const dualCheckbox = document.getElementById(`${stage}-price-dual`);
+                const currencySelect = document.getElementById(`${stage}-price-currency`);
+                
+                if (chartCheckbox && chartValue !== null) chartCheckbox.checked = chartValue === 'true';
+                if (layoutSelect && layoutValue) layoutSelect.value = layoutValue;
+                if (reverseCheckbox && reverseValue !== null) reverseCheckbox.checked = reverseValue === 'true';
+                if (dualCheckbox && dualValue !== null) dualCheckbox.checked = dualValue === 'true';
+                if (currencySelect && currencyValue) currencySelect.value = currencyValue;
+            });
+            
+            console.log('🔄 Restored settings from URL');
+        }
+        
         // Function to update Falcon link with current input values
         function updateFalconLink() {
             const creds = getCredentials();
@@ -687,6 +743,47 @@
             iframe.src = newUrl;
             
             console.log(`📐 Updated Falcon link: width=${width}, height=${height}`);
+            
+            // Update browser URL
+            updateBrowserUrl();
+        }
+        
+        // Function to update the browser URL with current settings
+        function updateBrowserUrl() {
+            const stages = ['falcon', 'pow', 'enterprise'];
+            const urlParams = new URLSearchParams(window.location.search);
+            
+            // Preserve credentials
+            const existingParams = new URLSearchParams();
+            ['sponsorsAccessToken', 'sponsorsBaseId', 'sponsorsTableName', 
+             'agendaAccessToken', 'agendaBaseId', 'agendaTableName', 
+             'screenAccessToken', 'event', 'swiperWidth', 'swiperHeight'].forEach(key => {
+                const value = urlParams.get(key);
+                if (value) existingParams.set(key, value);
+            });
+            
+            // Add settings for each stage
+            stages.forEach(stage => {
+                const chartCheckbox = document.getElementById(`${stage}-price-chart`);
+                const layoutSelect = document.getElementById(`${stage}-price-layout`);
+                const reverseCheckbox = document.getElementById(`${stage}-price-reverse`);
+                const dualCheckbox = document.getElementById(`${stage}-price-dual`);
+                const currencySelect = document.getElementById(`${stage}-price-currency`);
+                
+                if (chartCheckbox && layoutSelect && currencySelect) {
+                    existingParams.set(`${stage}-chart`, chartCheckbox.checked);
+                    existingParams.set(`${stage}-layout`, layoutSelect.value);
+                    existingParams.set(`${stage}-reverse`, reverseCheckbox.checked);
+                    if (dualCheckbox) {
+                        existingParams.set(`${stage}-dual`, dualCheckbox.checked);
+                    }
+                    existingParams.set(`${stage}-currency`, currencySelect.value);
+                }
+            });
+            
+            const newUrl = window.location.pathname + '?' + existingParams.toString();
+            window.history.replaceState({}, '', newUrl);
+            console.log('🔗 Updated browser URL with current settings');
         }
         
         // Function to update price display link with toggle values
@@ -695,6 +792,7 @@
             const chartCheckbox = document.getElementById(`${prefix}-price-chart`);
             const layoutSelect = document.getElementById(`${prefix}-price-layout`);
             const reverseCheckbox = document.getElementById(`${prefix}-price-reverse`);
+            const dualCheckbox = document.getElementById(`${prefix}-price-dual`);
             const currencySelect = document.getElementById(`${prefix}-price-currency`);
             const link = document.getElementById(`link-${prefix}-price`);
             const iframe = document.getElementById(`${prefix}-price-iframe`);
@@ -719,8 +817,14 @@
                 params.append('reverse', 'true');
             }
             
-            // Add currency parameter
-            params.append('currency', currencySelect.value);
+            // Add dual currency parameters
+            if (dualCheckbox && dualCheckbox.checked) {
+                params.append('dualCurrency', 'true');
+                params.append('localCurrency', currencySelect.value);
+            } else {
+                // Single currency mode
+                params.append('currency', currencySelect.value);
+            }
             
             // Add credentials if available
             if (creds.screen) {
@@ -733,6 +837,9 @@
             if (iframe) iframe.src = newUrl;
             
             console.log(`💰 Updated ${prefix} price link:`, newUrl);
+            
+            // Update browser URL
+            updateBrowserUrl();
         }
         
         // Function to update hashrate display link with toggle values
@@ -775,6 +882,9 @@
             if (iframe) iframe.src = newUrl;
             
             console.log(`⚡ Updated ${prefix} hashrate link:`, newUrl);
+            
+            // Update browser URL
+            updateBrowserUrl();
         }
         
         // Function to add credentials to links
@@ -870,6 +980,9 @@
             // Update status display
             updateCredentialsStatus();
             
+            // Restore settings from URL parameters
+            restoreSettingsFromUrl();
+            
             // Prepopulate swiper dimension inputs from URL
             const creds = getCredentials();
             const widthInput = document.getElementById('falcon-width');
@@ -895,12 +1008,14 @@
                 const priceChart = document.getElementById(`${stage}-price-chart`);
                 const priceLayout = document.getElementById(`${stage}-price-layout`);
                 const priceReverse = document.getElementById(`${stage}-price-reverse`);
+                const priceDual = document.getElementById(`${stage}-price-dual`);
                 const priceCurrency = document.getElementById(`${stage}-price-currency`);
                 
                 if (priceChart) {
                     priceChart.addEventListener('change', () => updatePriceLink(stage));
                     priceLayout.addEventListener('change', () => updatePriceLink(stage));
                     priceReverse.addEventListener('change', () => updatePriceLink(stage));
+                    if (priceDual) priceDual.addEventListener('change', () => updatePriceLink(stage));
                     priceCurrency.addEventListener('change', () => updatePriceLink(stage));
                     
                     // Initialize the link

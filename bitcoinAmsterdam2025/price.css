@@ -68,6 +68,11 @@ body {
     font-weight: 900;
 }
 
+#price {
+    display: inline-block;
+    transition: width 0.3s ease;
+}
+
 .currency {
     font-size: 7vh;
     color: #ffffff;
