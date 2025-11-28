@@ -140,12 +140,7 @@ h1 {
     background: transparent;
 }
 
-.expo-led-a-sponsors .sponsor-logo {
-    /*
-    max-width: 21vh;
-    max-height: 30vh;
-    */
-}
+/* .expo-led-a-sponsors .sponsor-logo sizing handled by generic tier classes */
 
 .expo-led-a-sponsors .sponsors-row {
     flex-wrap: wrap;
@@ -404,8 +399,9 @@ h1 {
     }
 }
 
-/* Sponsor logo sizing based on tier (AMS25 - Amsterdam 2025)
- * Tier scaling: Title (largest) → Moon → 3 Block → 2 Block → 1 Block (smallest)
+/* Generic sponsor tier styles - apply across all conferences
+ * Tier scaling: Title (largest) → Moon → 3 Block → 1 Block (smallest)
+ * Note: 2 Block has no dedicated slides
  */
 .sponsor-logo.sponsor-item-title {
     /* Title tier - Full size, no additional scaling */
@@ -414,20 +410,21 @@ h1 {
 }
 
 
-.sponsor-item-moon .sponsor-logo{
+.sponsor-item-moon .sponsor-logo {
     transform: scale(1);
     max-width: 12vw;
 }
 
-.sponsor-item-3-block .sponsor-logo{
+.sponsor-item-3-block .sponsor-logo {
     transform: scale(0.8);
 }
 
 .sponsor-item-2-block .sponsor-logo{
     transform: scale(0.7);
 }
+/* Note: 2 Block sponsors have no dedicated slides, only appear in overview */
 
-.sponsor-item-1-block .sponsor-logo{
+.sponsor-item-1-block .sponsor-logo {
     transform: scale(0.6);
 }
 
@@ -458,7 +455,7 @@ h1 {
 
 /* MENA 2025 ALL SPONSORS */ 
 .sponsor-item[class*="all-sponsors-slide-"] {
-    width: 5vw;
+    width: 5.7vw;
     height: 3.5vw;
 }
 

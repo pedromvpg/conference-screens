@@ -360,7 +360,8 @@ function createSlides(filteredRecords) {
             });
 
                 // Define tier order for slides (generic patterns)
-                const tierOrder = ['Title', 'Moon', '3 Block', '2 Block', '1 Block'];
+                // Note: '1 and 2 Block' are excluded from dedicated slides but will appear in overview
+                const tierOrder = ['Title', 'Moon', '3 Block'];
                 
                 // Build slide order dynamically based on what exists in the data
                 const slideOrder = tierOrder
@@ -374,12 +375,12 @@ function createSlides(filteredRecords) {
                 
                 // Custom max sponsors per slide for each tier (generic)
                 const maxSponsorsByTier = {
-                    'Title': 8,     // Larger logos, fewer per slide
-                    'Moon': 3,      // Medium size group
+                    'Title': 1,     // Larger logos, fewer per slide
+                    'Moon': 2,      // Medium size group
                     '3 Block': 5,   // Smaller logos, more per slide
                     '2 Block': 20,  // Even smaller
                     '1 Block': 25,  // Smallest logos, most per slide
-                    'overview': 29  // 29 sponsors per slide for the overview       
+                    'overview': 25  // 29 sponsors per slide for the overview       
                 };
                 
                 // Custom slide duration (in milliseconds) for each tier
