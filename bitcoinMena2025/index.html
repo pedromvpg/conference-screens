@@ -161,6 +161,12 @@
 <body>
     <h1>Bitcoin MENA 2025</h1>
 
+    <div class="global-controls" style="margin-bottom: 20px; display: flex; justify-content: flex-end;">
+        <button id="toggle-options-btn" onclick="toggleAllOptions()" style="background: transparent; border: 1px solid #444; color: #888; padding: 6px 12px; border-radius: 4px; cursor: pointer; font-size: 0.85em; transition: all 0.2s ease;">
+            <span id="toggle-text">Hide Options</span>
+        </button>
+    </div>
+
     <div class="stage-box">
         <h2 class="stage">Falcon Stage</h2>
         <table>
@@ -175,7 +181,7 @@
                 <tr>
                     <td>
                         <a href="falcon_stage_sponsors.html?event=MENA25" id="link-falcon" target="_blank">Falcon Stage Sponsors</a>
-                        <div style="margin-top: 10px; font-size: 0.85em;">
+                        <div class="screen-options" style="margin-top: 10px; font-size: 0.85em;">
                             <label style="display: block; margin-bottom: 5px;">
                                 Width: 
                                 <input type="text" id="falcon-width" value="100vw" style="width: 80px; padding: 4px; background: #333; border: 1px solid #555; color: #fff; border-radius: 3px;">
@@ -192,7 +198,7 @@
                 <tr>
                     <td>
                         <a href="price.html?chart=false&layout=row&currency=EUR" id="link-falcon-price" target="_blank">Bitcoin Price</a>
-                        <div style="margin-top: 10px; font-size: 0.85em;">
+                        <div class="screen-options" style="margin-top: 10px; font-size: 0.85em;">
                             <label style="display: block; margin-bottom: 5px;">
                                 <input type="checkbox" id="falcon-price-chart" style="margin-right: 5px;">
                                 Show Chart
@@ -235,7 +241,7 @@
                 <tr>
                     <td>
                         <a href="hashrate.html?chart=false&layout=row&reverse=true" id="link-falcon-hashrate" target="_blank">Network Hashrate</a>
-                        <div style="margin-top: 10px; font-size: 0.85em;">
+                        <div class="screen-options" style="margin-top: 10px; font-size: 0.85em;">
                             <label style="display: block; margin-bottom: 5px;">
                                 <input type="checkbox" id="falcon-hashrate-chart" style="margin-right: 5px;">
                                 Show Chart
@@ -279,14 +285,26 @@
             </thead>
             <tbody>
                 <tr>
-                    <td><a href="orange_stage_sponsors.html?event=MENA25" id="link-orange" target="_blank">Orange Stage Sponsors</a></td>
-                    <td>Show on breaks, side screens</td>
-                    <td><iframe src="orange_stage_sponsors.html?event=MENA25" class="preview-iframe"></iframe></td>
+                    <td>
+                        <a href="pow_stage_sponsors.html?event=MENA25" id="link-pow-sponsors" target="_blank">PoW Stage Sponsors</a>
+                        <div class="screen-options" style="margin-top: 10px; font-size: 0.85em;">
+                            <label style="display: block; margin-bottom: 5px;">
+                                Width: 
+                                <input type="text" id="pow-width" value="100vw" style="width: 80px; padding: 4px; background: #333; border: 1px solid #555; color: #fff; border-radius: 3px;">
+                            </label>
+                            <label style="display: block;">
+                                Height: 
+                                <input type="text" id="pow-height" value="56.25vw" style="width: 80px; padding: 4px; background: #333; border: 1px solid #555; color: #fff; border-radius: 3px;">
+                            </label>
+                        </div>
+                    </td>
+                    <td>Show on breaks, all three screens</td>
+                    <td><iframe src="pow_stage_sponsors.html?event=MENA25" id="pow-sponsors-iframe" class="preview-iframe"></iframe></td>
                 </tr>
                 <tr>
                     <td>
                         <a href="price.html?chart=false&layout=row&currency=EUR" id="link-pow-price" target="_blank">Bitcoin Price</a>
-                        <div style="margin-top: 10px; font-size: 0.85em;">
+                        <div class="screen-options" style="margin-top: 10px; font-size: 0.85em;">
                             <label style="display: block; margin-bottom: 5px;">
                                 <input type="checkbox" id="pow-price-chart" style="margin-right: 5px;">
                                 Show Chart
@@ -342,14 +360,26 @@
             </thead>
             <tbody>
                 <tr>
-                    <td><a href="orange_stage_sponsors.html?event=MENA25" id="link-orange" target="_blank">Orange Stage Sponsors</a></td>
+                    <td>
+                        <a href="enterprise_stage_sponsors.html?event=MENA25" id="link-enterprise-sponsors" target="_blank">Enterprise Stage Sponsors</a>
+                        <div class="screen-options" style="margin-top: 10px; font-size: 0.85em;">
+                            <label style="display: block; margin-bottom: 5px;">
+                                Width: 
+                                <input type="text" id="enterprise-width" value="100vw" style="width: 80px; padding: 4px; background: #333; border: 1px solid #555; color: #fff; border-radius: 3px;">
+                            </label>
+                            <label style="display: block;">
+                                Height: 
+                                <input type="text" id="enterprise-height" value="56.25vw" style="width: 80px; padding: 4px; background: #333; border: 1px solid #555; color: #fff; border-radius: 3px;">
+                            </label>
+                        </div>
+                    </td>
                     <td>Show on breaks, side screens</td>
-                    <td><iframe src="orange_stage_sponsors.html?event=MENA25" class="preview-iframe"></iframe></td>
+                    <td><iframe src="enterprise_stage_sponsors.html?event=MENA25" id="enterprise-sponsors-iframe" class="preview-iframe"></iframe></td>
                 </tr>
                 <tr>
                     <td>
                         <a href="price.html?chart=false&layout=row&currency=EUR" id="link-enterprise-price" target="_blank">Bitcoin Price</a>
-                        <div style="margin-top: 10px; font-size: 0.85em;">
+                        <div class="screen-options" style="margin-top: 10px; font-size: 0.85em;">
                             <label style="display: block; margin-bottom: 5px;">
                                 <input type="checkbox" id="enterprise-price-chart" style="margin-right: 5px;">
                                 Show Chart
@@ -385,8 +415,83 @@
                             </label>
                         </div>
                     </td>
-                    <td>Always on, side screens</td>
+                    <td>Always on, bottom of the screen</td>
                     <td><iframe src="price.html?chart=false&layout=row&currency=EUR" id="enterprise-price-iframe" class="preview-iframe"></iframe></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+
+    <div class="stage-box">
+        <h2 class="stage">Expo Hall</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Screen</th>
+                    <th>Notes</th>
+                    <th>Preview</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        <a href="expo_hall_sponsors.html?event=MENA25" id="link-expo-sponsors" target="_blank">Expo Hall Sponsors</a>
+                        <div class="screen-options" style="margin-top: 10px; font-size: 0.85em;">
+                            <label style="display: block; margin-bottom: 5px;">
+                                Width: 
+                                <input type="text" id="expo-width" value="100vw" style="width: 80px; padding: 4px; background: #333; border: 1px solid #555; color: #fff; border-radius: 3px;">
+                            </label>
+                            <label style="display: block;">
+                                Height: 
+                                <input type="text" id="expo-height" value="56.25vw" style="width: 80px; padding: 4px; background: #333; border: 1px solid #555; color: #fff; border-radius: 3px;">
+                            </label>
+                        </div>
+                    </td>
+                    <td>Show on breaks, expo screens</td>
+                    <td><iframe src="expo_hall_sponsors.html?event=MENA25" id="expo-sponsors-iframe" class="preview-iframe"></iframe></td>
+                </tr>
+                <tr>
+                    <td>
+                        <a href="price_expo_hall.html?chart=false&layout=row&currency=EUR" id="link-expo-price" target="_blank">Bitcoin Price</a>
+                        <div class="screen-options" style="margin-top: 10px; font-size: 0.85em;">
+                            <label style="display: block; margin-bottom: 5px;">
+                                <input type="checkbox" id="expo-price-chart" style="margin-right: 5px;">
+                                Show Chart
+                            </label>
+                            <label style="display: block; margin-bottom: 5px;">
+                                Layout: 
+                                <select id="expo-price-layout" style="padding: 4px; background: #333; border: 1px solid #555; color: #fff; border-radius: 3px;">
+                                    <option value="column">Column</option>
+                                    <option value="row" selected>Row</option>
+                                    <option value="row-inline">Row Inline</option>
+                                </select>
+                            </label>
+                            <label style="display: block; margin-bottom: 5px;">
+                                <input type="checkbox" id="expo-price-reverse" style="margin-right: 5px;">
+                                Reverse Layout
+                            </label>
+                            <label style="display: block; margin-bottom: 5px;">
+                                <input type="checkbox" id="expo-price-dual" style="margin-right: 5px;">
+                                Dual Currency Animation
+                            </label>
+                            <label style="display: block; margin-bottom: 5px;">
+                                Currency: 
+                                <select id="expo-price-currency" style="padding: 4px; background: #333; border: 1px solid #555; color: #fff; border-radius: 3px;">
+                                    <option value="USD">USD</option>
+                                    <option value="EUR" selected>EUR</option>
+                                    <option value="GBP">GBP</option>
+                                    <option value="AED">AED</option>
+                                    <option value="CNY">CNY</option>
+                                </select>
+                            </label>
+                            <label style="display: block; font-size: 0.9em; color: #888;">
+                                (Dual mode: USD ↔ Currency)
+                            </label>
+                        </div>
+                    </td>
+                    <td>Always on, expo screens</td>
+                    <td><iframe src="price_expo_hall.html?chart=false&layout=row&currency=EUR" id="expo-price-iframe" class="preview-iframe"></iframe></td>
                 </tr>
             </tbody>
         </table>
@@ -415,6 +520,44 @@
    
 
     <script>
+        // Global toggle for screen options
+        let optionsVisible = true;
+        
+        function toggleAllOptions() {
+            optionsVisible = !optionsVisible;
+            const options = document.querySelectorAll('.screen-options');
+            const toggleText = document.getElementById('toggle-text');
+            
+            options.forEach(option => {
+                option.style.display = optionsVisible ? 'block' : 'none';
+            });
+            
+            toggleText.textContent = optionsVisible ? 'Hide Options' : 'Show Options';
+            
+            // Save preference to URL parameters
+            updateBrowserUrl();
+        }
+        
+        // Restore options visibility preference on page load
+        function restoreOptionsVisibility() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const hideOptions = urlParams.get('hideOptions');
+            if (hideOptions === 'true') {
+                // Directly set visibility without calling updateBrowserUrl
+                optionsVisible = false;
+                const options = document.querySelectorAll('.screen-options');
+                const toggleText = document.getElementById('toggle-text');
+                
+                options.forEach(option => {
+                    option.style.display = 'none';
+                });
+                
+                if (toggleText) {
+                    toggleText.textContent = 'Show Options';
+                }
+            }
+        }
+        
         // Credential storage keys
         const STORAGE_KEYS = {
             SPONSORS_TOKEN: 'airtable_sponsors_accessToken',
@@ -680,9 +823,19 @@
         // Function to restore settings from URL
         function restoreSettingsFromUrl() {
             const urlParams = new URLSearchParams(window.location.search);
-            const stages = ['falcon', 'pow', 'enterprise'];
+            const stages = ['falcon', 'pow', 'enterprise', 'expo'];
             
             stages.forEach(stage => {
+                // Restore width/height for sponsors
+                const widthValue = urlParams.get(`${stage}-width`);
+                const heightValue = urlParams.get(`${stage}-height`);
+                
+                const widthInput = document.getElementById(`${stage}-width`);
+                const heightInput = document.getElementById(`${stage}-height`);
+                
+                if (widthInput && widthValue) widthInput.value = widthValue;
+                if (heightInput && heightValue) heightInput.value = heightValue;
+                
                 // Restore price settings
                 const chartValue = urlParams.get(`${stage}-chart`);
                 const layoutValue = urlParams.get(`${stage}-layout`);
@@ -721,6 +874,7 @@
             
             const params = new URLSearchParams({
                 event: creds.event,
+                stage: 'falcon',
                 swiperWidth: width,
                 swiperHeight: height
             });
@@ -748,22 +902,163 @@
             updateBrowserUrl();
         }
         
+        // Function to update PoW Stage Sponsors link
+        function updatePowSponsorsLink() {
+            const creds = getCredentials();
+            const widthInput = document.getElementById('pow-width');
+            const heightInput = document.getElementById('pow-height');
+            const link = document.getElementById('link-pow-sponsors');
+            const iframe = document.getElementById('pow-sponsors-iframe');
+            
+            if (!link || !widthInput || !heightInput) return;
+            
+            const width = widthInput.value || '100vw';
+            const height = heightInput.value || '56.25vw';
+            
+            const params = new URLSearchParams({
+                event: creds.event,
+                stage: 'pow',
+                swiperWidth: width,
+                swiperHeight: height
+            });
+            
+            // Add credentials if available
+            if (creds.sponsors) {
+                params.append('sponsorsAccessToken', creds.sponsors.token);
+                params.append('sponsorsBaseId', creds.sponsors.base);
+                params.append('sponsorsTableName', creds.sponsors.table);
+            }
+            
+            if (creds.screen) {
+                params.append('screenAccessToken', creds.screen);
+            }
+            
+            const newUrl = 'pow_stage_sponsors.html?' + params.toString();
+            
+            link.href = newUrl;
+            if (iframe) iframe.src = newUrl;
+            
+            console.log(`📐 Updated PoW Sponsors link: width=${width}, height=${height}`);
+            
+            // Update browser URL
+            updateBrowserUrl();
+        }
+        
+        // Function to update Enterprise Stage Sponsors link
+        function updateEnterpriseSponsorsLink() {
+            const creds = getCredentials();
+            const widthInput = document.getElementById('enterprise-width');
+            const heightInput = document.getElementById('enterprise-height');
+            const link = document.getElementById('link-enterprise-sponsors');
+            const iframe = document.getElementById('enterprise-sponsors-iframe');
+            
+            if (!link || !widthInput || !heightInput) return;
+            
+            const width = widthInput.value || '100vw';
+            const height = heightInput.value || '56.25vw';
+            
+            const params = new URLSearchParams({
+                event: creds.event,
+                stage: 'enterprise',
+                swiperWidth: width,
+                swiperHeight: height
+            });
+            
+            // Add credentials if available
+            if (creds.sponsors) {
+                params.append('sponsorsAccessToken', creds.sponsors.token);
+                params.append('sponsorsBaseId', creds.sponsors.base);
+                params.append('sponsorsTableName', creds.sponsors.table);
+            }
+            
+            if (creds.screen) {
+                params.append('screenAccessToken', creds.screen);
+            }
+            
+            const newUrl = 'enterprise_stage_sponsors.html?' + params.toString();
+            
+            link.href = newUrl;
+            if (iframe) iframe.src = newUrl;
+            
+            console.log(`📐 Updated Enterprise Sponsors link: width=${width}, height=${height}`);
+            
+            // Update browser URL
+            updateBrowserUrl();
+        }
+        
+        // Function to update Expo Hall Sponsors link
+        function updateExpoSponsorsLink() {
+            const creds = getCredentials();
+            const widthInput = document.getElementById('expo-width');
+            const heightInput = document.getElementById('expo-height');
+            const link = document.getElementById('link-expo-sponsors');
+            const iframe = document.getElementById('expo-sponsors-iframe');
+            
+            if (!link || !widthInput || !heightInput) return;
+            
+            const width = widthInput.value || '100vw';
+            const height = heightInput.value || '56.25vw';
+            
+            const params = new URLSearchParams({
+                event: creds.event,
+                stage: 'expo',
+                swiperWidth: width,
+                swiperHeight: height
+            });
+            
+            // Add credentials if available
+            if (creds.sponsors) {
+                params.append('sponsorsAccessToken', creds.sponsors.token);
+                params.append('sponsorsBaseId', creds.sponsors.base);
+                params.append('sponsorsTableName', creds.sponsors.table);
+            }
+            
+            if (creds.screen) {
+                params.append('screenAccessToken', creds.screen);
+            }
+            
+            const newUrl = 'expo_hall_sponsors.html?' + params.toString();
+            
+            link.href = newUrl;
+            if (iframe) iframe.src = newUrl;
+            
+            console.log(`📐 Updated Expo Sponsors link: width=${width}, height=${height}`);
+            
+            // Update browser URL
+            updateBrowserUrl();
+        }
+        
         // Function to update the browser URL with current settings
         function updateBrowserUrl() {
-            const stages = ['falcon', 'pow', 'enterprise'];
+            const stages = ['falcon', 'pow', 'enterprise', 'expo'];
             const urlParams = new URLSearchParams(window.location.search);
             
             // Preserve credentials
             const existingParams = new URLSearchParams();
             ['sponsorsAccessToken', 'sponsorsBaseId', 'sponsorsTableName', 
              'agendaAccessToken', 'agendaBaseId', 'agendaTableName', 
-             'screenAccessToken', 'event', 'swiperWidth', 'swiperHeight'].forEach(key => {
+             'screenAccessToken', 'event'].forEach(key => {
                 const value = urlParams.get(key);
                 if (value) existingParams.set(key, value);
             });
             
+            // Save hideOptions preference
+            if (!optionsVisible) {
+                existingParams.set('hideOptions', 'true');
+            }
+            
             // Add settings for each stage
             stages.forEach(stage => {
+                // Width and height inputs for sponsors
+                const widthInput = document.getElementById(`${stage}-width`);
+                const heightInput = document.getElementById(`${stage}-height`);
+                
+                if (widthInput && heightInput) {
+                    existingParams.set(`${stage}-width`, widthInput.value);
+                    existingParams.set(`${stage}-height`, heightInput.value);
+                }
+                
+                // Price settings
                 const chartCheckbox = document.getElementById(`${stage}-price-chart`);
                 const layoutSelect = document.getElementById(`${stage}-price-layout`);
                 const reverseCheckbox = document.getElementById(`${stage}-price-reverse`);
@@ -831,7 +1126,9 @@
                 params.append('screenAccessToken', creds.screen);
             }
             
-            const newUrl = 'price.html?' + params.toString();
+            // Use stage-specific price file
+            const priceFile = prefix === 'expo' ? 'price_expo_hall.html' : 'price.html';
+            const newUrl = priceFile + '?' + params.toString();
             
             link.href = newUrl;
             if (iframe) iframe.src = newUrl;
@@ -974,6 +1271,9 @@
 
         // Initialize on page load
         document.addEventListener('DOMContentLoaded', function() {
+            // Restore screen options visibility preference
+            restoreOptionsVisibility();
+            
             // Capture credentials from URL if present
             const foundCredentials = captureAndStoreCredentials();
             
@@ -983,14 +1283,20 @@
             // Restore settings from URL parameters
             restoreSettingsFromUrl();
             
-            // Prepopulate swiper dimension inputs from URL
+            // Setup Falcon stage sponsors dimension inputs
             const creds = getCredentials();
             const widthInput = document.getElementById('falcon-width');
             const heightInput = document.getElementById('falcon-height');
             
             if (widthInput && heightInput) {
-                widthInput.value = creds.swiperWidth;
-                heightInput.value = creds.swiperHeight;
+                // Only use default creds if no URL parameter was restored
+                const urlParams = new URLSearchParams(window.location.search);
+                if (!urlParams.get('falcon-width')) {
+                    widthInput.value = creds.swiperWidth || '100vw';
+                }
+                if (!urlParams.get('falcon-height')) {
+                    heightInput.value = creds.swiperHeight || '56.25vw';
+                }
                 
                 // Add event listeners to update link when inputs change
                 widthInput.addEventListener('input', updateFalconLink);
@@ -998,11 +1304,56 @@
                 widthInput.addEventListener('change', updateFalconLink);
                 heightInput.addEventListener('change', updateFalconLink);
                 
-                console.log(`📐 Prepopulated dimensions: ${creds.swiperWidth} x ${creds.swiperHeight}`);
+                // Initialize the link
+                updateFalconLink();
+                
+                console.log(`📐 Falcon dimensions: ${widthInput.value} x ${heightInput.value}`);
+            }
+            
+            // Setup PoW stage sponsors dimension inputs
+            const powWidthInput = document.getElementById('pow-width');
+            const powHeightInput = document.getElementById('pow-height');
+            
+            if (powWidthInput && powHeightInput) {
+                powWidthInput.addEventListener('input', updatePowSponsorsLink);
+                powHeightInput.addEventListener('input', updatePowSponsorsLink);
+                powWidthInput.addEventListener('change', updatePowSponsorsLink);
+                powHeightInput.addEventListener('change', updatePowSponsorsLink);
+                
+                // Initialize the link
+                updatePowSponsorsLink();
+            }
+            
+            // Setup Enterprise stage sponsors dimension inputs
+            const enterpriseWidthInput = document.getElementById('enterprise-width');
+            const enterpriseHeightInput = document.getElementById('enterprise-height');
+            
+            if (enterpriseWidthInput && enterpriseHeightInput) {
+                enterpriseWidthInput.addEventListener('input', updateEnterpriseSponsorsLink);
+                enterpriseHeightInput.addEventListener('input', updateEnterpriseSponsorsLink);
+                enterpriseWidthInput.addEventListener('change', updateEnterpriseSponsorsLink);
+                enterpriseHeightInput.addEventListener('change', updateEnterpriseSponsorsLink);
+                
+                // Initialize the link
+                updateEnterpriseSponsorsLink();
+            }
+            
+            // Setup Expo Hall sponsors dimension inputs
+            const expoWidthInput = document.getElementById('expo-width');
+            const expoHeightInput = document.getElementById('expo-height');
+            
+            if (expoWidthInput && expoHeightInput) {
+                expoWidthInput.addEventListener('input', updateExpoSponsorsLink);
+                expoHeightInput.addEventListener('input', updateExpoSponsorsLink);
+                expoWidthInput.addEventListener('change', updateExpoSponsorsLink);
+                expoHeightInput.addEventListener('change', updateExpoSponsorsLink);
+                
+                // Initialize the link
+                updateExpoSponsorsLink();
             }
             
             // Setup price and hashrate toggle event listeners
-            const stages = ['falcon', 'pow', 'enterprise'];
+            const stages = ['falcon', 'pow', 'enterprise', 'expo'];
             stages.forEach(stage => {
                 // Price toggles
                 const priceChart = document.getElementById(`${stage}-price-chart`);

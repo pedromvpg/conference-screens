@@ -1,16 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
+<!-- 
+    URL Parameters:
+    - event: Event code used as column name in Airtable (e.g., ?event=MENA25, ?event=B26, ?event=AMS25)
+             The script will look for a column with this name and display sponsors that have any value in that column
+             Example: ?event=MENA25 will show sponsors with data in the "MENA25" column
+    - swiperWidth: Custom width for swiper (e.g., ?swiperWidth=100vw or ?swiperWidth=1920px)
+                   Default: 100vw
+    - swiperHeight: Custom height for swiper (e.g., ?swiperHeight=56.25vw or ?swiperHeight=1080px)
+                    Default: 56.25vw
+    - sponsorsAccessToken: Airtable API token
+    - sponsorsBaseId: Airtable base ID
+    - sponsorsTableName: Airtable table name
+    
+    Example with custom dimensions:
+    enterprise_stage_sponsors.html?event=MENA25&swiperWidth=80vw&swiperHeight=45vw
+-->
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Orange Stage Sponsor Slider</title>
+    <title>Enterprise Stage Sponsor Slider</title>
     
     <!-- Swiper CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
     
     <!-- Custom CSS -->
     <link rel="stylesheet" href="styles.css" />
-    
 </head>
 <body>
     <div class="container">
@@ -30,7 +45,7 @@
             ⏸️ Pause
         </button>
         
-        <div id="swiper-container" style="display: none;" class="orange-sponsors">
+        <div id="swiper-container" style="display: none;" class="enterprise-sponsors">
             <div class="swiper">
                 <div class="swiper-wrapper" id="swiper-wrapper">
                     <!-- Slides will be dynamically added here -->
@@ -41,7 +56,7 @@
 
     <!-- Swiper JS -->
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-    <script src="refresh.js?screen=asia25OrangeSponsors"></script>
+    <script src="refresh.js?screen=mena25EnterpriseSponsors"></script>
     
     <!-- Configuration (optional - will use URL params or localStorage if not present) -->
     <script src="config.js" onerror="console.log('config.js not found, will use URL parameters or localStorage')"></script>
@@ -51,9 +66,5 @@
     <script src="screen-control.js"></script>
 </body>
 </html>
-
-
-
-
 
 
