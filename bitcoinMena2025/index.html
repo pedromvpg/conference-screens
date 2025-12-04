@@ -488,6 +488,10 @@
                             <label style="display: block; font-size: 0.9em; color: #888;">
                                 (Dual mode: USD ↔ Currency)
                             </label>
+                            <label style="display: block; margin-top: 10px;">
+                                Video BG: 
+                                <input type="text" id="expo-price-video" placeholder="https://..." style="width: 200px; padding: 4px; background: #333; border: 1px solid #555; color: #fff; border-radius: 3px;">
+                            </label>
                         </div>
                     </td>
                     <td>Always on, expo screens</td>
@@ -854,11 +858,18 @@
                 if (reverseCheckbox && reverseValue !== null) reverseCheckbox.checked = reverseValue === 'true';
                 if (dualCheckbox && dualValue !== null) dualCheckbox.checked = dualValue === 'true';
                 if (currencySelect && currencyValue) currencySelect.value = currencyValue;
+                
+                // Restore video background (expo only)
+                if (stage === 'expo') {
+                    const videoValue = urlParams.get('expo-video');
+                    const videoInput = document.getElementById('expo-price-video');
+                    if (videoInput && videoValue) videoInput.value = videoValue;
+                }
             });
             
             console.log('🔄 Restored settings from URL');
         }
-        
+
         // Function to update Falcon link with current input values
         function updateFalconLink() {
             const creds = getCredentials();
@@ -1073,6 +1084,14 @@
                         existingParams.set(`${stage}-dual`, dualCheckbox.checked);
                     }
                     existingParams.set(`${stage}-currency`, currencySelect.value);
+                    
+                    // Video background (expo only)
+                    if (stage === 'expo') {
+                        const videoInput = document.getElementById('expo-price-video');
+                        if (videoInput && videoInput.value.trim()) {
+                            existingParams.set('expo-video', videoInput.value.trim());
+                        }
+                    }
                 }
             });
             
@@ -1118,7 +1137,15 @@
                 params.append('localCurrency', currencySelect.value);
             } else {
                 // Single currency mode
-                params.append('currency', currencySelect.value);
+            params.append('currency', currencySelect.value);
+            }
+            
+            // Add video background parameter (expo only)
+            if (prefix === 'expo') {
+                const videoInput = document.getElementById('expo-price-video');
+                if (videoInput && videoInput.value.trim()) {
+                    params.append('video', encodeURIComponent(videoInput.value.trim()));
+                }
             }
             
             // Add credentials if available
@@ -1368,6 +1395,15 @@
                     priceReverse.addEventListener('change', () => updatePriceLink(stage));
                     if (priceDual) priceDual.addEventListener('change', () => updatePriceLink(stage));
                     priceCurrency.addEventListener('change', () => updatePriceLink(stage));
+                    
+                    // Video background (expo only)
+                    if (stage === 'expo') {
+                        const videoInput = document.getElementById('expo-price-video');
+                        if (videoInput) {
+                            videoInput.addEventListener('input', () => updatePriceLink(stage));
+                            videoInput.addEventListener('change', () => updatePriceLink(stage));
+                        }
+                    }
                     
                     // Initialize the link
                     updatePriceLink(stage);

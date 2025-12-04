@@ -120,7 +120,7 @@ class BitcoinPriceDisplay {
             
             // Add leading zero in grey if price is below 100,000
             if (price < 100000) {
-                this.priceElement.innerHTML = `<span style="color: #444; text-shadow: none; filter: none; opacity: 1;">0</span>${priceText}`;
+                this.priceElement.innerHTML = `<span style="color: #ffffff40; text-shadow: none; filter: none; opacity: 1;">0</span>${priceText}`;
             } else {
                 this.priceElement.textContent = priceText;
             }
@@ -344,7 +344,7 @@ class BitcoinPriceDisplay {
             zeroSpan.style.textAlign = 'center';
             zeroSpan.style.minWidth = '0.65em';
             zeroSpan.style.width = '0.65em';
-            zeroSpan.style.color = '#444';
+            zeroSpan.style.color = '#ffffff40';
             zeroSpan.style.textShadow = 'none';
             zeroSpan.style.filter = 'none';
             zeroSpan.style.opacity = '1';
@@ -406,7 +406,7 @@ class BitcoinPriceDisplay {
         // Clean up and restore normal text after animation
         setTimeout(() => {
             if (hasLeadingZero) {
-                this.priceElement.innerHTML = `<span style="color: #444; text-shadow: none; filter: none; opacity: 1;">0</span>${targetText}`;
+                this.priceElement.innerHTML = `<span style="color: #ffffff40; text-shadow: none; filter: none; opacity: 1;">0</span>${targetText}`;
             } else {
                 this.priceElement.textContent = targetText;
             }

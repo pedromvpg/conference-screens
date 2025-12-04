@@ -6,35 +6,150 @@
     <title>Expo Hall Bitcoin Price Display - Bitcoin MENA 2025</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="stylesheet" href="price.css">
+    <style>
+        .video-background {
+            position: fixed;
+            top: 0;
+            width: 70vw;
+            width: 460px;
+            height: 100vh;
+            object-fit: cover;
+            z-index: -1;
+            /* margin-left: -35%; */
+        }
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 32px;
+            padding: 0;
+        }
+        .price-value {
+            font-size: 45px;
+        }
+        
+        .currency {
+            font-size: 20px;
+        }
+        .sponsor-logo {
+            max-width: 256px;
+            margin-right: -11px;
+        }
+        @media (max-width: 768px) {
+            .currency {
+                font-size: 20px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .price-value {
+                flex-direction: row;
+            }
+        }
+
+
+
+        .price-value {
+            gap: 5px;
+        }
+
+        
+
+
+        .sponsor-section {
+            gap: 5px;
+        }
+
+        /*.container {
+            border: 1px red solid;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            flex-direction: row;
+        }
+        .container-left, .container-right {
+            max-width: 336px;
+            border: 1px red solid;
+            height: 1008px;
+            display: flex;
+            align-content: center;
+            align-items: center;
+            flex-direction: column;
+            justify-content: center;
+            gap: 32px;
+        }*/
+    </style>
 </head>
 <body>
+    <!-- Video Background -->
+    <video class="video-background" autoplay muted loop playsinline>
+        <source src="price_expo.mp4" type="video/mp4">
+    </video>
+    
+
     <div class="container">
 
-        <div class="price-display">
-            <div class="bitcoin-title">1&nbsp;Bitcoin</div>
-            <div class="price-value" id="price-value">
-                <div class="loading-spinner" id="loading-spinner"></div>
-                <span id="price" style="display: none;">116,015</span>
-                <span class="currency">USD</span>
+        
+
+            <div class="price-display">
+                <div class="bitcoin-title">1&nbsp;Bitcoin</div>
+                <div class="price-value" id="price-value">
+                    <div class="loading-spinner" id="loading-spinner"></div>
+                    <span id="price" style="display: none;">116,015</span>
+                    <span class="currency">USD</span>
+                </div>
+                <div class="error-message" id="error-message" style="display: none;"></div>
             </div>
-            <div class="error-message" id="error-message" style="display: none;"></div>
-        </div>
 
-        <div class="ytd-header">YTD</div>
+            <div class="ytd-header">YTD</div>
 
-        <div class="chart-section">
-            <div class="chart-container">
-                <canvas id="price-chart"></canvas>
+            <div class="chart-section">
+                <div class="chart-container">
+                    <canvas id="price-chart"></canvas>
+                </div>
+            </div>
+
+            <div class="sponsor-section">
+                <div class="sponsor-label">Sponsored&nbsp;by</div>
+                <img style="margin-top: 0.8vw;" src="https://i.ibb.co/GQ9Mv07z/image.png" 
+                    loading="lazy" 
+                    alt="SALT Logo" 
+                    class="sponsor-logo">
+            </div>
+        
+        <!--
+            <div class="container-left">
+            </div>
+        <div class="container-right">
+
+            <div class="price-display">
+                <div class="bitcoin-title">1&nbsp;Bitcoin</div>
+                <div class="price-value" id="price-value">
+                    <div class="loading-spinner" id="loading-spinner"></div>
+                    <span id="price" style="display: none;">116,015</span>
+                    <span class="currency">USD</span>
+                </div>
+                <div class="error-message" id="error-message" style="display: none;"></div>
+            </div>
+
+            <div class="ytd-header">YTD</div>
+
+            <div class="chart-section">
+                <div class="chart-container">
+                    <canvas id="price-chart"></canvas>
+                </div>
+            </div>
+
+            <div class="sponsor-section">
+                <div class="sponsor-label">Sponsored&nbsp;by</div>
+                <img style="margin-top: 0.8vw;" src="https://i.ibb.co/GQ9Mv07z/image.png" 
+                    loading="lazy" 
+                    alt="SALT Logo" 
+                    class="sponsor-logo">
             </div>
         </div>
-
-        <div class="sponsor-section">
-            <div class="sponsor-label">Sponsored&nbsp;by</div>
-            <img style="margin-top: 0.8vw;" src="https://i.ibb.co/GQ9Mv07z/image.png" 
-                 loading="lazy" 
-                 alt="SALT Logo" 
-                 class="sponsor-logo">
-        </div>
+        -->
     </div>
 
     <div class="last-updated" id="last-updated"></div>
@@ -43,6 +158,17 @@
     <script>
         // Parse URL parameters
         const urlParams = new URLSearchParams(window.location.search);
+        
+        // Handle video background
+        const videoParam = urlParams.get('video');
+        if (videoParam) {
+            const videoElement = document.querySelector('.video-background');
+            const sourceElement = videoElement.querySelector('source');
+            if (videoElement && sourceElement) {
+                sourceElement.src = decodeURIComponent(videoParam);
+                videoElement.load();
+            }
+        }
         
         // Handle chart visibility (chart=hide or chart=false)
         const chartParam = urlParams.get('chart');
