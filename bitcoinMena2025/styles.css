@@ -4,13 +4,20 @@
     box-sizing: border-box;
 }
 
+html {
+    overflow: hidden;
+    height: 100%;
+}
+
 body {
     font-family: 'Arial', sans-serif;
     background: rgb(227, 227, 227);
     color: #333;
     min-height: 100vh;
+    height: 100%;
     display: flex;
     overflow: hidden;
+    -ms-overflow-style: none; /* IE and Edge */
 }
 
 .container {
