@@ -504,3 +504,51 @@ h1 {
 .genesis-sponsors .sponsor-logo {
     max-width: 11vw;
 }
+
+/* Expo Hall Sponsors - Larger logos */
+
+.expo-sponsors .sponsors-row-title {
+    gap: 1vw;
+}
+
+.expo-sponsors .sponsors-row-moon {
+    gap: 4vw;
+}
+
+.expo-sponsors .sponsors-row-3-block {
+    gap: 4vw;
+}
+
+
+.expo-sponsors .sponsor-item-title .sponsor-logo {
+    transform: scale(2.5);
+    max-width: 50vw;
+}
+
+.expo-sponsors .sponsor-item-moon .sponsor-logo {
+    transform: scale(1.1);
+    max-width: 25vw;
+}
+
+.expo-sponsors .sponsor-item-3-block .sponsor-logo {
+    transform: scale(1.3);
+    max-width: 38vw;
+}
+
+.expo-sponsors .sponsor-item-2-block .sponsor-logo {
+    transform: scale(1.1);
+}
+
+.expo-sponsors .sponsor-item-1-block .sponsor-logo {
+    transform: scale(0.9);
+}
+
+/* Expo Hall - Larger overview slides */
+.expo-sponsors .sponsor-item[class*="all-sponsors-slide-"] {
+    width: 14vw;
+    height: 10vw;
+}
+
+.expo-sponsors .sponsor-logo.all-sponsors-uniform {
+    transform: scale(1.4) !important;
+}

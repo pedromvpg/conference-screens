@@ -78,11 +78,11 @@ function applySwiperDimensions() {
 const EVENT_CODE = getEventCode();
 console.log(`🔍 DEBUG: EVENT_CODE constant set to: "${EVENT_CODE}"`);
 
-// Cache configuration
+// Cache configuration - key includes event code for event-specific caching
 const CACHE_CONFIG = {
-    key: 'sponsors_cache',
+    key: `sponsors_cache_${getEventCode()}`,
     expiryHours: 24, // Cache expires after 24 hours
-    version: '1.0' // Increment this when you want to force cache refresh
+    version: '1.1' // Increment this when you want to force cache refresh
 };
 
 let swiper = null;
@@ -286,6 +286,21 @@ function createSlides(filteredRecords) {
     const swiperWrapper = document.getElementById('swiper-wrapper');
     swiperWrapper.innerHTML = '';
 
+    // Add video intro slide only on expo_hall_sponsors.html page
+    const currentPage = window.location.pathname.split('/').pop();
+    if (currentPage === 'expo_hall_sponsors.html') {
+        const videoSlide = document.createElement('div');
+        videoSlide.className = 'swiper-slide';
+        videoSlide.dataset.duration = 15000; // 15 seconds for video slide
+        videoSlide.innerHTML = `
+            <video autoplay muted loop playsinline style="width: 100%; height: 100%; object-fit: cover;">
+                <source src="bitcoin_mema25_enterprise_stage_ANTALPHA.mp4" type="video/mp4">
+            </video>
+        `;
+        swiperWrapper.appendChild(videoSlide);
+        console.log('✅ Created video intro slide');
+    }
+
     // Dynamically build groupedSponsors based on what's found in the data
     const groupedSponsors = {};
     
@@ -380,7 +395,7 @@ function createSlides(filteredRecords) {
                     '3 Block': 5,   // Smaller logos, more per slide
                     '2 Block': 20,  // Even smaller
                     '1 Block': 25,  // Smallest logos, most per slide
-                    'overview': 25  // 29 sponsors per slide for the overview       
+                    'overview': 24  // 29 sponsors per slide for the overview       
                 };
                 
                 // Custom slide duration (in milliseconds) for each tier
@@ -457,9 +472,12 @@ function createSlides(filteredRecords) {
                                 }
                             }).join('');
                             
+                            // Create row class based on tier (e.g., "sponsors-row-title", "sponsors-row-moon")
+                            const rowTierClass = 'sponsors-row-' + tier.toLowerCase().replace(/\s+/g, '-');
+                            
                             slide.innerHTML = `
                                 <div class="slide-content">
-                                    <div class="sponsors-row">
+                                    <div class="sponsors-row ${rowTierClass}">
                                         ${logosHtml}
                                     </div>
                                 </div>
@@ -468,7 +486,7 @@ function createSlides(filteredRecords) {
                             swiperWrapper.appendChild(slide);
                             
                             const partInfo = slidesNeeded > 1 ? ` - Part ${i + 1}` : '';
-                            console.log(`✅ Created slide ${currentSlideNumber} for ${groupType}${partInfo} with ${sponsorsForSlide.length} sponsors`);
+                            console.log(`✅ Created slide ${currentSlideNumber} for ${groupType}${partInfo} with ${sponsorsForSlide.length} sponsors (row class: ${rowTierClass})`);
                             currentSlideNumber++;
                         }
                     }

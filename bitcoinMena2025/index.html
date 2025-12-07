@@ -167,6 +167,9 @@
         </button>
     </div>
 
+
+    
+
     <div class="stage-box">
         <h2 class="stage">Falcon Stage</h2>
         <table>
@@ -1079,10 +1082,8 @@
                 if (chartCheckbox && layoutSelect && currencySelect) {
                     existingParams.set(`${stage}-chart`, chartCheckbox.checked);
                     existingParams.set(`${stage}-layout`, layoutSelect.value);
-                    existingParams.set(`${stage}-reverse`, reverseCheckbox.checked);
-                    if (dualCheckbox) {
-                        existingParams.set(`${stage}-dual`, dualCheckbox.checked);
-                    }
+                    if (reverseCheckbox) existingParams.set(`${stage}-reverse`, reverseCheckbox.checked);
+                    if (dualCheckbox) existingParams.set(`${stage}-dual`, dualCheckbox.checked);
                     existingParams.set(`${stage}-currency`, currencySelect.value);
                     
                     // Video background (expo only)
@@ -1127,7 +1128,7 @@
             }
             
             // Add reverse parameter (only for row layouts)
-            if ((layout === 'row' || layout === 'row-inline') && reverseCheckbox.checked) {
+            if ((layout === 'row' || layout === 'row-inline') && reverseCheckbox && reverseCheckbox.checked) {
                 params.append('reverse', 'true');
             }
             
@@ -1137,7 +1138,7 @@
                 params.append('localCurrency', currencySelect.value);
             } else {
                 // Single currency mode
-            params.append('currency', currencySelect.value);
+                params.append('currency', currencySelect.value);
             }
             
             // Add video background parameter (expo only)
@@ -1191,7 +1192,7 @@
             }
             
             // Add reverse parameter (only for row layouts)
-            if ((layout === 'row' || layout === 'row-inline') && reverseCheckbox.checked) {
+            if ((layout === 'row' || layout === 'row-inline') && reverseCheckbox && reverseCheckbox.checked) {
                 params.append('reverse', 'true');
             }
             
@@ -1391,10 +1392,10 @@
                 
                 if (priceChart) {
                     priceChart.addEventListener('change', () => updatePriceLink(stage));
-                    priceLayout.addEventListener('change', () => updatePriceLink(stage));
-                    priceReverse.addEventListener('change', () => updatePriceLink(stage));
+                    if (priceLayout) priceLayout.addEventListener('change', () => updatePriceLink(stage));
+                    if (priceReverse) priceReverse.addEventListener('change', () => updatePriceLink(stage));
                     if (priceDual) priceDual.addEventListener('change', () => updatePriceLink(stage));
-                    priceCurrency.addEventListener('change', () => updatePriceLink(stage));
+                    if (priceCurrency) priceCurrency.addEventListener('change', () => updatePriceLink(stage));
                     
                     // Video background (expo only)
                     if (stage === 'expo') {
