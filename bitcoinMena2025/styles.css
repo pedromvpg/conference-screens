@@ -507,6 +507,10 @@ h1 {
 
 /* Expo Hall Sponsors - Larger logos */
 
+.expo-sponsors {
+    overflow: hidden;
+}
+
 .expo-sponsors .sponsors-row-title {
     gap: 1vw;
 }
